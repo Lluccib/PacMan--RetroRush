@@ -1,2 +1,11 @@
-﻿  Scene.cpp
-  Vikings.vcxproj -> C:\Users\lluccib\Desktop\Vikings\x64\Debug\Vikings.exe
+﻿  Entity.cpp
+  Game.cpp
+  Object.cpp
+  Player.cpp
+  ResourceManager.cpp
+  Scene.cpp
+  TileMap.cpp
+  main.cpp
+  Generating Code...
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Vikings.vcxproj -> C:\Users\lluccib\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\x64\Debug\Vikings.exe
