@@ -111,8 +111,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\lluccib\Desktop\raylib\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\lluccib\Desktop\raylib\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\corre\Downloads\raylib\raylib\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\corre\Downloads\raylib\raylib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>

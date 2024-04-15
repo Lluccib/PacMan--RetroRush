@@ -1,2 +1,3 @@
 C:\Users\lluccib\Desktop\Vikings\x64\Debug\Vikings.exe
 C:\Users\lluccib\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\x64\Debug\Vikings.exe
+C:\Users\corre\OneDrive\Documentos\PacMan--RetroRush\Pacman - RetroRush\x64\Debug\Vikings.exe
