@@ -111,8 +111,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Lluc Cid\Desktop\CITM\Segon Curs\Projecte 1\raylib\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Lluc Cid\Desktop\CITM\Segon Curs\Projecte 1\raylib\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\lluccib\Documents\GitHub\PacMan--RetroRush\raylib\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\lluccib\Documents\GitHub\PacMan--RetroRush\raylib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>

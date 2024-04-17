@@ -1,7 +1,7 @@
 #pragma once
 
 //Displaying scale factor
-#define GAME_SCALE_FACTOR	3.0f
+#define GAME_SCALE_FACTOR	2.0f
 
 //Function return values
 enum class AppStatus { OK = 0, ERROR, QUIT };
@@ -15,8 +15,8 @@ enum class AppStatus { OK = 0, ERROR, QUIT };
 void log(const char file[], int line, const char* text, ...);
 
 //Window size
-#define WINDOW_WIDTH    400
-#define WINDOW_HEIGHT   300
+#define WINDOW_WIDTH   360
+#define WINDOW_HEIGHT   462
 
 //Game constants
 #define MARGIN_GUI_Y	28
