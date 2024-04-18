@@ -31,10 +31,10 @@ void TileMap::InitTileDictionary()
 {
 	const int n = TILE_SIZE;
 
-	dict_rect[(int)Tile::BLOCK_SQUARE1_TL] = { 0,  0, n, n };
-	dict_rect[(int)Tile::BLOCK_SQUARE1_TR] = { n,  0, n, n };
-	dict_rect[(int)Tile::BLOCK_SQUARE1_BL] = { 0, n, n, n };
-	dict_rect[(int)Tile::BLOCK_SQUARE1_BR] = { n, n, n, n };
+	dict_rect[(int)Tile::BLOQUE_SUP_R] = { 0,  0, n, n };//1
+	dict_rect[(int)Tile::BLOQUE_SUP_L] = { n,  0, n, n };//2
+	dict_rect[(int)Tile::BLOQUE_INF_L] = { 6 * n, n, n, n };//3
+	dict_rect[(int)Tile::BLOQUE_INF_R] = { 5*n, n, n, n };//4
 	dict_rect[(int)Tile::BLOCK_SQUARE2_TL] = { 2 * n,  0, n, n };
 	dict_rect[(int)Tile::BLOCK_SQUARE2_TR] = { 3 * n,  0, n, n };
 	dict_rect[(int)Tile::BLOCK_SQUARE2_BL] = { 2 * n, n, n, n };
@@ -278,7 +278,7 @@ void TileMap::Render()
 	{
 		for (int j = 0; j < width; ++j)
 		{
-			tile = map[i * width + j];
+			tile = map[i * width];
 			if (tile != Tile::AIR)
 			{
 				pos.x = (float)j * TILE_SIZE;
