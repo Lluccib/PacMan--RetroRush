@@ -278,7 +278,7 @@ void TileMap::Render()
 	{
 		for (int j = 0; j < width; ++j)
 		{
-			tile = map[i * width];
+			tile = map[i * width + j];
 			if (tile != Tile::AIR)
 			{
 				pos.x = (float)j * TILE_SIZE;
