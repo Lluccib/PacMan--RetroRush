@@ -33,12 +33,12 @@ void TileMap::InitTileDictionary()
 
 	dict_rect[(int)Tile::BLOQUE_SUP_R] = { 0,  0, n, n };//1
 	dict_rect[(int)Tile::BLOQUE_SUP_L] = { n,  0, n, n };//2
-	dict_rect[(int)Tile::BLOQUE_INF_L] = { 6 * n, n, n, n };//3
-	dict_rect[(int)Tile::BLOQUE_INF_R] = { 5*n, n, n, n };//4
-	dict_rect[(int)Tile::BLOCK_SQUARE2_TL] = { 2 * n,  0, n, n };
-	dict_rect[(int)Tile::BLOCK_SQUARE2_TR] = { 3 * n,  0, n, n };
-	dict_rect[(int)Tile::BLOCK_SQUARE2_BL] = { 2 * n, n, n, n };
-	dict_rect[(int)Tile::BLOCK_SQUARE2_BR] = { 3 * n, n, n, n };
+	dict_rect[(int)Tile::BLOQUE_INF_L] = { 5 * n, 0, n, n };//3
+	dict_rect[(int)Tile::BLOQUE_INF_R] = { 4 * n, 0, n, n };//4
+	dict_rect[(int)Tile::PARED_L] = { 3 * n,  0, n, n };//5
+	dict_rect[(int)Tile::PARED_R] = { 2 * n,  0, n, n };//6
+	dict_rect[(int)Tile::PARED_SUP] = { 10 * n, 0, n, n };//7
+	dict_rect[(int)Tile::PARED_INF] = { 3 * n, n, n, n };
 	dict_rect[(int)Tile::BLOCK_VERT2_T] = { 4 * n,  0, n, n };
 	dict_rect[(int)Tile::BLOCK_VERT2_B] = { 4 * n, n, n, n };
 	dict_rect[(int)Tile::BLOCK_HORIZ2_L] = { 5 * n, 0, n, n };
