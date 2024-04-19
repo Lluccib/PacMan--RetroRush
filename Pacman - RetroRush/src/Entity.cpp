@@ -21,8 +21,17 @@ void Entity::SetPos(const Point& p)
 {
 	pos = p;
 }
+const Point& Entity::GetPos() const
+{
+	return pos;
+}
+void Entity::SetDirection(const Point& d)
+{
+	dir = d;
+}
 void Entity::Update()
 {
+
 	pos += dir;
 }
 AABB Entity::GetHitbox() const

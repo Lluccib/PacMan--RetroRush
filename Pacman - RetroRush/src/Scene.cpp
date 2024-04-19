@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "Globals.h"
 
+
 Scene::Scene()
 {
 	player = nullptr;
@@ -18,7 +19,7 @@ Scene::~Scene()
 {
 	if (player != nullptr)
 	{
-		player->Release();
+		/*player->Release();*/
 		delete player;
 		player = nullptr;
 	}
@@ -37,7 +38,7 @@ Scene::~Scene()
 AppStatus Scene::Init()
 {
 	//Create player
-	player = new Player({ 0,0 }, State::IDLE, Look::RIGHT);
+	player = new Player({ 0,0 }, PLAYER_PHYSICAL_WIDTH, PLAYER_PHYSICAL_HEIGHT, State::IDLE, Look::RIGHT);
 	if (player == nullptr)
 	{
 		LOG("Failed to allocate memory for Player");
@@ -98,27 +99,27 @@ AppStatus Scene::LoadLevel(int stage)
 			 5,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  13,   0,   0,  17,  18,  17,  18,  22,  23,	  0,   0,   0,  10,  0,  0,  6,
 			 5,  11,  12,   0,   0,  13,   0,   0,  13,  17,  18,  17,  18,   0,   0,   0,   0,   0,   0,  20,  21,	  0,   0,   0,   9,  0,  0,  6,
 			 5,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  20,  21,	  0,  62,   0,  10,  0,  0,  6,
-			 3,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  20,  21,	  0,   0,   0,   9,  0,  0,  4,
-			10,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  22,  23,   9,   0,  20,  21,	  0,  62,   0,  10, 0, 0, 0,
-			 9,   0,   0,  31,   0,  63,   0,   0,   0,   0,   0,   0,   0,   0,   0,  20,  21,  10,   0,  20,  21,	  0,   0,   0,   9, 0, 0, 0,
-			10,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  20,  21,   9,   0,  20,  21,	  0,  62,   0,  10, 0, 0, 0,
+			 3,   8,   8,   8,   8,   9,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  20,  21,	  0,   0,   0,   9,  0,  0,  4,
+			 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  22,  23,   9,   0,  20,  21,	  0,  62,   0,  10, 0, 0, 0,
+			 0,   0,   0,  31,   0,  63,   0,   0,   0,   0,   0,   0,   0,   0,   0,  20,  21,  10,   0,  20,  21,	  0,   0,   0,   9, 0, 0, 0,
+			 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  20,  21,   9,   0,  20,  21,	  0,  62,   0,  10, 0, 0, 0,
 			 9,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  20,  21,  10,   0,  20,  21,	  0,   0,   0,   9, 0, 0, 0,
 			10,  17,  18,  17,  18,  13,   0,   0,   0,   0,  13,  17,  18,  13,   0,  20,  21,   9,   0,  20,  21,	  0,   0,   0,  10, 0, 0, 0,
 			 9,   1,   2,   5,   6,  40,  70,  70,  70,  70,  41,   1,   2,   9,   0,  20,  21,  10,   0,  20,  21,	  0,   0,   0,   9, 0, 0, 0,
 			10,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
 			10,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
-			10,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
-			10,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
-			10,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
-			10,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
-			10,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
-			10,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
-			10,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
-			10,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
-			10,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
-			10,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
-			 3,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
-			 3,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
+			 0,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
+			 0,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
+			 0,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
+			 2,   7,   7,   7,   7,   9,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
+			 5,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
+			 5,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
+			 5,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
+			 5,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
+			 5,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
+			 5,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
+			 5,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
+			 5,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 0,
 			 3,   3,   4,   7,   8,  13,  14,  15,  16,  11,  12,   3,   4,  10,  14,  15,  16,  13,  14,  15,  16,   0,  13,   0,  10, 0, 0, 4
 
 		};
@@ -195,10 +196,122 @@ AppStatus Scene::LoadLevel(int stage)
 
 	return AppStatus::OK;
 }
+void Scene::HandleInputPlayer()
+{
+	bool moving = true;//Cambiat
+
+	if (IsKeyPressed(KEY_F1))
+	{
+		debug = (DebugMode)(((int)debug + 1) % (int)DebugMode::SIZE);
+	}
+
+	switch(player->GetState())
+	{
+	case State::IDLE:
+		if (IsKeyDown(KEY_LEFT))		player->StartWalkingLeft();
+		if (IsKeyDown(KEY_RIGHT))		player->StartWalkingRight();
+		if (IsKeyDown(KEY_UP))			player->StartWalkingUp();
+		if (IsKeyDown(KEY_DOWN))		player->StartWalkingDown();
+		break;
+
+	case State::WALKING:
+		if (player->IsLookingRight())
+		{
+			if (IsKeyDown(KEY_RIGHT))
+			{
+				//continue walking right
+				moving = true;
+			}
+			else if (IsKeyDown(KEY_LEFT))
+			{
+				player->StartWalkingLeft();
+				moving = true;
+			}
+			else if (IsKeyDown(KEY_UP))
+			{
+				player->StartWalkingUp();
+				moving = true;
+			}
+			else if (IsKeyDown(KEY_DOWN))
+			{
+				player->StartWalkingDown();
+				moving = true;
+			}
+		}
+		if (player->IsLookingLeft())
+		{
+			if (IsKeyDown(KEY_RIGHT))
+			{
+				player->StartWalkingRight();
+				moving = true;
+			}
+			else if (IsKeyDown(KEY_LEFT))
+			{
+				moving = true;
+			}
+			else if (IsKeyDown(KEY_UP))
+			{
+				player->StartWalkingUp();
+				moving = true;
+			}
+			else if (IsKeyDown(KEY_DOWN))
+			{
+				player->StartWalkingDown();
+				moving = true;
+			}
+		}
+		if (player->IsLookingUp())
+		{
+			if (IsKeyDown(KEY_RIGHT))
+			{
+				player->StartWalkingRight();
+				moving = true;
+			}
+			else if (IsKeyDown(KEY_LEFT))
+			{
+				player->StartWalkingLeft();
+				moving = true;
+			}
+			else if (IsKeyDown(KEY_UP))
+			{
+				moving = true;
+			}
+			else if (IsKeyDown(KEY_DOWN))
+			{
+				player->StartWalkingDown();
+				moving = true;
+			}
+		}
+		if (player->IsLookingDown())
+		{
+			if (IsKeyDown(KEY_RIGHT))
+			{
+				player->StartWalkingRight();
+				moving = true;
+			}
+			else if (IsKeyDown(KEY_LEFT))
+			{
+				player->StartWalkingLeft();
+				moving = true;
+			}
+			else if (IsKeyDown(KEY_UP))
+			{
+				player->StartWalkingUp();
+				moving = true;
+			}
+			else if (IsKeyDown(KEY_DOWN))
+			{
+				moving = true;
+			}
+		}
+		if (!moving)	player->Stop();
+		break;
+	}
+}
 void Scene::Update()
 {
 	Point p1, p2;
-	AABB box;
+
 
 	//Switch between the different debug modes: off, on (sprites & hitboxes), on (hitboxes) 
 	if (IsKeyPressed(KEY_F1))

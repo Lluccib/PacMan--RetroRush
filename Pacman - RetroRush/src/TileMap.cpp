@@ -38,8 +38,8 @@ void TileMap::InitTileDictionary()
 	dict_rect[(int)Tile::PARED_L] = { 3 * n,  0, n, n };//5
 	dict_rect[(int)Tile::PARED_R] = { 2 * n,  0, n, n };//6
 	dict_rect[(int)Tile::PARED_SUP] = { 10 * n, 0, n, n };//7
-	dict_rect[(int)Tile::PARED_INF] = { 3 * n, n, n, n };
-	dict_rect[(int)Tile::BLOCK_VERT2_T] = { 4 * n,  0, n, n };
+	dict_rect[(int)Tile::PARED_INF] = { 12 * n, 0, n, n };//8
+	dict_rect[(int)Tile::ESQUINA_RARA_1] = { 9 * n, n, n, n };//9
 	dict_rect[(int)Tile::BLOCK_VERT2_B] = { 4 * n, n, n, n };
 	dict_rect[(int)Tile::BLOCK_HORIZ2_L] = { 5 * n, 0, n, n };
 	dict_rect[(int)Tile::BLOCK_HORIZ2_R] = { 6 * n, 0, n, n };

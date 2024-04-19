@@ -13,13 +13,14 @@ public:
     ~Scene();
 
     AppStatus Init();
+    void HandleInputPlayer();
     void Update();
     void Render();
     void Release();
 
 private:
     AppStatus LoadLevel(int stage);
-    
+
     void CheckCollisions(); 
     void ClearLevel();
     void RenderObjects() const;

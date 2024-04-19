@@ -114,6 +114,7 @@ AppStatus Game::Update()
             }
             else
             {
+                scene->HandleInputPlayer();
                 //Game logic
                 scene->Update();
             }
