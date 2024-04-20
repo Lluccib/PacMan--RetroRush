@@ -1,2 +1,11 @@
-﻿  TileMap.cpp
+﻿  Entity.cpp
+  Game.cpp
+  Object.cpp
+  Player.cpp
+  ResourceManager.cpp
+  Scene.cpp
+  TileMap.cpp
+  main.cpp
+  Generando código...
+LINK : warning LNK4098: la biblioteca predeterminada'MSVCRT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
   Vikings.vcxproj -> C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\x64\Debug\Vikings.exe

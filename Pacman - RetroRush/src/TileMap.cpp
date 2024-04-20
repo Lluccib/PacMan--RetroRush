@@ -39,14 +39,14 @@ void TileMap::InitTileDictionary()
 	dict_rect[(int)Tile::PARED_R] = { 2 * n,  0, n, n };//6
 	dict_rect[(int)Tile::PARED_SUP] = { 10 * n, 0, n, n };//7
 	dict_rect[(int)Tile::PARED_INF] = { 12 * n, 0, n, n };//8
-	dict_rect[(int)Tile::ESQUINA_RARA_1] = { 9 * n, n, n, n };//9
-	dict_rect[(int)Tile::BLOCK_VERT2_B] = { 4 * n, n, n, n };
-	dict_rect[(int)Tile::BLOCK_HORIZ2_L] = { 5 * n, 0, n, n };
-	dict_rect[(int)Tile::BLOCK_HORIZ2_R] = { 6 * n, 0, n, n };
-	dict_rect[(int)Tile::BLOCK_BLUE] = { 7 * n, 0, n, n };
-	dict_rect[(int)Tile::BLOCK_HORIZ3_L] = { 5 * n, n, n, n };
-	dict_rect[(int)Tile::BLOCK_HORIZ3_M] = { 6 * n, n, n, n };
-	dict_rect[(int)Tile::BLOCK_HORIZ3_R] = { 7 * n, n, n, n };
+	dict_rect[(int)Tile::ESQUINA_INF_L] = { 9 * n, n, n, n };//9
+	dict_rect[(int)Tile::ESQUINA_INF_R] = { 10 * n, n, n, n };//10
+	dict_rect[(int)Tile::ESQUINA_SUP_L] = { 5 * n, n, n, n };//11
+	dict_rect[(int)Tile::ESQUINA_SUP_R] = { 6 * n, n, n, n };//12
+	dict_rect[(int)Tile::LINEA_FINA_UP] = { 3 * n, n, n, n };//13
+	dict_rect[(int)Tile::LINEA_FINA_DOWN] = { 14 * n, 0, n, n };//14
+	dict_rect[(int)Tile::LINEA_FINA_L] = { 7 * n, n, n, n };//15
+	dict_rect[(int)Tile::LINEA_FINA_R] = { 8 * n, n, n, n };//16
 	dict_rect[(int)Tile::BLOCK_BEAM_L] = { 0, 2 * n, n, n };
 	dict_rect[(int)Tile::BLOCK_BEAM_R] = { n, 2 * n, n, n };
 
@@ -70,7 +70,7 @@ AppStatus TileMap::Initialise()
 {
 	ResourceManager& data = ResourceManager::Instance();
 
-	if (data.LoadTexture(Resource::IMG_TILES, "images/Pacmantileset.png") != AppStatus::OK)
+	if (data.LoadTexture(Resource::IMG_TILES, "images/Pacmantileset2.png") != AppStatus::OK)
 	{
 		return AppStatus::ERROR;
 	}
