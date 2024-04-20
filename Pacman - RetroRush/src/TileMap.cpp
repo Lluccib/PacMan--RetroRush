@@ -1,6 +1,7 @@
 #include "TileMap.h"
 #include "Globals.h"
 #include "ResourceManager.h"
+#include "RenderComponent.h"
 #include <cstring>
 
 TileMap::TileMap()
@@ -143,6 +144,14 @@ bool TileMap::TestCollisionWallRight(const AABB& box) const
 {
 	return CollisionX(box.pos + Point(box.width - 1, 0), box.height);
 }
+bool TileMap::TestCollisionWallUp(const AABB& box) const
+{
+	return CollisionY(box.pos, box.height);
+}
+bool TileMap::TestCollisionWallDown(const AABB& box) const
+{
+	return CollisionY(box.pos + Point(0, box.height - 1), box.height);
+}
 bool TileMap::TestCollisionGround(const AABB& box, int *py) const
 {
 	Point p(box.pos.x, *py);	//control point
@@ -192,10 +201,9 @@ bool TileMap::CollisionY(const Point& p, int distance) const
 	//Iterate over the tiles within the horizontal range
 	for (x = x0; x <= x1; ++x)
 	{
-		tile = GetTileIndex(x, y);
 
 		//One solid or laddertop tile is sufficient
-		if (IsTileSolid(tile) || IsTileLadderTop(tile))
+		if (IsTileSolid(GetTileIndex(x,y)))
 			return true;
 	}
 	return false;
@@ -288,6 +296,8 @@ void TileMap::Render()
 				{
 					rc = dict_rect[(int)tile];
 					DrawTextureRec(*img_tiles, rc, pos, WHITE);
+					render->DrawBox(pos.x, pos.y, TILE_SIZE, TILE_SIZE, PINK);
+					render->DrawCorners(pos.x, pos.y, TILE_SIZE, TILE_SIZE);
 				}
 				else
 				{

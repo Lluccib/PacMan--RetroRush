@@ -31,7 +31,9 @@ void Entity::SetDirection(const Point& d)
 }
 void Entity::Update()
 {
-
+	printf("%d %d\n", prev_x, prev_y);
+	prev_x = pos.x;
+	prev_y = pos.y;
 	pos += dir;
 }
 AABB Entity::GetHitbox() const

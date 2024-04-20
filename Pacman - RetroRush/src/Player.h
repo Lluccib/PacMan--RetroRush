@@ -95,6 +95,9 @@ public:
 	void ChangeAnimLeft();*/
 	TileMap* map;
 
+	int prev_x = pos.x;
+	int prev_y = pos.y;
+
 	int score;
 
 private:
@@ -111,8 +114,7 @@ private:
 	State state;
 	Look look;
 	int jump_delay;
-	int prev_x = pos.x;
-	int prev_y = pos.y;
+
 
 	/*TileMap *map;
 

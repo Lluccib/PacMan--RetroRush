@@ -37,6 +37,9 @@ protected:
 
 	//Representation model
 	int frame_width, frame_height;
+	int prev_x = pos.x;
+	int prev_y = pos.y;
+
 
 	RenderComponent *render;
 };

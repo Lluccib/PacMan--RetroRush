@@ -2,10 +2,11 @@
   Game.cpp
   Object.cpp
   Player.cpp
-  ResourceManager.cpp
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\Player.cpp(282,31): warning C4390: ';': se encontró una instrucción controlada vacía; ¿es esa la intención?
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\Player.cpp(292,31): warning C4390: ';': se encontró una instrucción controlada vacía; ¿es esa la intención?
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\Player.cpp(301,31): warning C4390: ';': se encontró una instrucción controlada vacía; ¿es esa la intención?
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\Player.cpp(310,31): warning C4390: ';': se encontró una instrucción controlada vacía; ¿es esa la intención?
   Scene.cpp
-  TileMap.cpp
   main.cpp
   Generando código...
-LINK : warning LNK4098: la biblioteca predeterminada'MSVCRT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
   Vikings.vcxproj -> C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\x64\Debug\Vikings.exe

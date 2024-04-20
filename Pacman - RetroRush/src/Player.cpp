@@ -182,6 +182,7 @@ void Player::Stop()
 }
 void Player::StartWalkingLeft()
 {
+	
 	SetDirection({ -PLAYER_SPEED,0 });
 	state = State::WALKING;
 	look = Look::LEFT;
@@ -189,6 +190,7 @@ void Player::StartWalkingLeft()
 }
 void Player::StartWalkingRight()
 {
+	
 	SetDirection({ PLAYER_SPEED,0 });
 	state = State::WALKING;
 	look = Look::RIGHT;
@@ -196,6 +198,7 @@ void Player::StartWalkingRight()
 }
 void Player::StartWalkingUp()
 {
+	
 	SetDirection({ 0,-PLAYER_SPEED });
 	state = State::WALKING;
 	look = Look::UP;
@@ -203,6 +206,7 @@ void Player::StartWalkingUp()
 }
 void Player::StartWalkingDown()
 {
+	
 	SetDirection({ 0,PLAYER_SPEED });
 	state = State::WALKING;
 	look = Look::DOWN;
@@ -265,23 +269,54 @@ void Player::Update()
 	//Instead, uses an independent behaviour for each axis.
 	/*MoveX();
 	MoveY();*/
-	int prev_x = pos.x;
-	int prev_y = pos.y;
+	
 
 	AABB box;
-	box = GetHitbox();
-	if (map->TestCollisionWallRight(box))
-	{
-		pos.x = prev_x;
-		if (state == State::WALKING && (IsLookingLeft() || IsLookingRight())) Stop();
-	}
 
 	box = GetHitbox();
 	if (map->TestCollisionWallRight(box))
 	{
-		pos.y = prev_y;
-		if (state == State::WALKING && (IsLookingUp() || IsLookingDown())) Stop();
+		printf("%d %d\n", pos.x, pos.y);
+		pos.x = pos.x - 1;
+		printf("%d %d\n", pos.x, pos.y);
+		if (state == State::WALKING);
+
 	}
+
+	box = GetHitbox();
+	if (map->TestCollisionWallLeft(box))
+	{
+		printf("%d %d\n", pos.x, pos.y);
+		pos.x = pos.x + 1;
+		printf("%d %d\n", pos.x, pos.y);
+		if (state == State::WALKING);
+
+	}
+	box = GetHitbox();
+	if (map->TestCollisionWallUp(box))
+	{
+		printf("%d %d\n", pos.x, pos.y);
+		pos.y = pos.y + 1;
+		printf("%d %d\n", pos.x, pos.y);
+		if (state == State::WALKING);
+
+	}
+	box = GetHitbox();
+	if (map->TestCollisionWallDown(box))
+	{
+		printf("%d %d\n", pos.x, pos.y);
+		pos.y = pos.y - 1;
+		printf("%d %d\n", pos.x, pos.y);
+		if (state == State::WALKING);
+
+	}
+
+
+
+
+	
+
+
 
 	Entity::Update();
 	
@@ -492,7 +527,7 @@ void Player::Update()
 void Player::DrawDebug(const Color& col) const
 {	
 	Entity::DrawHitbox(pos.x, pos.y, width, height, col);
-	
+
 	DrawText(TextFormat("Position: (%d,%d)\nSize: %dx%d\nFrame: %dx%d", pos.x, pos.y, width, height, frame_width, frame_height), 18*16, 0, 8, LIGHTGRAY);
 	DrawPixel(pos.x, pos.y, WHITE);
 }
