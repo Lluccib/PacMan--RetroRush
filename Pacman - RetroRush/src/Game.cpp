@@ -1,7 +1,9 @@
 #include "Game.h" 
 #include "Globals.h"
 #include "ResourceManager.h"
+
 #include <stdio.h>
+
 
 Game::Game()
 {
@@ -49,6 +51,16 @@ AppStatus Game::Initialise(float scale)
         return AppStatus::ERROR;
     }
 
+    InitAudioDevice();
+
+    fxmenu[0] = LoadSound("Fx/pacmanmovement.wav");
+   /* fxmenu[1] = LoadSound("Fx/pacman movement.wav");
+    fxmenu[2] = LoadSound("Fx/pacman movement.wav");
+    fxmenu[3] = LoadSound("Fx/pacman movement.wav");
+    fxmenu[4] = LoadSound("Fx/pacman movement.wav");*/
+
+    music[0] = LoadMusicStream("Fx/pacmansong.ogg");
+
     //Set the target frame rate for the application
     SetTargetFPS(60);
     //Disable the escape key to quit functionality
@@ -60,7 +72,7 @@ AppStatus Game::LoadResources()
 {
     ResourceManager& data = ResourceManager::Instance();
     
-    if (data.LoadTexture(Resource::IMG_MENU, "images/menu.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU, "images/GameStart.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
@@ -71,6 +83,18 @@ AppStatus Game::LoadResources()
         return AppStatus::ERROR;
     }
     img_intro = data.GetTexture(Resource::IMG_INTRO);
+
+    if (data.LoadTexture(Resource::IMG_WIN, "images/eric.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    img_win = data.GetTexture(Resource::IMG_WIN);
+
+    if (data.LoadTexture(Resource::IMG_LOSE, "images/lose.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    img_lose = data.GetTexture(Resource::IMG_LOSE);
     
     return AppStatus::OK;
 }
@@ -100,7 +124,6 @@ AppStatus Game::Update()
 {
     //Check if user attempts to close the window, either by clicking the close button or by pressing Alt+F4
     if(WindowShouldClose()) return AppStatus::QUIT;
-
     switch (state)
     {
         case GameState::INTRO:
@@ -126,12 +149,37 @@ AppStatus Game::Update()
             {
                 FinishPlay();
                 state = GameState::MAIN_MENU;
+
             }
             else
             {
                 scene->HandleInputPlayer();
                 //Game logic
                 scene->Update();
+            }
+            if (IsKeyPressed(KEY_F3)) {
+                FinishPlay();
+                state = GameState::WIN;
+            }
+            if (IsKeyPressed(KEY_F4)) {
+                FinishPlay();
+                state = GameState::LOSE;
+            }
+            break;
+        case GameState::WIN:
+            if (IsKeyPressed(KEY_ESCAPE)) return AppStatus::QUIT;
+            if (IsKeyPressed(KEY_SPACE))
+            {
+                state = GameState::MAIN_MENU;
+              
+            }
+            break;
+
+        case GameState::LOSE:
+            if (IsKeyPressed(KEY_ESCAPE)) return AppStatus::QUIT;
+            if (IsKeyPressed(KEY_SPACE))
+            {
+                state = GameState::MAIN_MENU;
             }
             break;
     }
@@ -155,6 +203,14 @@ void Game::Render()
         case GameState::PLAYING:
             scene->Render();
             break;
+
+        case GameState::WIN:
+            DrawTexture(*img_win, 0, 0, WHITE);
+            break;
+
+        case GameState::LOSE:
+            DrawTexture(*img_lose, 0, 0, WHITE);
+            break;
     }
     
     EndTextureMode();
@@ -174,6 +230,8 @@ void Game::UnloadResources()
     ResourceManager& data = ResourceManager::Instance();
     data.ReleaseTexture(Resource::IMG_MENU);
     data.ReleaseTexture(Resource::IMG_INTRO);
+    data.ReleaseTexture(Resource::IMG_WIN);
+    data.ReleaseTexture(Resource::IMG_LOSE);
 
     UnloadRenderTexture(target);
 }

@@ -42,30 +42,30 @@ AppStatus Player::Initialise()
 	sprite->AddKeyFrame((int)PlayerAnim::IDLE_RIGHT, { 0, 0, n, n });
 
 	sprite->SetAnimationDelay((int)PlayerAnim::IDLE_LEFT, ANIM_DELAY);
-	sprite->AddKeyFrame((int)PlayerAnim::IDLE_LEFT, { 0, 0, -n, n });
+	sprite->AddKeyFrame((int)PlayerAnim::IDLE_LEFT, { n, n, n, n });
 	//NOU
 	sprite->SetAnimationDelay((int)PlayerAnim::IDLE_UP, ANIM_DELAY);
-	sprite->AddKeyFrame((int)PlayerAnim::IDLE_UP, { 0, 0, n, n });
+	sprite->AddKeyFrame((int)PlayerAnim::IDLE_UP, { n, 2 * n, n, n });
 
 	sprite->SetAnimationDelay((int)PlayerAnim::IDLE_DOWN, ANIM_DELAY);
 	sprite->AddKeyFrame((int)PlayerAnim::IDLE_DOWN, { 0, 0, n, n });
 	//
 	//WALKING
 	sprite->SetAnimationDelay((int)PlayerAnim::WALKING_RIGHT, ANIM_DELAY);
-	for (i = 0; i < 8; ++i)
-		sprite->AddKeyFrame((int)PlayerAnim::WALKING_RIGHT, { (float)i*n, 4*n, n, n });
+	for (i = 0; i < 3; ++i)
+		sprite->AddKeyFrame((int)PlayerAnim::WALKING_RIGHT, { (float)i * n, 0, n, n });
 
 	sprite->SetAnimationDelay((int)PlayerAnim::WALKING_LEFT, ANIM_DELAY);
-	for (i = 0; i < 8; ++i)
-		sprite->AddKeyFrame((int)PlayerAnim::WALKING_LEFT, { (float)i*n, 4*n, -n, n });
+	for (i = 0; i < 3; ++i)
+		sprite->AddKeyFrame((int)PlayerAnim::WALKING_LEFT, { (float)i*n, 0,-n, n });
 	//NOU
 	sprite->SetAnimationDelay((int)PlayerAnim::WALKING_UP, ANIM_DELAY);
-	for (i = 0; i < 8; ++i)
-		sprite->AddKeyFrame((int)PlayerAnim::WALKING_UP, { (float)i * n, 4 * n, n, n });
+	for (i = 0; i < 3; ++i)
+		sprite->AddKeyFrame((int)PlayerAnim::WALKING_UP, { (float)i * n, 3 * n, n, n });
 
 	sprite->SetAnimationDelay((int)PlayerAnim::WALKING_DOWN, ANIM_DELAY);
-	for (i = 0; i < 8; ++i)
-		sprite->AddKeyFrame((int)PlayerAnim::WALKING_DOWN, { (float)i * n, 4 * n, n, n });
+	for (i = 0; i < 3; ++i)
+		sprite->AddKeyFrame((int)PlayerAnim::WALKING_DOWN, { (float)i * n, 2 * n, n, n });
 	//
 	/*sprite->SetAnimationDelay((int)PlayerAnim::FALLING_RIGHT, ANIM_DELAY);
 	sprite->AddKeyFrame((int)PlayerAnim::FALLING_RIGHT, { 2*n, 5*n, n, n });

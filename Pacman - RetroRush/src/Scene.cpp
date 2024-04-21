@@ -16,7 +16,7 @@ Scene::Scene()
 
 	debug = DebugMode::OFF;
 }
-Scene::~Scene()
+Scene::~Scene()//2820
 {
 	if (player != nullptr)
 	{
