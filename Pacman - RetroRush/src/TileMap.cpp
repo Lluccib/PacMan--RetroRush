@@ -49,16 +49,17 @@ void TileMap::InitTileDictionary()
 	dict_rect[(int)Tile::LINEA_FINA_DOWN] = { 14 * n, 0, n, n };//14
 	dict_rect[(int)Tile::LINEA_FINA_L] = { 7 * n, n, n, n };//15
 	dict_rect[(int)Tile::LINEA_FINA_R] = { 8 * n, n, n, n };//16
-	dict_rect[(int)Tile::BLOCK_BEAM_L] = { 0, 2 * n, n, n };
-	dict_rect[(int)Tile::BLOCK_BEAM_R] = { n, 2 * n, n, n };
 
-	dict_rect[(int)Tile::LADDER_L] = { 2 * n, 2 * n, n, n };
-	dict_rect[(int)Tile::LADDER_R] = { 3 * n, 2 * n, n, n };
-	dict_rect[(int)Tile::LADDER_TOP_L] = { 4 * n, 2 * n, n, n };
-	dict_rect[(int)Tile::LADDER_TOP_R] = { 5 * n, 2 * n, n, n };
+	dict_rect[(int)Tile::CUADRADO_SUP_R] = { 11 * n, n, n, n };//17
+	dict_rect[(int)Tile::CUADRADO_SUP_L] = { 12 * n, n, n, n };//18
 
-	dict_rect[(int)Tile::LOCK_RED] = { 6 * n, 2 * n, n, n };
-	dict_rect[(int)Tile::LOCK_YELLOW] = { 7 * n, 2 * n, n, n };
+	dict_rect[(int)Tile::CUADRADO_INF_R] = { 13 * n, n, n, n };//19
+	dict_rect[(int)Tile::CUADRADO_INF_L] = { 14 * n, n, n, n };//21
+
+	dict_rect[(int)Tile::PAREDRARA_INF_R] = { 15 * n, n, n, n };//22
+	dict_rect[(int)Tile::PAREDRARA_INF_L] = { 0, n, n, n };//23
+	dict_rect[(int)Tile::PAREDRARA_SUP_R] = { n, n, n, n };//30
+	dict_rect[(int)Tile::PAREDRARA_SUP_L] = { 2* n, n, n, n };//31
 
 	dict_rect[(int)Tile::LASER_L] = { 0, 6 * n, n, n };
 	dict_rect[(int)Tile::LASER_R] = { 4 * n, 6 * n, n, n };
@@ -72,7 +73,7 @@ AppStatus TileMap::Initialise()
 {
 	ResourceManager& data = ResourceManager::Instance();
 
-	if (data.LoadTexture(Resource::IMG_TILES, "images/Pacmantileset2.png") != AppStatus::OK)
+	if (data.LoadTexture(Resource::IMG_TILES, "images/Pacmantileset4.png") != AppStatus::OK)
 	{
 		return AppStatus::ERROR;
 	}
@@ -131,11 +132,11 @@ bool TileMap::IsTileSolid(Tile tile) const
 }
 bool TileMap::IsTileLadderTop(Tile tile) const
 {
-	return tile == Tile::LADDER_TOP_L || tile == Tile::LADDER_TOP_R;
+	return tile == Tile::PAREDRARA_INF_R || tile == Tile::PAREDRARA_INF_L;
 }
 bool TileMap::IsTileLadder(Tile tile) const
 {
-	return tile == Tile::LADDER_L || tile == Tile::LADDER_R;
+	return tile == Tile::CUADRADO_INF_R || tile == Tile::CUADRADO_INF_L;
 }
 bool TileMap::TestCollisionWallLeft(const AABB& box) const
 {
@@ -269,8 +270,8 @@ int TileMap::GetLadderCenterPos(int pixel_x, int pixel_y) const
 	ty = pixel_y / TILE_SIZE;
 	Tile tile = GetTileIndex(tx, ty);
 
-	if (tile == Tile::LADDER_L || tile == Tile::LADDER_TOP_L)		return tx * TILE_SIZE + TILE_SIZE;
-	else if (tile == Tile::LADDER_R || tile == Tile::LADDER_TOP_R)	return tx * TILE_SIZE;
+	if (tile == Tile::CUADRADO_INF_R || tile == Tile::PAREDRARA_INF_R)		return tx * TILE_SIZE + TILE_SIZE;
+	else if (tile == Tile::CUADRADO_INF_L || tile == Tile::PAREDRARA_INF_L)	return tx * TILE_SIZE;
 	else
 	{
 		LOG("Internal error, tile should be a LADDER, coord: (%d,%d), tile type: %d", pixel_x, pixel_y, (int)tile);
@@ -303,7 +304,7 @@ void TileMap::Render()
 						
 					}*/
 
-					DrawHitbox(pos.x, pos.y, TILE_SIZE, TILE_SIZE, c);
+					/*DrawHitbox(pos.x, pos.y, TILE_SIZE, TILE_SIZE, c);*/
 					
 					/*render->DrawBox(pos.x, pos.y, TILE_SIZE, TILE_SIZE, c);
 					render->DrawCorners(pos.x, pos.y, TILE_SIZE, TILE_SIZE);*/
