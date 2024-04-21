@@ -39,6 +39,12 @@ In Pac-Man, you take on the role of the intrepid yellow hero as you venture thro
  - Key down -> move down
  - F1 -> God mode
  - F2 -> Display colliders
- - F3 -> Direct win/lose
+ - F3 -> Direct win
+ - F4 -> Direct lose
 
 ## Features implemented
+ - Basic player mechanics: move and eat.
+ - Items or prop : pills and power-up pills.
+ - Win and lose conditions.
+ - Debug functionality: F1 (god mode), F2 (display colliders), F3 (direct win) and F4 (direct lose).
+   
