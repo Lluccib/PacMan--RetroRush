@@ -193,6 +193,8 @@ AppStatus Game::Update()
             break;
 
         case GameState::LOSE:
+            PlayMusicStream(music[3]);
+            UpdateMusicStream(music[3]);
             if (IsKeyPressed(KEY_ESCAPE)) return AppStatus::QUIT;
             if (IsKeyPressed(KEY_SPACE))
             {
