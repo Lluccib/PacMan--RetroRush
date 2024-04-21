@@ -37,5 +37,8 @@ In Pac-Man, you take on the role of the intrepid yellow hero as you venture thro
  - Key right  -> move right
  - Key up -> move up
  - Key down -> move down
+ - F1 -> God mode
+ - F2 -> Display colliders
+ - F3 -> Direct win/lose
 
 ## Features implemented
