@@ -1,16 +1,35 @@
 # PacMan
+## Project
+https://github.com/Lluccib/PacMan--RetroRush
+
+## Video
+
+## Team members
+Lluc Cid
+
+CLaudia Ruiz
+
+### Github acount
+
+Lluccib
+
+https://github.com/Lluccib
+
+cla4d1a
+
+https://github.com/cla4d1a
 
 ## Description
 
-Bienvenido al fascinante mundo de Pac-Man, el icónico juego que ha cautivado a jugadores de todas las edades desde su debut en 1980! Prepárate para sumergirte en un laberinto lleno de emoción y desafíos.
+Welcome to the captivating world of Pac-Man, the iconic game that has enthralled players of all ages since its debut in 1980! Get ready to immerse yourself in a maze full of excitement and challenges.
 
-En Pac-Man, asumes el papel del intrépido héroe amarillo mientras te aventuras por un laberinto repleto de deliciosos puntos y, por supuesto, fantasmas astutos que intentarán atraparte. ¡Pero no temas! Con tu destreza y astucia, deberás devorar todos los puntos mientras evitas a los persistentes fantasmas.
+In Pac-Man, you take on the role of the intrepid yellow hero as you venture through a maze packed with delicious dots and, of course, cunning ghosts that will try to catch you. But fear not! With your skill and cunning, you must devour all the dots while avoiding the persistent ghosts.
 
 ## Key Features
 
  - Move Right, left, up or down to advance
  - Collect power ups to get stronger and eat ghosts!
- - collect coins to get points
+ - Collect all the pills and fruits on the map to earn points and advance to the next level.
 
 ## Controls
 
@@ -18,9 +37,5 @@ En Pac-Man, asumes el papel del intrépido héroe amarillo mientras te aventuras
  - D -> move right
  - W -> move up
  - S -> move down
-## Debug
 
-## Developers
-
- - Lluc Cid
- - Claudia Ruiz
+## Features implemented
