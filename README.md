@@ -33,9 +33,9 @@ In Pac-Man, you take on the role of the intrepid yellow hero as you venture thro
 
 ## Controls
 
- - A -> move left
- - D -> move right
- - W -> move up
- - S -> move down
+ - Key left-> move left
+ - Key right  -> move right
+ - Key up -> move up
+ - Key down -> move down
 
 ## Features implemented
