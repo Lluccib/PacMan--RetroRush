@@ -1,5 +1,8 @@
-﻿  Entity.cpp
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: El directorio intermedio (x64\Debug\) contiene archivos compartidos de otro proyecto (Vikings.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
+  AABB.cpp
+  Entity.cpp
   Game.cpp
+  Globals.cpp
   main.cpp
   Object.cpp
   Player.cpp
@@ -7,7 +10,21 @@ C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\Play
 C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\Player.cpp(301,31): warning C4390: ';': se encontró una instrucción controlada vacía; ¿es esa la intención?
 C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\Player.cpp(310,31): warning C4390: ';': se encontró una instrucción controlada vacía; ¿es esa la intención?
 C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\Player.cpp(319,31): warning C4390: ';': se encontró una instrucción controlada vacía; ¿es esa la intención?
+  RenderComponent.cpp
   ResourceManager.cpp
   Scene.cpp
+  Sprite.cpp
+  StaticImage.cpp
+  TileMap.cpp
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(210,7): warning C4101: 'tile': variable local sin referencia
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(340,31): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(340,21): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(341,35): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(341,25): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(348,28): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(348,21): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(349,32): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(349,25): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
   Generando código...
-  Vikings.vcxproj -> C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\x64\Debug\Vikings.exe
+LINK : warning LNK4098: la biblioteca predeterminada'MSVCRT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
+  Vikings.vcxproj -> C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\x64\Debug\PacMan.exe
