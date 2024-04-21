@@ -17,6 +17,7 @@ public:
     void Update();
     void Render();
     void Release();
+    DebugMode debug;
 
 private:
     AppStatus LoadLevel(int stage);
@@ -33,6 +34,5 @@ private:
     std::vector<Object*> objects;
 
     Camera2D camera;
-    DebugMode debug;
 };
 

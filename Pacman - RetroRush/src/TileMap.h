@@ -75,6 +75,11 @@ public:
 	//Test if box is on ladder top and update 'px' with the x-center position of the ladder
 	bool TestOnLadderTop(const AABB& box, int* px) const;
 
+	void DrawHitbox(const Color& col) const;
+	void DrawHitbox(int x, int y, int w, int h, const Color& col) const;
+
+
+
 private:
 	void InitTileDictionary();
 
@@ -85,6 +90,7 @@ private:
 	bool CollisionX(const Point& p, int distance) const;
 	bool CollisionY(const Point& p, int distance) const;
 	int GetLadderCenterPos(int pixel_x, int pixel_y) const;
+
 
 	//Tile map
 	Tile *map;
@@ -100,5 +106,7 @@ private:
 	//Tile sheet
 	const Texture2D *img_tiles;
 	RenderComponent* render;
+
+	Vector2 pos;
 };
 

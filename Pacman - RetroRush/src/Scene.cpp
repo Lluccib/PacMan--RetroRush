@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include <stdio.h>
 #include "Globals.h"
+#include "TileMap.h"
 
 
 Scene::Scene()
@@ -202,7 +203,9 @@ void Scene::HandleInputPlayer()
 
 	if (IsKeyPressed(KEY_F1))
 	{
-		debug = (DebugMode)(((int)debug + 1) % (int)DebugMode::SPRITES_AND_HITBOXES);
+		/*TileMap().Render();*/
+		debug = (DebugMode)(((int)debug + 1) % (int)DebugMode::SIZE);
+		
 	}
 
 	switch(player->GetState())
@@ -318,6 +321,7 @@ void Scene::Update()
 	if (IsKeyPressed(KEY_F1))
 	{
 		debug = (DebugMode)(((int)debug + 1) % (int)DebugMode::SIZE);
+
 	}
 	//Debug levels instantly
 	if (IsKeyPressed(KEY_ONE))		LoadLevel(1);

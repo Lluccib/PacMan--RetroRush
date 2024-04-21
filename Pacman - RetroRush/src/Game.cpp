@@ -1,11 +1,11 @@
-#include "Game.h"
+#include "Game.h" 
 #include "Globals.h"
 #include "ResourceManager.h"
 #include <stdio.h>
 
 Game::Game()
 {
-    state = GameState::MAIN_MENU;
+    state = GameState::INTRO;
     scene = nullptr;
     img_menu = nullptr;
 
@@ -29,7 +29,7 @@ AppStatus Game::Initialise(float scale)
     h = WINDOW_HEIGHT * scale;
 
     //Initialise window
-    InitWindow((int)w, (int)h, "Vikings");
+    InitWindow((int)w, (int)h, "Pacman - RetroRush");
 
     //Render texture initialisation, used to hold the rendering result so we can easily resize it
     target = LoadRenderTexture(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -65,6 +65,12 @@ AppStatus Game::LoadResources()
         return AppStatus::ERROR;
     }
     img_menu = data.GetTexture(Resource::IMG_MENU);
+
+    if (data.LoadTexture(Resource::IMG_INTRO, "images/intro.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    img_intro = data.GetTexture(Resource::IMG_INTRO);
     
     return AppStatus::OK;
 }
@@ -97,6 +103,15 @@ AppStatus Game::Update()
 
     switch (state)
     {
+        case GameState::INTRO:
+             if (IsKeyPressed(KEY_ESCAPE)) return AppStatus::QUIT;
+             if (IsKeyPressed(KEY_SPACE))
+             {
+
+                state = GameState::MAIN_MENU;
+             }
+             break;
+       
         case GameState::MAIN_MENU: 
             if (IsKeyPressed(KEY_ESCAPE)) return AppStatus::QUIT;
             if (IsKeyPressed(KEY_SPACE))
@@ -130,6 +145,9 @@ void Game::Render()
     
     switch (state)
     {
+        case GameState::INTRO:
+            DrawTexture(*img_intro, 0, 0, WHITE);
+            break;
         case GameState::MAIN_MENU:
             DrawTexture(*img_menu, 0, 0, WHITE);
             break;
@@ -155,6 +173,7 @@ void Game::UnloadResources()
 {
     ResourceManager& data = ResourceManager::Instance();
     data.ReleaseTexture(Resource::IMG_MENU);
+    data.ReleaseTexture(Resource::IMG_INTRO);
 
     UnloadRenderTexture(target);
 }

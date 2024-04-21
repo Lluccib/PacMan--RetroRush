@@ -3,6 +3,7 @@
 #include "ResourceManager.h"
 #include "RenderComponent.h"
 #include <cstring>
+#include "Scene.h"
 
 TileMap::TileMap()
 {
@@ -280,8 +281,9 @@ void TileMap::Render()
 {
 	Tile tile;
 	Rectangle rc;
-	Vector2 pos;
-
+	/*Vector2 pos;*/
+	Color c;
+	c.a = 128;
 	for (int i = 0; i < height; ++i)
 	{
 		for (int j = 0; j < width; ++j)
@@ -296,8 +298,16 @@ void TileMap::Render()
 				{
 					rc = dict_rect[(int)tile];
 					DrawTextureRec(*img_tiles, rc, pos, WHITE);
-					render->DrawBox(pos.x, pos.y, TILE_SIZE, TILE_SIZE, PINK);
-					render->DrawCorners(pos.x, pos.y, TILE_SIZE, TILE_SIZE);
+
+					/*if (Scene().debug == DebugMode::SIZE) {
+						
+					}*/
+
+					DrawHitbox(pos.x, pos.y, TILE_SIZE, TILE_SIZE, c);
+					
+					/*render->DrawBox(pos.x, pos.y, TILE_SIZE, TILE_SIZE, c);
+					render->DrawCorners(pos.x, pos.y, TILE_SIZE, TILE_SIZE);*/
+					
 				}
 				else
 				{
@@ -306,6 +316,22 @@ void TileMap::Render()
 			}
 		}
 	}
+}
+void TileMap::DrawHitbox(const Color& col) const
+{
+	Color c = col;
+	c.a = 128;		//50% transparent
+
+	render->DrawBox(pos.x, pos.y - (height - 1), width, height, c);
+	render->DrawCorners(pos.x, pos.y - (height - 1), width, height);
+}
+void TileMap::DrawHitbox(int x, int y, int w, int h, const Color& col) const
+{
+	Color c = col;
+	c.a = 128;		//50% transparent
+
+	render->DrawBox(pos.x, pos.y, TILE_SIZE, TILE_SIZE, c);
+	render->DrawCorners(pos.x, pos.y, TILE_SIZE, TILE_SIZE);
 }
 void TileMap::Release()
 {
