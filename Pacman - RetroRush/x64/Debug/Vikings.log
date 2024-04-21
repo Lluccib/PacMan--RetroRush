@@ -1,2 +1,16 @@
-﻿  Scene.cpp
+﻿  Game.cpp
+  Object.cpp
+  Scene.cpp
+  TileMap.cpp
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(210,7): warning C4101: 'tile': variable local sin referencia
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(340,31): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(340,21): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(341,35): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(341,25): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(348,28): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(348,21): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(349,32): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\src\TileMap.cpp(349,25): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
+  main.cpp
+  Generando código...
   Vikings.vcxproj -> C:\Users\Lluc Cid\Documents\GitHub\PacMan--RetroRush\Pacman - RetroRush\x64\Debug\Vikings.exe

@@ -9,15 +9,15 @@ Object::Object(const Point& p, ObjectType t) : Entity(p, OBJECT_PHYSICAL_SIZE, O
 	const int n = TILE_SIZE;
 	switch (type)
 	{
-		case ObjectType::APPLE: rc = {4*n, 3*n, n, n}; break;
-		case ObjectType::CHILI: rc = {5*n, 3*n, n, n}; break;
-		case ObjectType::MONDONGO: rc = {4*n, 3*n, n, n}; break;
+		case ObjectType::APPLE: rc = {0, 0, n, n}; break;
+		case ObjectType::CHILI: rc = {2 * n, 0, n, n}; break;
+		case ObjectType::MONDONGO: rc = {4 * n, 3*n, n, n}; break;
 
 		default: LOG("Internal error: object creation of invalid type");
 	}
 
 	ResourceManager& data = ResourceManager::Instance();
-	render = new StaticImage(data.GetTexture(Resource::IMG_TILES), rc);
+	render = new StaticImage(data.GetTexture(Resource::IMG_ITEMS), rc);
 }
 Object::~Object()
 {
