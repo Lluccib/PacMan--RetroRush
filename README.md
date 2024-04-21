@@ -41,6 +41,7 @@ In Pac-Man, you take on the role of the intrepid yellow hero as you venture thro
  - F2 -> Display colliders
  - F3 -> Direct win
  - F4 -> Direct lose
+ - F5 -> Restart level
 
 ## Features implemented
  - Basic player mechanics: move and eat.
