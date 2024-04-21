@@ -61,6 +61,14 @@ void TileMap::InitTileDictionary()
 	dict_rect[(int)Tile::PAREDRARA_SUP_R] = { n, n, n, n };//30
 	dict_rect[(int)Tile::PAREDRARA_SUP_L] = { 2* n, n, n, n };//31
 
+	dict_rect[(int)Tile::PARED2_SUP_L] = { 9 * n, 0, n, n };//32
+	dict_rect[(int)Tile::PARED2_SUP_R] = { 8 * n, 0, n, n };//33
+	dict_rect[(int)Tile::PARED2_INF_L] = { 7 * n, 0, n, n };//34
+	dict_rect[(int)Tile::PARED2_INF_R] = { 6 * n, 0, n, n };//35
+
+	dict_rect[(int)Tile::PARED3_R] = { 11 * n, 0, n, n };//36
+	dict_rect[(int)Tile::PARED3_L] = { 15 * n, 0, n, n };//37
+
 	dict_rect[(int)Tile::LASER_L] = { 0, 6 * n, n, n };
 	dict_rect[(int)Tile::LASER_R] = { 4 * n, 6 * n, n, n };
 	
@@ -73,7 +81,7 @@ AppStatus TileMap::Initialise()
 {
 	ResourceManager& data = ResourceManager::Instance();
 
-	if (data.LoadTexture(Resource::IMG_TILES, "images/Pacmantileset4.png") != AppStatus::OK)
+	if (data.LoadTexture(Resource::IMG_TILES, "images/Pacmantileset5.png") != AppStatus::OK)
 	{
 		return AppStatus::ERROR;
 	}

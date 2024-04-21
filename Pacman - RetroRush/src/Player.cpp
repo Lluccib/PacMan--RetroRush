@@ -311,13 +311,6 @@ void Player::Update()
 
 	}
 
-
-
-
-	
-
-
-
 	Entity::Update();
 	
 	Sprite* sprite = dynamic_cast<Sprite*>(render);
