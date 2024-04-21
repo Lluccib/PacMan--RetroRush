@@ -270,6 +270,15 @@ void Player::Update()
 	/*MoveX();
 	MoveY();*/
 	
+	if (pos.x == 216 && pos.y == 119) {
+		pos.x = 0;
+		pos.y = 119;
+	}
+
+	if (pos.x == 0 && pos.y == 119) {
+		pos.x = 216;
+		pos.y = 119;
+	}
 
 	AABB box;
 

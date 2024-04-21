@@ -30,8 +30,8 @@ private:
     const Texture2D* img_win;
     const Texture2D* img_lose;
 
-    Sound fxmenu[8];
-    Music music[8];
+    Sound fxmenu[9];
+    Music music[9];
 
     //To work with original game units and then scale the result
     RenderTexture2D target;

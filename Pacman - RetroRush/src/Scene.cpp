@@ -324,7 +324,7 @@ void Scene::Update()
 
 	}
 	//Debug levels instantly
-	if (IsKeyPressed(KEY_ONE))		LoadLevel(1);
+	if (IsKeyPressed(KEY_F5))		LoadLevel(1);
 	else if (IsKeyPressed(KEY_TWO))	LoadLevel(2);
 
 	level->Update();

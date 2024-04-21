@@ -53,13 +53,24 @@ AppStatus Game::Initialise(float scale)
 
     InitAudioDevice();
 
-    fxmenu[0] = LoadSound("Fx/pacmanmovement.wav");
-   /* fxmenu[1] = LoadSound("Fx/pacman movement.wav");
-    fxmenu[2] = LoadSound("Fx/pacman movement.wav");
-    fxmenu[3] = LoadSound("Fx/pacman movement.wav");
-    fxmenu[4] = LoadSound("Fx/pacman movement.wav");*/
+    fxmenu[0] = LoadSound("Wav/pacmaneatingcherry.wav");
+    fxmenu[1] = LoadSound("Wav/pacmaneatingghost.wav");
+    fxmenu[2] = LoadSound("Wav/pacmanextralive.wav");
+    fxmenu[3] = LoadSound("Wav/pacmangameover.wav");
+    fxmenu[4] = LoadSound("Wav/pacmanmovement.wav");
+    fxmenu[5] = LoadSound("Wav/pacmansiren.wav");
+    fxmenu[6] = LoadSound("Wav/pacmansong.wav");
+    fxmenu[7] = LoadSound("Wav/pacmanwakawaka.wav");
 
-    music[0] = LoadMusicStream("Fx/pacmansong.ogg");
+    music[0] = LoadMusicStream("Fx/pacmaneatingcherry.ogg");
+    music[1] = LoadMusicStream("Fx/pacmaneatingghost.ogg");
+    music[2] = LoadMusicStream("Fx/pacmanextralive.ogg");
+    music[3] = LoadMusicStream("Fx/pacmangameover.ogg");
+    music[4] = LoadMusicStream("Fx/pacmanmovement.ogg");
+    music[5] = LoadMusicStream("Fx/pacmansiren.ogg");
+    music[6] = LoadMusicStream("Fx/pacmansong.ogg");
+    music[7] = LoadMusicStream("Fx/pacmanwakawaka.ogg");
+
 
     //Set the target frame rate for the application
     SetTargetFPS(60);
@@ -84,7 +95,7 @@ AppStatus Game::LoadResources()
     }
     img_intro = data.GetTexture(Resource::IMG_INTRO);
 
-    if (data.LoadTexture(Resource::IMG_WIN, "images/eric.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_WIN, "images/win.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
@@ -136,6 +147,8 @@ AppStatus Game::Update()
              break;
        
         case GameState::MAIN_MENU: 
+            PlayMusicStream(music[6]);
+            UpdateMusicStream(music[6]);
             if (IsKeyPressed(KEY_ESCAPE)) return AppStatus::QUIT;
             if (IsKeyPressed(KEY_SPACE))
             {
@@ -144,7 +157,11 @@ AppStatus Game::Update()
             }
             break;
 
-        case GameState::PLAYING:  
+        case GameState::PLAYING:
+            /*PlaySound(fxmenu[6]);*/
+            PlayMusicStream(music[5]);
+            UpdateMusicStream(music[5]);
+
             if (IsKeyPressed(KEY_ESCAPE))
             {
                 FinishPlay();
@@ -224,6 +241,7 @@ void Game::Cleanup()
 {
     UnloadResources();
     CloseWindow();
+
 }
 void Game::UnloadResources()
 {
