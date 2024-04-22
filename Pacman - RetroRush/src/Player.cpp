@@ -285,10 +285,13 @@ void Player::Update()
 	box = GetHitbox();
 	if (map->TestCollisionWallRight(box))
 	{
+
+		/*StartWalkingUp();*/
 		printf("%d %d\n", pos.x, pos.y);
 		pos.x = pos.x - 1;
+
 		printf("%d %d\n", pos.x, pos.y);
-		if (state == State::WALKING);
+		/*state = State::WALKING;*/
 
 	}
 
@@ -298,7 +301,7 @@ void Player::Update()
 		printf("%d %d\n", pos.x, pos.y);
 		pos.x = pos.x + 1;
 		printf("%d %d\n", pos.x, pos.y);
-		if (state == State::WALKING);
+		/*if (state == State::WALKING);*/
 
 	}
 	box = GetHitbox();
@@ -307,7 +310,7 @@ void Player::Update()
 		printf("%d %d\n", pos.x, pos.y);
 		pos.y = pos.y + 1;
 		printf("%d %d\n", pos.x, pos.y);
-		if (state == State::WALKING);
+		/*if (state == State::WALKING);*/
 
 	}
 	box = GetHitbox();
@@ -316,7 +319,7 @@ void Player::Update()
 		printf("%d %d\n", pos.x, pos.y);
 		pos.y = pos.y - 1;
 		printf("%d %d\n", pos.x, pos.y);
-		if (state == State::WALKING);
+		/*if (state == State::WALKING);*/
 
 	}
 
