@@ -209,35 +209,31 @@ void Player::Update()
 		pos.x = pos.x - 1;
 		printf("%d %d\n", pos.x, pos.y);
 		/*if (state == State::WALKING);*/
-
 	}
 
-	box = GetHitbox();
+	/*box = GetHitbox();*/
 	if (map->TestCollisionWallLeft(box))
 	{
 		printf("%d %d\n", pos.x, pos.y);
 		pos.x = pos.x + 1;
 		printf("%d %d\n", pos.x, pos.y);
 		/*if (state == State::WALKING);*/
-
 	}
-	box = GetHitbox();
+	/*box = GetHitbox();*/
 	if (map->TestCollisionWallUp(box))
 	{
 		printf("%d %d\n", pos.x, pos.y);
 		pos.y = pos.y + 1;
 		printf("%d %d\n", pos.x, pos.y);
 		/*if (state == State::WALKING);*/
-
 	}
-	box = GetHitbox();
+	/*box = GetHitbox();*/
 	if (map->TestCollisionWallDown(box))
 	{
 		printf("%d %d\n", pos.x, pos.y);
 		pos.y = pos.y - 1;
 		printf("%d %d\n", pos.x, pos.y);
 		/*if (state == State::WALKING);*/
-
 	}
 
 	Entity::Update();
