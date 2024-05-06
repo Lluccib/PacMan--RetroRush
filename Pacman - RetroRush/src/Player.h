@@ -31,7 +31,7 @@
 //#define GRAVITY_FORCE			1
 
 //Logic states
-enum class State { IDLE, WALKING, JUMPING, FALLING, CLIMBING, DEAD };
+enum class State { IDLE, WALKING, DEAD };
 enum class Look { RIGHT, LEFT, UP, DOWN };//NOU UP I DOWN
 
 //Rendering states
@@ -72,11 +72,7 @@ public:
 	bool IsLookingLeft() const;
 	bool IsLookingUp() const;
 	bool IsLookingDown() const;
-	//Player mechanics
-	/*void MoveX();*/
-	//void MoveY();
-	/*void LogicJumping();
-	void LogicClimbing();*/
+
 
     //Animation management
 	void SetAnimation(int id);
@@ -87,12 +83,6 @@ public:
 	void StartWalkingRight();
 	void StartWalkingUp();
 	void StartWalkingDown();
-	/*void StartFalling();
-	void StartJumping();
-	void StartClimbingUp();
-	void StartClimbingDown();*/
-	/*void ChangeAnimRight();
-	void ChangeAnimLeft();*/
 	TileMap* map;
 
 	int prev_x = pos.x;
@@ -101,15 +91,6 @@ public:
 	int score;
 
 private:
-
-	//Jump steps
-	//bool IsAscending() const;
-	//bool IsLevitating() const;
-	//bool IsDescending() const;
-
-	////Ladder get in/out steps
-	//bool IsInFirstHalfTile() const;
-	//bool IsInSecondHalfTile() const;
 
 	State state;
 	Look look;

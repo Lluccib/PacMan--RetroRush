@@ -131,7 +131,6 @@ bool Player::IsLookingLeft() const
 {
 	return look == Look::LEFT;
 }
-//NOU
 bool Player::IsLookingUp() const
 {
 	return look == Look::UP;
@@ -140,37 +139,11 @@ bool Player::IsLookingDown() const
 {
 	return look == Look::DOWN;
 }
-//
-//bool Player::IsAscending() const
-//{
-//	return dir.y < -PLAYER_LEVITATING_SPEED;
-//}
-//bool Player::IsLevitating() const
-//{
-//	return abs(dir.y) <= PLAYER_LEVITATING_SPEED;
-//}
-//bool Player::IsDescending() const
-//{
-//	return dir.y > PLAYER_LEVITATING_SPEED;
-//}
-//bool Player::IsInFirstHalfTile() const
-//{
-//	return pos.y % TILE_SIZE < TILE_SIZE / 2;
-//}
-//bool Player::IsInSecondHalfTile() const
-//{
-//	return pos.y % TILE_SIZE >= TILE_SIZE/2;
-//}
 void Player::SetAnimation(int id)
 {
 	Sprite* sprite = dynamic_cast<Sprite*>(render);
 	sprite->SetAnimation(id);
 }
-//PlayerAnim Player::GetAnimation()
-//{
-//	Sprite* sprite = dynamic_cast<Sprite*>(render);
-//	return (PlayerAnim)sprite->GetAnimation();
-//}
 void Player::Stop()
 {
 	SetDirection({ 0,0 });  //abans era "dir ="
@@ -212,63 +185,9 @@ void Player::StartWalkingDown()
 	look = Look::DOWN;
 	SetAnimation((int)PlayerAnim::WALKING_DOWN);
 }
-//void Player::StartFalling()
-//{
-//	dir.y = PLAYER_SPEED;
-//	state = State::FALLING;
-//	if (IsLookingRight())	SetAnimation((int)PlayerAnim::FALLING_RIGHT);
-//	else					SetAnimation((int)PlayerAnim::FALLING_LEFT);
-//}
-//void Player::StartJumping()
-//{
-//	dir.y = -PLAYER_JUMP_FORCE;
-//	state = State::JUMPING;
-//	if (IsLookingRight())	SetAnimation((int)PlayerAnim::JUMPING_RIGHT);
-//	else					SetAnimation((int)PlayerAnim::JUMPING_LEFT);
-//	jump_delay = PLAYER_JUMP_DELAY;
-//}
-//void Player::StartClimbingUp()
-//{
-//	state = State::CLIMBING;
-//	SetAnimation((int)PlayerAnim::CLIMBING);
-//	Sprite* sprite = dynamic_cast<Sprite*>(render);
-//	sprite->SetManualMode();
-//}
-//void Player::StartClimbingDown()
-//{
-//	state = State::CLIMBING;
-//	SetAnimation((int)PlayerAnim::CLIMBING_TOP);
-//	Sprite* sprite = dynamic_cast<Sprite*>(render);
-//	sprite->SetManualMode();
-//}
-//void Player::ChangeAnimRight()
-//{
-//	look = Look::RIGHT;
-//	switch (state)
-//	{
-//		case State::IDLE:	 SetAnimation((int)PlayerAnim::IDLE_RIGHT);    break; 
-//		case State::WALKING: SetAnimation((int)PlayerAnim::WALKING_RIGHT); break;
-//		/*case State::JUMPING: SetAnimation((int)PlayerAnim::JUMPING_RIGHT); break;
-//		case State::FALLING: SetAnimation((int)PlayerAnim::FALLING_RIGHT); break;*/
-//	}
-//}
-//void Player::ChangeAnimLeft()
-//{
-//	look = Look::LEFT;
-//	switch (state)
-//	{
-//		case State::IDLE:	 SetAnimation((int)PlayerAnim::IDLE_LEFT);    break;
-//		case State::WALKING: SetAnimation((int)PlayerAnim::WALKING_LEFT); break;
-//		/*case State::JUMPING: SetAnimation((int)PlayerAnim::JUMPING_LEFT); break;
-//		case State::FALLING: SetAnimation((int)PlayerAnim::FALLING_LEFT); break;*/
-//	}
-//}
+
 void Player::Update()
 {
-	//Player doesn't use the "Entity::Update() { pos += dir; }" default behaviour.
-	//Instead, uses an independent behaviour for each axis.
-	/*MoveX();
-	MoveY();*/
 	
 	if (pos.x == 216 && pos.y == 119) {
 		pos.x = 0;
@@ -286,9 +205,10 @@ void Player::Update()
 	if (map->TestCollisionWallRight(box))
 	{
 		printf("%d %d\n", pos.x, pos.y);
+		printf("papi");
 		pos.x = pos.x - 1;
 		printf("%d %d\n", pos.x, pos.y);
-		if (state == State::WALKING);
+		/*if (state == State::WALKING);*/
 
 	}
 
@@ -298,7 +218,7 @@ void Player::Update()
 		printf("%d %d\n", pos.x, pos.y);
 		pos.x = pos.x + 1;
 		printf("%d %d\n", pos.x, pos.y);
-		if (state == State::WALKING);
+		/*if (state == State::WALKING);*/
 
 	}
 	box = GetHitbox();
@@ -307,7 +227,7 @@ void Player::Update()
 		printf("%d %d\n", pos.x, pos.y);
 		pos.y = pos.y + 1;
 		printf("%d %d\n", pos.x, pos.y);
-		if (state == State::WALKING);
+		/*if (state == State::WALKING);*/
 
 	}
 	box = GetHitbox();
@@ -316,7 +236,7 @@ void Player::Update()
 		printf("%d %d\n", pos.x, pos.y);
 		pos.y = pos.y - 1;
 		printf("%d %d\n", pos.x, pos.y);
-		if (state == State::WALKING);
+		/*if (state == State::WALKING);*/
 
 	}
 
