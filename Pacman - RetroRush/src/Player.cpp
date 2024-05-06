@@ -202,6 +202,7 @@ void Player::Update()
 	AABB box;
 
 	box = GetHitbox();
+	//IflookingUp
 	if (map->TestCollisionWallRight(box))
 	{
 		printf("%d %d\n", pos.x, pos.y);
@@ -219,6 +220,7 @@ void Player::Update()
 		printf("%d %d\n", pos.x, pos.y);
 		/*if (state == State::WALKING);*/
 	}
+
 	/*box = GetHitbox();*/
 	if (map->TestCollisionWallUp(box))
 	{
@@ -228,6 +230,7 @@ void Player::Update()
 		/*if (state == State::WALKING);*/
 	}
 	/*box = GetHitbox();*/
+
 	if (map->TestCollisionWallDown(box))
 	{
 		printf("%d %d\n", pos.x, pos.y);
@@ -235,6 +238,11 @@ void Player::Update()
 		printf("%d %d\n", pos.x, pos.y);
 		/*if (state == State::WALKING);*/
 	}
+
+	//IflookingDown
+	
+	//IflookingRight
+	//IflookingLeft
 
 	Entity::Update();
 	
