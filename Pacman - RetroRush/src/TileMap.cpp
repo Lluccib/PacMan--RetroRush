@@ -320,8 +320,8 @@ void TileMap::Render()
 
 					/*DrawHitbox(pos.x, pos.y, TILE_SIZE, TILE_SIZE, c);*/
 					
-					render->DrawBox(pos.x, pos.y, TILE_SIZE, TILE_SIZE, c);
-					render->DrawCorners(pos.x, pos.y, TILE_SIZE, TILE_SIZE);
+					/*render->DrawBox(pos.x, pos.y, TILE_SIZE, TILE_SIZE, c);
+					render->DrawCorners(pos.x, pos.y, TILE_SIZE, TILE_SIZE);*/
 					
 				}
 				else

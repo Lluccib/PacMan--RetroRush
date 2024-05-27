@@ -1,4 +1,4 @@
-
+ 
 #include "Player.h"
 #include "Sprite.h"
 #include "TileMap.h"
@@ -212,7 +212,7 @@ void Player::Update()
 
 	}
 
-	box = GetHitbox();
+	/*box = GetHitbox();*/
 	if (map->TestCollisionWallLeft(box))
 	{
 		printf("%d %d\n", pos.x, pos.y);
@@ -221,7 +221,7 @@ void Player::Update()
 		/*if (state == State::WALKING);*/
 
 	}
-	box = GetHitbox();
+	/*box = GetHitbox();*/
 	if (map->TestCollisionWallUp(box))
 	{
 		printf("%d %d\n", pos.x, pos.y);
@@ -230,7 +230,7 @@ void Player::Update()
 		/*if (state == State::WALKING);*/
 
 	}
-	box = GetHitbox();
+	/*box = GetHitbox();*/
 	if (map->TestCollisionWallDown(box))
 	{
 		printf("%d %d\n", pos.x, pos.y);
