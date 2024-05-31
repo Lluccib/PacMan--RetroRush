@@ -30,6 +30,19 @@ private:
     const Texture2D* img_win;
     const Texture2D* img_lose;
 
+    const Texture2D* img_red;
+    const Texture2D* img_pink;
+    const Texture2D* img_blue;
+    const Texture2D* img_orange;
+    const Texture2D* img_empty;
+    const Texture2D* img_full;
+
+    #define NUM_IMAGES 10
+    float timer = 0.0f;
+    float timer2 = 0.0f;
+    int currentImage = 0;
+    const Texture2D* ImagesIntro[NUM_IMAGES];
+
     Sound fxmenu[9];
     Music music[9];
 

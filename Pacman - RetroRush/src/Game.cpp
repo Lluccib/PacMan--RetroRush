@@ -71,11 +71,12 @@ AppStatus Game::Initialise(float scale)
     music[6] = LoadMusicStream("Fx/pacmansong.ogg");
     music[7] = LoadMusicStream("Fx/pacmanwakawaka.ogg");
 
-
     //Set the target frame rate for the application
     SetTargetFPS(60);
     //Disable the escape key to quit functionality
     SetExitKey(0);
+
+    /*ToggleFullscreen();*/
 
     return AppStatus::OK;
 }
@@ -107,6 +108,102 @@ AppStatus Game::LoadResources()
     }
     img_lose = data.GetTexture(Resource::IMG_LOSE);
     
+    if (data.LoadTexture(Resource::IMG_INTRO1, "images/preintro/imgintro1.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[0] = data.GetTexture(Resource::IMG_INTRO1);
+
+    if (data.LoadTexture(Resource::IMG_INTRO2, "images/preintro/imgintro2.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[1] = data.GetTexture(Resource::IMG_INTRO2);
+
+    if (data.LoadTexture(Resource::IMG_INTRO3, "images/preintro/imgintro3.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[2] = data.GetTexture(Resource::IMG_INTRO3);
+
+    if (data.LoadTexture(Resource::IMG_INTRO4, "images/preintro/imgintro4.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[3] = data.GetTexture(Resource::IMG_INTRO4);
+
+    if (data.LoadTexture(Resource::IMG_INTRO5, "images/preintro/imgintro5.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[4] = data.GetTexture(Resource::IMG_INTRO5);
+
+    if (data.LoadTexture(Resource::IMG_INTRO6, "images/preintro/imgintro6.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[5] = data.GetTexture(Resource::IMG_INTRO6);
+
+    if (data.LoadTexture(Resource::IMG_INTRO7, "images/preintro/imgintro7.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[6] = data.GetTexture(Resource::IMG_INTRO7);
+
+    if (data.LoadTexture(Resource::IMG_INTRO8, "images/preintro/imgintro8.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[7] = data.GetTexture(Resource::IMG_INTRO8);
+
+    if (data.LoadTexture(Resource::IMG_INTRO9, "images/preintro/imgintro9.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[8] = data.GetTexture(Resource::IMG_INTRO9);
+
+    if (data.LoadTexture(Resource::IMG_INTRO10, "images/preintro/imgintro10.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[9] = data.GetTexture(Resource::IMG_INTRO10);
+
+    if (data.LoadTexture(Resource::IMG_EMPTY, "images/intro/empty.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    img_empty = data.GetTexture(Resource::IMG_EMPTY);
+
+    if (data.LoadTexture(Resource::IMG_RED, "images/intro/red.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    img_red = data.GetTexture(Resource::IMG_RED);
+
+    if (data.LoadTexture(Resource::IMG_PINK, "images/intro/pink.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    img_pink = data.GetTexture(Resource::IMG_PINK);
+
+    if (data.LoadTexture(Resource::IMG_BLUE, "images/intro/blue.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    img_blue = data.GetTexture(Resource::IMG_BLUE);
+
+    if (data.LoadTexture(Resource::IMG_ORANGE, "images/intro/orange.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    img_orange = data.GetTexture(Resource::IMG_ORANGE);
+
+    if (data.LoadTexture(Resource::IMG_FULL, "images/intro/full.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    img_full = data.GetTexture(Resource::IMG_FULL);
+
     return AppStatus::OK;
 }
 AppStatus Game::BeginPlay()
@@ -213,10 +310,92 @@ void Game::Render()
     switch (state)
     {
         case GameState::INTRO:
-            DrawTexture(*img_intro, 0, 0, WHITE);
+            /*DrawTexture(*img_intro, 0, 0, WHITE);*/
+            timer2 += 1.0f / 60.0f;
+            timer += 1.0f / 60.0f;
+            if (timer2 < 1.0f) {
+				if (timer >= 0.1f) { // Mostramos cada imagen durante 3 segundos
+                    currentImage++;
+                    if (currentImage == 2) {
+                        currentImage = 0;
+                    }
+                    timer = 0.0f;
+                }
+                DrawTexture(*ImagesIntro[currentImage], 0, 0, WHITE);
+			}
+            if (timer2 >= 1.0f && timer2 < 2.0f) {
+                if (timer >= 0.1f) { // Mostramos cada imagen durante 3 segundos
+                    currentImage++;
+                    if (currentImage == 4) {
+                        currentImage = 2;
+                    }
+                    timer = 0.0f;
+                }
+                DrawTexture(*ImagesIntro[currentImage], 0, 0, WHITE);
+			}
+            if (timer2 >= 2.0f && timer2 < 3.0f) {
+                if (timer >= 0.1f) { // Mostramos cada imagen durante 3 segundos
+                    currentImage++;
+                    if (currentImage == 6) {
+                        currentImage = 4;
+                    }
+                    timer = 0.0f;
+                }
+                DrawTexture(*ImagesIntro[currentImage], 0, 0, WHITE);
+            }
+            if (timer2 >= 3.0f && timer2 < 4.0f) {
+                if (timer >= 0.1f) { // Mostramos cada imagen durante 3 segundos
+                    currentImage++;
+                    if (currentImage == 8) {
+                        currentImage = 6;
+                    }
+                    timer = 0.0f;
+                }
+                DrawTexture(*ImagesIntro[currentImage], 0, 0, WHITE);
+            }
+            if (timer2 >= 4.0f && timer2 < 5.0f) {
+                if (timer >= 0.1f) { // Mostramos cada imagen durante 3 segundos
+                    currentImage++;
+                    if (currentImage == 10) {
+                        currentImage = 8;
+                    }
+                    timer = 0.0f;
+                }
+                DrawTexture(*ImagesIntro[currentImage], 0, 0, WHITE);
+            }
             break;
         case GameState::MAIN_MENU:
-            DrawTexture(*img_menu, 0, 0, WHITE);
+            timer += 1.0f / 60.0f; 
+            if (timer <= 6.0f) {
+                DrawTexture(*img_empty, 0, 0, WHITE);
+            }
+            else if (timer <= 2.4f) {
+                DrawTexture(*img_red, 0, 0, WHITE);
+                if (timer <= 1.2f) DrawRectangle(7 * TILE_SIZE, 7 * TILE_SIZE, 20 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+                else if (timer <= 1.8f) DrawRectangle(18 * TILE_SIZE, 7 * TILE_SIZE, 10 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+            }
+            else if (timer <= 4.2f) {
+                DrawTexture(*img_pink, 0, 0, WHITE);
+                if (timer <= 3.0f) DrawRectangle(7 * TILE_SIZE, 9 * TILE_SIZE, 20 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+                else if (timer <= 3.6f) DrawRectangle(18 * TILE_SIZE, 9 * TILE_SIZE, 10 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+            }
+            else if (timer <= 6.0f) {
+                DrawTexture(*img_blue, 0, 0, WHITE);
+                if (timer <= 4.8f) DrawRectangle(7 * TILE_SIZE, 13 * TILE_SIZE, 20 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+                else if (timer <= 5.4f) DrawRectangle(18 * TILE_SIZE, 13 * TILE_SIZE, 10 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+            }
+            else if (timer <= 7.8f) {
+                DrawTexture(*img_orange, 0, 0, WHITE);
+                if (timer <= 6.6f) DrawRectangle(7 * TILE_SIZE, 15 * TILE_SIZE, 20 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+                else if (timer <= 7.2f) DrawRectangle(18 * TILE_SIZE, 15 * TILE_SIZE, 10 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+            }
+            /*else {
+                DrawTexture(*img_full, 0, 0, WHITE);
+                if (timer == 8.40) intro->loopCheck = false;
+                if (counter >= 840) {
+                    intro->Render();
+                }
+            }*/
             break;
 
         case GameState::PLAYING:
@@ -252,6 +431,17 @@ void Game::UnloadResources()
     data.ReleaseTexture(Resource::IMG_INTRO);
     data.ReleaseTexture(Resource::IMG_WIN);
     data.ReleaseTexture(Resource::IMG_LOSE);
+    data.ReleaseTexture(Resource::IMG_INTRO1);
+    data.ReleaseTexture(Resource::IMG_INTRO2);
+    data.ReleaseTexture(Resource::IMG_INTRO3);
+    data.ReleaseTexture(Resource::IMG_INTRO4);
+    data.ReleaseTexture(Resource::IMG_INTRO5);
+    data.ReleaseTexture(Resource::IMG_INTRO6);
+    data.ReleaseTexture(Resource::IMG_INTRO7);
+    data.ReleaseTexture(Resource::IMG_INTRO8);
+    data.ReleaseTexture(Resource::IMG_INTRO9);
+    data.ReleaseTexture(Resource::IMG_INTRO10); 
+
 
     UnloadRenderTexture(target);
 }
