@@ -332,22 +332,7 @@ void TileMap::Render()
 		}
 	}
 }
-void TileMap::DrawHitbox(const Color& col) const
-{
-	Color c = col;
-	c.a = 128;		//50% transparent
 
-	render->DrawBox(pos.x, pos.y - (height - 1), width, height, c);
-	render->DrawCorners(pos.x, pos.y - (height - 1), width, height);
-}
-void TileMap::DrawHitbox(int x, int y, int w, int h, const Color& col) const
-{
-	Color c = col;
-	c.a = 128;		//50% transparent
-
-	render->DrawBox(pos.x, pos.y, TILE_SIZE, TILE_SIZE, c);
-	render->DrawCorners(pos.x, pos.y, TILE_SIZE, TILE_SIZE);
-}
 void TileMap::Release()
 {
 	ResourceManager& data = ResourceManager::Instance(); 

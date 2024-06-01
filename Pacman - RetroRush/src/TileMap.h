@@ -75,8 +75,6 @@ public:
 	//Test if box is on ladder top and update 'px' with the x-center position of the ladder
 	bool TestOnLadderTop(const AABB& box, int* px) const;
 
-	void DrawHitbox(const Color& col) const;
-	void DrawHitbox(int x, int y, int w, int h, const Color& col) const;
 
 
 

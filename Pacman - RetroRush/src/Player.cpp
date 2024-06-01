@@ -5,7 +5,7 @@
 #include "Globals.h"
 #include <raymath.h>
 
-Player::Player(const Point& p, int width, int height, State s, Look view) :
+Player::Player(const Point& p, State s, Look view) :
 	Entity(p, PLAYER_PHYSICAL_WIDTH, PLAYER_PHYSICAL_HEIGHT, PLAYER_FRAME_SIZE, PLAYER_FRAME_SIZE)
 {
 	state = s;

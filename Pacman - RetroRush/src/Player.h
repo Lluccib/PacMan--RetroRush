@@ -50,7 +50,7 @@ enum class PlayerAnim {
 class Player: public Entity
 {
 public:
-	Player(const Point& p, int width, int height, State s, Look view);
+	Player(const Point& p, State s, Look view);
 	~Player();
 	
 	AppStatus Initialise();
