@@ -40,6 +40,7 @@ private:
     #define NUM_IMAGES 10
     float timer = 0.0f;
     float timer2 = 0.0f;
+    int timer3 = 0;
     int currentImage = 0;
     const Texture2D* ImagesIntro[NUM_IMAGES];
 

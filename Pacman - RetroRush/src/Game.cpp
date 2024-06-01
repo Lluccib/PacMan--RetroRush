@@ -10,6 +10,13 @@ Game::Game()
     state = GameState::INTRO;
     scene = nullptr;
     img_menu = nullptr;
+    img_empty = nullptr;
+    img_full = nullptr;
+    img_red = nullptr;
+    img_pink = nullptr;
+    img_blue = nullptr;
+    img_orange = nullptr;
+    img_intro = nullptr;
 
     target = {};
     src = {};
@@ -26,12 +33,16 @@ Game::~Game()
 }
 AppStatus Game::Initialise(float scale)
 {
-    float w, h;
+    float w, h, w2, h2;
     w = WINDOW_WIDTH * scale;
     h = WINDOW_HEIGHT * scale;
 
     //Initialise window
     InitWindow((int)w, (int)h, "Pacman - RetroRush");
+
+    int monitor = GetCurrentMonitor();
+    w2 = (float)GetMonitorWidth(monitor);
+    h2 = (float)GetMonitorHeight(monitor);
 
     //Render texture initialisation, used to hold the rendering result so we can easily resize it
     target = LoadRenderTexture(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -42,7 +53,7 @@ AppStatus Game::Initialise(float scale)
     }
     SetTextureFilter(target.texture, TEXTURE_FILTER_POINT);
     src = { 0, 0, WINDOW_WIDTH, -WINDOW_HEIGHT };
-    dst = { 0, 0, w, h };
+    dst = { w2 / 2 - w / 2, h2 / 2 - h / 2, w, h };
 
     //Load resources
     if (LoadResources() != AppStatus::OK)
@@ -76,7 +87,8 @@ AppStatus Game::Initialise(float scale)
     //Disable the escape key to quit functionality
     SetExitKey(0);
 
-    /*ToggleFullscreen();*/
+    SetWindowSize(w2, h2);
+    ToggleFullscreen();
 
     return AppStatus::OK;
 }
@@ -244,13 +256,16 @@ AppStatus Game::Update()
              break;
        
         case GameState::MAIN_MENU: 
-            PlayMusicStream(music[6]);
-            UpdateMusicStream(music[6]);
+            /*PlayMusicStream(music[6]);
+            UpdateMusicStream(music[6]);*/
             if (IsKeyPressed(KEY_ESCAPE)) return AppStatus::QUIT;
             if (IsKeyPressed(KEY_SPACE))
             {
                 if(BeginPlay() != AppStatus::OK) return AppStatus::ERROR;
                 state = GameState::PLAYING;
+            }
+            else {
+                timer3++;
             }
             break;
 
@@ -364,38 +379,39 @@ void Game::Render()
                 DrawTexture(*ImagesIntro[currentImage], 0, 0, WHITE);
             }
             break;
+
         case GameState::MAIN_MENU:
-            timer += 1.0f / 60.0f; 
-            if (timer <= 6.0f) {
+            printf("%d\n", timer3);
+            if (timer3 <= 60) {
                 DrawTexture(*img_empty, 0, 0, WHITE);
             }
-            else if (timer <= 2.4f) {
+            else if (timer3 <= 240) {
                 DrawTexture(*img_red, 0, 0, WHITE);
-                if (timer <= 1.2f) DrawRectangle(7 * TILE_SIZE, 7 * TILE_SIZE, 20 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
-                else if (timer <= 1.8f) DrawRectangle(18 * TILE_SIZE, 7 * TILE_SIZE, 10 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+                if (timer3 <= 120) DrawRectangle(7 * TILE_SIZE, 7 * TILE_SIZE, 20 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+                else if (timer3 <= 180) DrawRectangle(18 * TILE_SIZE, 7 * TILE_SIZE, 10 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
             }
-            else if (timer <= 4.2f) {
+            else if (timer3 <= 420) {
                 DrawTexture(*img_pink, 0, 0, WHITE);
-                if (timer <= 3.0f) DrawRectangle(7 * TILE_SIZE, 9 * TILE_SIZE, 20 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
-                else if (timer <= 3.6f) DrawRectangle(18 * TILE_SIZE, 9 * TILE_SIZE, 10 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+                if (timer3 <= 300) DrawRectangle(7 * TILE_SIZE, 9 * TILE_SIZE, 20 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+                else if (timer3 <= 360) DrawRectangle(18 * TILE_SIZE, 9 * TILE_SIZE, 10 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
             }
-            else if (timer <= 6.0f) {
+            else if (timer3 <= 600) {
                 DrawTexture(*img_blue, 0, 0, WHITE);
-                if (timer <= 4.8f) DrawRectangle(7 * TILE_SIZE, 13 * TILE_SIZE, 20 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
-                else if (timer <= 5.4f) DrawRectangle(18 * TILE_SIZE, 13 * TILE_SIZE, 10 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+                if (timer3 <= 480) DrawRectangle(7 * TILE_SIZE, 13 * TILE_SIZE, 20 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+                else if (timer3 <= 540) DrawRectangle(18 * TILE_SIZE, 13 * TILE_SIZE, 10 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
             }
-            else if (timer <= 7.8f) {
+            else if (timer3 <= 780) {
                 DrawTexture(*img_orange, 0, 0, WHITE);
-                if (timer <= 6.6f) DrawRectangle(7 * TILE_SIZE, 15 * TILE_SIZE, 20 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
-                else if (timer <= 7.2f) DrawRectangle(18 * TILE_SIZE, 15 * TILE_SIZE, 10 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+                if (timer3 <= 660) DrawRectangle(7 * TILE_SIZE, 15 * TILE_SIZE, 20 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
+                else if (timer3 <= 720) DrawRectangle(18 * TILE_SIZE, 15 * TILE_SIZE, 10 * TILE_SIZE, 2 * TILE_SIZE, BLACK);
             }
-            /*else {
+            else {
                 DrawTexture(*img_full, 0, 0, WHITE);
-                if (timer == 8.40) intro->loopCheck = false;
-                if (counter >= 840) {
+                if (timer3 == 840) timer3 = 0;
+                /*if (timer3 >= 840) {
                     intro->Render();
-                }
-            }*/
+                }*/
+            }
             break;
 
         case GameState::PLAYING:
