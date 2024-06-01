@@ -5,7 +5,7 @@ https://github.com/Lluccib/PacMan--RetroRush
 ## Video
 
 ## Team members
-Lluc Cid
+Lluc Cid Bernal
 
 CLaudia Ruiz
 
