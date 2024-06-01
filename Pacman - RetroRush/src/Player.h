@@ -12,38 +12,19 @@
 //Horizontal speed and vertical speed while falling down
 #define PLAYER_SPEED			1
 
-//Vertical speed while on a ladder
-#define PLAYER_LADDER_SPEED		1
-
-//Frame animation delay while on a ladder
-#define ANIM_LADDER_DELAY		(2*ANIM_DELAY)
-
-//When jumping, initial jump speed and maximum falling speed
-#define PLAYER_JUMP_FORCE		10
-
-//Frame delay for updating the jump velocity
-#define PLAYER_JUMP_DELAY		2
-
-//Player is levitating when abs(speed) <= this value
-#define PLAYER_LEVITATING_SPEED	4
 
 //Gravity affects jumping velocity when jump_delay is 0
 //#define GRAVITY_FORCE			1
 
 //Logic states
-enum class State { IDLE, WALKING, DEAD };
+enum class State { IDLE, WALKING, DEAD, DYING, CLOSED};
 enum class Look { RIGHT, LEFT, UP, DOWN };//NOU UP I DOWN
 
 //Rendering states
 enum class PlayerAnim {
 	IDLE_LEFT, IDLE_RIGHT, IDLE_UP, IDLE_DOWN,
-	WALKING_LEFT, WALKING_RIGHT, WALKING_UP, WALKING_DOWN,//NOU UP I DOWN
-	JUMPING_LEFT, JUMPING_RIGHT,
-	LEVITATING_LEFT, LEVITATING_RIGHT,
-	FALLING_LEFT, FALLING_RIGHT,
-	CLIMBING, CLIMBING_PRE_TOP, CLIMBING_TOP,
-	SHOCK_LEFT, SHOCK_RIGHT,
-	TELEPORT_LEFT, TELEPORT_RIGHT,
+	WALKING_LEFT, WALKING_RIGHT, WALKING_UP, WALKING_DOWN, DYING,
+	CLOSED, HIDDEN,//NOU UP I DOWN
 	NUM_ANIMATIONS
 };
 
@@ -60,45 +41,58 @@ public:
 	void IncrScore(int n);
 	int GetScore();
 
+	void LoseLives();
+	int GetLives();
+	Point GetDirection();
+	Point GetPosition();
+	void setLives(int l);
+
 	void Update();
 	void DrawDebug(const Color& col) const;
 	void Release();
 
-	void SetState(State s);
-	State GetState() const;
+	void Win();
+	void Lose();
 
-	void SetLook(Look view);
+	bool lose = false;
+	
+
+private:
+	
 	bool IsLookingRight() const;
 	bool IsLookingLeft() const;
 	bool IsLookingUp() const;
 	bool IsLookingDown() const;
 
+	void Move();
 
     //Animation management
 	void SetAnimation(int id);
-	/*PlayerAnim GetAnimation();*/
+	PlayerAnim GetAnimation();
 
 	void Stop();
 	void StartWalkingLeft();
 	void StartWalkingRight();
 	void StartWalkingUp();
 	void StartWalkingDown();
+	void StartDying();
+	void ChangeAnimRight();
+	void ChangeAnimLeft();
+	void ChangeAnimUp();
+	void ChangeAnimDown();
 	TileMap* map;
 
 	int prev_x = pos.x;
 	int prev_y = pos.y;
-
 	int score;
-
-private:
+	int lives = 3;
+	int count = 0;
+	bool pellet = false;
 
 	State state;
 	Look look;
+	Look turn = Look::RIGHT;
 	int jump_delay;
 
-
-	/*TileMap *map;
-
-	int score;*/
 };
 

@@ -6,6 +6,8 @@
 
 enum class DebugMode { OFF, SPRITES_AND_HITBOXES, ONLY_HITBOXES, SIZE };
 
+#define LEVELS 2
+
 class Scene
 {
 public:
@@ -13,11 +15,14 @@ public:
     ~Scene();
 
     AppStatus Init();
-    void HandleInputPlayer();
     void Update();
     void Render();
     void Release();
     DebugMode debug;
+
+    bool EndGame = false;
+    bool intro = false;
+    bool levelintro = 0;
 
 private:
     AppStatus LoadLevel(int stage);
