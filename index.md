@@ -19,8 +19,9 @@ Pac-Man is a classic arcade game developed by Toru Iwatani and released by Namco
    <br>
 
   <!-- Team Photo -->
- <h2>Retrorush</h2>   
-   <img src="Imatges/Logo.jpg" alt="Team Photo">
+ <h2>Retrorush</h2> 
+
+   <img src="Imatges/Logo.jpg" alt="Team Photo" width="500" height="auto">
     
 <!-- Main Contributions of Each Team Member -->
   <h2>Team Member</h2>
