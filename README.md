@@ -37,11 +37,13 @@ In Pac-Man, you take on the role of the intrepid yellow hero as you venture thro
  - Key right  -> move right
  - Key up -> move up
  - Key down -> move down
- - F1 -> God mode
- - F2 -> Display colliders
- - F3 -> Direct win
- - F4 -> Direct lose
- - F5 -> Restart level
+ - F1 -> Show Colliders
+ - F2 -> Win functionality
+ - F3 -> Lose functionality
+ - F4 -> God Mode
+ - F5 -> Spawn random fruits
+ - Key 1 -> skip to level 1
+ - Key 2 -> skip to level 2
 
 ## Features implemented
  - Basic player mechanics: move and eat.
