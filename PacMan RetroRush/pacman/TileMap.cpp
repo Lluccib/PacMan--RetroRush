@@ -83,13 +83,13 @@ AppStatus TileMap::Initialise()
 {
 	ResourceManager& data = ResourceManager::Instance();
 
-	if (data.LoadTexture(Resource::IMG_TILES, "Assets/mapas/Arcade - Pac-Man - Maze Parts-only_blue_tiles.png") != AppStatus::OK)
+	if (data.LoadTexture(Resource::IMG_TILES, "Assets/mapas/azules.png") != AppStatus::OK)
 	{
 		return AppStatus::ERROR;
 	}
 	img_tiles = data.GetTexture(Resource::IMG_TILES);
 
-	if (data.LoadTexture(Resource::IMG_TILES_WHITE, "Assets/mapas/Arcade - Pac-Man - Maze Parts-only_white_tiles.png") != AppStatus::OK)
+	if (data.LoadTexture(Resource::IMG_TILES_WHITE, "Assets/mapas/blancos.png") != AppStatus::OK)
 	{
 		return AppStatus::ERROR;
 	}

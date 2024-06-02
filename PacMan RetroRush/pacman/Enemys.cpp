@@ -40,7 +40,7 @@ AppStatus Enemy::Initialise()
 	}
 
 	ResourceManager& data = ResourceManager::Instance();
-	if (data.LoadTexture(Resource::IMG_ENEMY, "Assets/sprites/Arcade - Pac-Man - General Sprites-allghosts.png") != AppStatus::OK)
+	if (data.LoadTexture(Resource::IMG_ENEMY, "Assets/sprites/fantasmasfull.png") != AppStatus::OK)
 	{
 		return AppStatus::ERROR;
 	}
