@@ -21,7 +21,7 @@ AppStatus Player::Initialise()
 	const int n = PLAYER_FRAME_SIZE;
 
 	ResourceManager& data = ResourceManager::Instance();
-	if (data.LoadTexture(Resource::IMG_PLAYER, "Assets/sprites/Arcade - Pac-Man - all pacman.png") != AppStatus::OK)
+	if (data.LoadTexture(Resource::IMG_PLAYER, "Assets/sprites/pacmananimations.png") != AppStatus::OK)
 	{
 		return AppStatus::ERROR;
 	}
