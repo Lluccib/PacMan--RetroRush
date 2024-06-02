@@ -10,18 +10,21 @@
     **RETRORUSH**
 
 ![logo](https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Logo.jpg)
-    **Pau González Cayuela**:                   Design / QA / Code
+    **LLuc Cid i Bernal**:                    Design / QA / Code /  Art / Project Management 
     
-    [Github Profile](https://github.com/paolo2kk)
+ [GitHub Profile](https://github.com/Lluccib)
+
     
-    ![god](https://github.com/paolo2kk/BubbleBobble-PatoProductions/assets/121867499/caad0bfd-7d34-445d-887c-97cf6baa61f1)
+  ![Lluc](https://raw.githubusercontent.com/Lluccib/PacMan--RetroRush/web/Imatges/Grup/lluc.png)
 
 
-    **Ton Casals Gil**:                             Art / Project Management / Code
-    
-    [Github Profile](https://github.com/Tontito05)
+ **Claudia Ruiz Muñoz**:                           Design / QA / Code / Art / Project Management 
 
-    ![Lewis_MTR](https://github.com/paolo2kk/BubbleBobble-PatoProductions/assets/121867499/cb124cb9-65f4-4feb-a144-52344fd75ed4)
+  [GitHub Profile](https://github.com/cla4d1a)
+
+
+
+   ![Clau](https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Grup/clau.png)
 
     
   - Contact"
