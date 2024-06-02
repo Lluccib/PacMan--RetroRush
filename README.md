@@ -3,11 +3,11 @@
 ## **Introduction**
 
 
- Pac-Man is a classic arcade game developed by Toru Iwatani and released by Namco in 1980. The game features a yellow character navigating a maze, eating pellets, and avoiding ghosts. It's a timeless, iconic game that has left a significant mark on pop culture. Our team has created a small tribute to this legendary classic.
+ Pac-Man is a classic arcade game developed by Toru Iwatani and released by Namco in 1980. The game features a yellow character navigating a maze, eating pellets, and avoiding ghosts. It's a timeless, iconic game that has left a significant mark on pop culture. Our team has created a small tribute to this legendary classic.<br><br>
 
  <p align="center">
-  <img src="https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/gif.gif" alt="Gif pacman">
-</p>
+  <img src="https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/gif.gif" alt="Gif pacman"><br>
+
 
 
 
@@ -19,21 +19,23 @@
 
 ## **Members**
 
+**RETRORUSH**
 
-  **RETRORUSH**
-  
- <p align="center">
-<img src="https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Logo.jpg" width="500" height="500">
-  
+<p align="center">
+  <img src="https://github.com/Lluccib/PacMan--RetroRush/blob/main/Imatges/Logo.jpg" width="500" height="500"><br><br>
 
 
- **Lluc Cid Bernal**:                   Design / QA / Code /  Art / Project Management
-    
+
+
+
+
+**Lluc Cid Bernal:** Design / QA / Code / Art / Project Management
+
  
     
    <img src="https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Grup/lluc.png" width="200" height="200">
 
-  [GitHub Profile](https://github.com/Lluccib)
+  [GitHub Profile](https://github.com/Lluccib)<br><br>
 
 
 **Claudia Ruiz Muñoz**:                                Design / QA / Code /  Art / Project Management
@@ -44,6 +46,6 @@
 
  [GitHub Profile](https://github.com/cla4d1a)
     
-  - **Gameplay**
+## **Gameplay**
     
-  - **Dowload**
+## **Dowload**
