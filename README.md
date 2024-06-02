@@ -9,25 +9,25 @@
 
 
     **RETRORUSH**
-    
-    ![LOGO](https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Logo.jpg)
 
-    **Lluc Cid Bernal**:                   Design / QA / Code /  Art / Project Management
+<img src="https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Logo.jpg" width="900" height="900">
+  
+
+ **Lluc Cid Bernal**:                   Design / QA / Code /  Art / Project Management
     
   [GitHub Profile](https://github.com/Lluccib)
 
     
-    ![god](https://github.com/paolo2kk/BubbleBobble-PatoProductions/assets/121867499/caad0bfd-7d34-445d-887c-97cf6baa61f1)
+   <img src="https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Grup/lluc.png" width="200" height="200">
 
 
-    **Claudia Ruiz Muñoz**:                                Design / QA / Code /  Art / Project Management
+**Claudia Ruiz Muñoz**:                                Design / QA / Code /  Art / Project Management
     
  [GitHub Profile](https://github.com/cla4d1a)
 
-
-    ![Lewis_MTR](https://github.com/paolo2kk/BubbleBobble-PatoProductions/assets/121867499/cb124cb9-65f4-4feb-a144-52344fd75ed4)
+ <img src="https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Grup/clau.png" width="200" height="200">
 
     
-  - Contact"
-    |
-      For support or inquiries, reach out to us at [gpaucayuela@gmail.com](mailto:gpaucayuela@gmail.com).
+  - **Gameplay**
+    
+  - **Dowload**
