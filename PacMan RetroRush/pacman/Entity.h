@@ -16,12 +16,10 @@ public:
 	void Update();
 	AABB GetHitbox() const;
 
-	//Draw representation model
 	void Draw() const;
 	void DrawPlayer() const;
 	void DrawTint(const Color& col) const;
 
-	//Draw logical/physical model (hitbox)
 	void DrawHitbox(const Color& col) const;
 	void DrawHitbox(int x, int y, int w, int h, const Color& col) const;
 

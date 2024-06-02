@@ -30,18 +30,18 @@ AppStatus ResourceManager::LoadTexture(Resource id, const std::string& file_path
 
 void ResourceManager::LoadSounds()
 {
-    sounds[(int)AudioResource::AUD_INTRO] = LoadSound("Resources/game audio/game_start.wav");
+    sounds[(int)AudioResource::AUDIO_INTRO] = LoadSound("Resources/game audio/game_start.wav");
 
-    sounds[(int)AudioResource::AUD_MUNCH1] = LoadSound("Resources/game audio/munch_1.wav");
-    sounds[(int)AudioResource::AUD_MUNCH2] = LoadSound("Resources/game audio/munch_2.wav");
+    sounds[(int)AudioResource::AUDIO_PUNCH1] = LoadSound("Resources/game audio/munch_1.wav");
+    sounds[(int)AudioResource::AUDIO_PUNCH2] = LoadSound("Resources/game audio/munch_2.wav");
 
-    sounds[(int)AudioResource::AUD_DEATH] = LoadSound("Resources/game audio/pacman_death.wav");
+    sounds[(int)AudioResource::AUDIO_MUERTE] = LoadSound("Resources/game audio/pacman_death.wav");
 
-    sounds[(int)AudioResource::AUD_SIREN1] = LoadSound("Resources/game audio/siren_1.wav");
-    sounds[(int)AudioResource::AUD_SIREN2] = LoadSound("Resources/game audio/siren_2.wav");
-    sounds[(int)AudioResource::AUD_SIREN3] = LoadSound("Resources/game audio/siren_3.wav");
-    sounds[(int)AudioResource::AUD_SIREN4] = LoadSound("Resources/game audio/siren_4.wav");
-    sounds[(int)AudioResource::AUD_SIREN5] = LoadSound("Resources/game audio/siren_5.wav");
+    sounds[(int)AudioResource::AUDIO_SIRENA1] = LoadSound("Resources/game audio/siren_1.wav");
+    sounds[(int)AudioResource::AUDIO_SIRENA2] = LoadSound("Resources/game audio/siren_2.wav");
+    sounds[(int)AudioResource::AUDIO_SIRENA3] = LoadSound("Resources/game audio/siren_3.wav");
+    sounds[(int)AudioResource::AUDIO_SIRENA4] = LoadSound("Resources/game audio/siren_4.wav");
+    sounds[(int)AudioResource::AUDIO_SIRENA5] = LoadSound("Resources/game audio/siren_5.wav");
 
     sounds[(int)AudioResource::AUD_PELLET] = LoadSound("Resources/game audio/power_pellet.wav");
     sounds[(int)AudioResource::AUD_FRUIT] = LoadSound("Resources/game audio/eat_fruit.wav");
@@ -87,7 +87,7 @@ void ResourceManager::Release()
         UnloadTexture(pair.second);
     }
     textures.clear();
-    for (int i = 0; i < (int)AudioResource::AUD_NUM; ++i) {
+    for (int i = 0; i < (int)AudioResource::AUD_NUMERO; ++i) {
         UnloadSound(sounds[i]);
     }
     CloseAudioDevice();

@@ -2,25 +2,20 @@
 #include "Entity.h"
 #include "TileMap.h"
 
-//Representation model size: 16x16
 #define PLAYER_FRAME_SIZE		16
 
-//Logical model size: 8x8 (tile size)
 #define PLAYER_PHYSICAL_WIDTH	8
 #define PLAYER_PHYSICAL_HEIGHT	8
 
-//Horizontal speed
 #define PLAYER_SPEED			1
 
-//Logic states
-enum class State { INTRO, IDLE, WALKING, DYING, CLOSED };
+enum class State { INTRO, IDLE, WALKING, MURIENDO, CERRADO };
 enum class Look { RIGHT, LEFT, UP, DOWN };
 
-//Rendering states
 enum class PlayerAnim {
 	IDLE_LEFT, IDLE_RIGHT, IDLE_UP, IDLE_DOWN,
-	WALKING_LEFT, WALKING_RIGHT, WALKING_UP, WALKING_DOWN, DYING,
-	CLOSED, HIDDEN,
+	WALKING_LEFT, WALKING_RIGHT, WALKING_UP, WALKING_DOWN, MURIENDO,
+	CERRADO, ESCONDIDO,
 	NUM_ANIMATIONS
 };
 
@@ -34,21 +29,21 @@ public:
 	void SetTileMap(TileMap* tilemap);
 
 	void InitScore();
-	void IncrScore(int n);
-	int GetScore();
-	void LoseLives();
-	int GetLives();
-	Point GetDirection();
-	Point GetPosition();
-	void setLives(int l);
+	void IncrementarPuntuación(int n);
+	int GetPuntos();
 
+	void setLives(int l);
+	void Ganar();
+	void PERDER();
+	void Intro(int count);
 	void Update();
 	void DrawDebug(const Color& col) const;
 	void Release();
+	void LoseLives();
+	int Getvidas();
+	Point GetDirection();
+	Point GetPosition();
 
-	void Win();
-	void Lose();
-	void Intro(int count);
 
 	bool lose = false;
 
@@ -56,16 +51,17 @@ public:
 	bool IntroUpdate(bool turn);
 
 private:
-	bool IsLookingRight() const;
-	bool IsLookingLeft() const;
-	bool IsLookingUp() const;
-	bool IsLookingDown() const;
-
-	//Player mechanics
+	bool MirandoDerecha() const;
+	bool MirandoIzquierda() const;
+	bool MirandoArrriba() const;
+	bool MirandoAbajo() const;
 	void Move();
-
-	//Animation management
 	void SetAnimation(int id);
+	void ChangeAnimRight();
+	void ChangeAnimLeft();
+	void ChangeAnimUp();
+	void ChangeAnimDown();
+
 	PlayerAnim GetAnimation();
 	void PARAR();
 	void StartWalkingLeft();
@@ -73,11 +69,7 @@ private:
 	void StartWalkingUp();
 	void StartWalkingDown();
 	void StartDying();
-	void ChangeAnimRight();
-	void ChangeAnimLeft();
-	void ChangeAnimUp();
-	void ChangeAnimDown();
-
+	
 	State state;
 	Look look;
 	//new var turn to check which way the player wants to turn (initialized as right since its the starting direction)
@@ -85,8 +77,8 @@ private:
 
 	TileMap* map;
 
-	int score;
-	int lives = 3;
+	int puntos;
+	int vidas = 3;
 	int count = 0;
 	bool pellet = false;
 	Sound sound_death;

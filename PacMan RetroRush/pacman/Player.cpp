@@ -10,7 +10,7 @@ Player::Player(const Point& p, State s, Look view) :
 	state = s;
 	look = view;
 	map = nullptr;
-	score = 0;
+	puntos = 0;
 }
 Player::~Player()
 {
@@ -26,7 +26,7 @@ AppStatus Player::Initialise()
 		return AppStatus::ERROR;
 	}
 
-	sound_death = data.GetSound(AudioResource::AUD_DEATH);
+	sound_death = data.GetSound(AudioResource::AUDIO_MUERTE);
 
 	render = new Sprite(data.GetTexture(Resource::IMG_PLAYER));
 	if (render == nullptr)
@@ -67,20 +67,20 @@ AppStatus Player::Initialise()
 		sprite->AddKeyFrame((int)PlayerAnim::WALKING_DOWN, { (float)i * n, 3 * n, n, n });
     };
 
-	sprite->SetAnimationDelay((int)PlayerAnim::DYING, ANIM_DELAY);
+	sprite->SetAnimationDelay((int)PlayerAnim::MURIENDO, ANIM_DELAY);
 	for (i = 0; i < 12; ++i){
-		sprite->AddKeyFrame((int)PlayerAnim::DYING, { (float)i * n, 4*n, n, n });
+		sprite->AddKeyFrame((int)PlayerAnim::MURIENDO, { (float)i * n, 4*n, n, n });
     };
 
 	//chae form dead to dying so one state has animation and the other is just tje dead character
 
-	sprite->SetAnimationDelay((int)PlayerAnim::CLOSED, ANIM_DELAY);
-	sprite->AddKeyFrame((int)PlayerAnim::CLOSED, { 0, 4 * n, n, n });
+	sprite->SetAnimationDelay((int)PlayerAnim::CERRADO, ANIM_DELAY);
+	sprite->AddKeyFrame((int)PlayerAnim::CERRADO, { 0, 4 * n, n, n });
 
-	sprite->SetAnimationDelay((int)PlayerAnim::HIDDEN, ANIM_DELAY);
-	sprite->AddKeyFrame((int)PlayerAnim::HIDDEN, { 4*n, 0, n, n });
+	sprite->SetAnimationDelay((int)PlayerAnim::ESCONDIDO, ANIM_DELAY);
+	sprite->AddKeyFrame((int)PlayerAnim::ESCONDIDO, { 4*n, 0, n, n });
 
-	sprite->SetAnimation((int)PlayerAnim::HIDDEN);
+	sprite->SetAnimation((int)PlayerAnim::ESCONDIDO);
 
 	return AppStatus::OK;
 }
@@ -91,14 +91,14 @@ bool Player::IntroUpdate(bool turn)
 		pos.x += PLAYER_SPEED;
 		if (state == State::IDLE) StartWalkingRight();
 		else {
-			if (!IsLookingRight()) ChangeAnimRight();
+			if (!MirandoDerecha()) ChangeAnimRight();
 		}
 	}
 	else {
 		pos.x += -PLAYER_SPEED;
 		if (state == State::IDLE) StartWalkingLeft();
 		else {
-			if (!IsLookingLeft()) ChangeAnimLeft();
+			if (!MirandoIzquierda()) ChangeAnimLeft();
 		}
 	}
 
@@ -107,19 +107,19 @@ bool Player::IntroUpdate(bool turn)
 }
 void Player::InitScore()
 {
-	score = 0;
+	puntos = 0;
 }
-void Player::IncrScore(int n)
+void Player::IncrementarPuntuación(int n)
 {
-	score += n;
+	puntos += n;
 }
-int Player::GetScore()
+int Player::GetPuntos()
 {
-	return score;
+	return puntos;
 }
-int Player::GetLives() 
+int Player::Getvidas() 
 {
-	return lives;
+	return vidas;
 }
 Point Player::GetDirection() 
 {
@@ -130,25 +130,25 @@ Point Player::GetPosition() {
 }
 void Player::setLives(int l) 
 {
-	lives = l;
+	vidas = l;
 }
 void Player::LoseLives() 
 {
-	--lives;
+	--vidas;
 }
 void Player::SetTileMap(TileMap* tilemap)
 {
 	map = tilemap;
 }
-void Player::Win() 
+void Player::Ganar() 
 {
-	SetAnimation((int)PlayerAnim::CLOSED);
+	SetAnimation((int)PlayerAnim::CERRADO);
 }
-void Player::Lose() {
+void Player::PERDER() {
 	lose = true;
 	if (count == 0) {
 		PlaySound(sound_death);
-		SetAnimation((int)PlayerAnim::DYING);
+		SetAnimation((int)PlayerAnim::MURIENDO);
 		LoseLives();
 	}
 
@@ -158,31 +158,31 @@ void Player::Lose() {
 		if (count < 48) {
 			Sprite* sprite = dynamic_cast<Sprite*>(render);
 			sprite->Update();
-		} else SetAnimation((int)PlayerAnim::HIDDEN);
+		} else SetAnimation((int)PlayerAnim::ESCONDIDO);
 	}
 	else {
 		lose = false;
 		count = 0;
-		SetAnimation((int)PlayerAnim::CLOSED);
+		SetAnimation((int)PlayerAnim::CERRADO);
 	}
 }
 void Player::Intro(int count) {
-	if(count <= 60) SetAnimation((int)PlayerAnim::CLOSED);
-	else SetAnimation((int)PlayerAnim::HIDDEN);
+	if(count <= 60) SetAnimation((int)PlayerAnim::CERRADO);
+	else SetAnimation((int)PlayerAnim::ESCONDIDO);
 }
-bool Player::IsLookingRight() const
+bool Player::MirandoDerecha() const
 {
 	return look == Look::RIGHT;
 }
-bool Player::IsLookingLeft() const
+bool Player::MirandoIzquierda() const
 {
 	return look == Look::LEFT;
 }
-bool Player::IsLookingUp() const
+bool Player::MirandoArrriba() const
 {
 	return look == Look::UP;
 }
-bool Player::IsLookingDown() const
+bool Player::MirandoAbajo() const
 {
 	return look == Look::DOWN;
 }
@@ -200,9 +200,9 @@ void Player::PARAR()
 {
 	dir = { 0,0 };
 	state = State::IDLE;
-	if (IsLookingRight())	SetAnimation((int)PlayerAnim::IDLE_RIGHT);
-	else if (IsLookingUp())  SetAnimation((int)PlayerAnim::IDLE_UP);
-	else if (IsLookingDown())  SetAnimation((int)PlayerAnim::IDLE_DOWN);
+	if (MirandoDerecha())	SetAnimation((int)PlayerAnim::IDLE_RIGHT);
+	else if (MirandoArrriba())  SetAnimation((int)PlayerAnim::IDLE_UP);
+	else if (MirandoAbajo())  SetAnimation((int)PlayerAnim::IDLE_DOWN);
 	else					SetAnimation((int)PlayerAnim::IDLE_LEFT);
 }
 void Player::StartWalkingLeft()
@@ -231,9 +231,9 @@ void Player::StartWalkingDown()
 }
 void Player::StartDying()
 {
-	state = State::DYING;
+	state = State::MURIENDO;
 	
-	SetAnimation((int)PlayerAnim::DYING);
+	SetAnimation((int)PlayerAnim::MURIENDO);
 }
 void Player::ChangeAnimRight()
 {
@@ -339,7 +339,7 @@ void Player::Move()
 		pos.x += -PLAYER_SPEED;
 		if (state == State::IDLE)StartWalkingLeft();
 		else {
-			if (!IsLookingLeft()) ChangeAnimLeft();
+			if (!MirandoIzquierda()) ChangeAnimLeft();
 		}
 
 		box = GetHitbox();
@@ -360,7 +360,7 @@ void Player::Move()
 		if (state == State::IDLE) StartWalkingRight();
 		else
 		{
-			if (!IsLookingRight()) ChangeAnimRight();
+			if (!MirandoDerecha()) ChangeAnimRight();
 		}
 
 		box = GetHitbox();
@@ -380,7 +380,7 @@ void Player::Move()
 		if (state == State::IDLE) StartWalkingUp();
 		else
 		{
-			if (!IsLookingUp()) ChangeAnimUp();
+			if (!MirandoArrriba()) ChangeAnimUp();
 		}
 
 		box = GetHitbox();
@@ -395,7 +395,7 @@ void Player::Move()
 		if (state == State::IDLE) StartWalkingDown();
 		else
 		{
-			if (!IsLookingDown()) ChangeAnimDown();
+			if (!MirandoAbajo()) ChangeAnimDown();
 		}
 
 		box = GetHitbox();
