@@ -1,4 +1,4 @@
-# PacMan
+# PacMan EXTREMO
 ## Project
 https://github.com/Lluccib/PacMan--RetroRush
 
