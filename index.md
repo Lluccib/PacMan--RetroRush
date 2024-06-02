@@ -36,16 +36,16 @@ Pac-Man is a classic arcade game developed by Toru Iwatani and released by Namco
     </ul>
 <!-- Embedded Gameplay Video -->
     <h2>Gameplay Video</h2>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/dScq4P5gn4A" frameborder="0" allowfullscreen></iframe>
 <!-- Replace VIDEO_ID with the actual ID of your YouTube video -->
 
 <!-- Download Link for Latest Release -->
    <h2>Latest Release</h2>
-    <p>Download the latest release of Pac-Man Tribute <a href="https://github.com/MrSant8/Pac-Man_UPC">here</a>.</p>
+   Download the latest release of Pac-Man Tribute <a href="https://github.com/Lluccib/PacMan--RetroRush">here</a>.
 
    <!-- Additional Information or Credits -->
-   <p>This project is a tribute to the original Pac-Man game released in 1980.</p>
-    <p>Special thanks to UPC for their support.</p>
+   This project is a tribute to the original Pac-Man game released in 1980.
+   Special thanks to UPC for their support.
 
 
 
