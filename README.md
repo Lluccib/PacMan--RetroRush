@@ -21,9 +21,9 @@
 
 **RETRORUSH**
 
-<p align="center">
-  <img src="https://github.com/Lluccib/PacMan--RetroRush/blob/main/Imatges/Logo.jpg" width="500" height="500"><br><br>
 
+
+![Logo](https://github.com/Lluccib/PacMan--RetroRush/assets/160216130/bbffdd6c-f51f-42ea-8971-1281cbc8806a)
 
 
 
