@@ -804,5 +804,5 @@ void Scene::RenderGUI() const
 	if (intro or levelintro) font->Draw((WINDOW_WIDTH / 2)-22, (WINDOW_HEIGHT / 2)+15, TextFormat("READY!"), YELLOW);
 	if (intro and intro_count > 60) font->Draw((WINDOW_WIDTH / 2) - 40, (WINDOW_HEIGHT / 2) - 32, TextFormat("PLAYER ONE"), CYANBLUE);
 
-	if(god_mode) font->Draw(WINDOW_WIDTH - 125, 5, TextFormat("GOD MODE ACTIVE"));
+	if(god_mode) font->Draw(WINDOW_WIDTH - 125, 5, TextFormat("modo god activo"));
 }

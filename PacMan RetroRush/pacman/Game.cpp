@@ -79,51 +79,112 @@ AppStatus Game::Initialise(float scale)
 AppStatus Game::LoadResources()
 {
     ResourceManager& data = ResourceManager::Instance();
-
-    if (data.LoadTexture(Resource::IMG_MENU, "Resources/Menus/homescreen.png") != AppStatus::OK)
+    //cargamos todos los assets para la intro
+    if (data.LoadTexture(Resource::IMG_MENU, "Resources/game_sprites/intro/full.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     img_menu = data.GetTexture(Resource::IMG_MENU);
 
-    if (data.LoadTexture(Resource::IMG_MENU_EMPTY, "Resources/Menus/homescreenempty.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU_EMPTY, "Resources/game_sprites/intro/empty.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     img_menu_empty = data.GetTexture(Resource::IMG_MENU_EMPTY);
 
-    if (data.LoadTexture(Resource::IMG_MENU_CLYDE, "Resources/Menus/homescreenclyde.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU_ORANGE, "Resources/game_sprites/intro/orange.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
-    img_menu_clyde = data.GetTexture(Resource::IMG_MENU_CLYDE);
+    img_menu_clyde = data.GetTexture(Resource::IMG_MENU_ORANGE);
 
-    if (data.LoadTexture(Resource::IMG_MENU_BLINKY, "Resources/Menus/homescreenblinky.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU_RED, "Resources/game_sprites/intro/red.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
-    img_menu_blinky = data.GetTexture(Resource::IMG_MENU_BLINKY);
+    img_menu_blinky = data.GetTexture(Resource::IMG_MENU_RED);
 
-    if (data.LoadTexture(Resource::IMG_MENU_PINKY, "Resources/Menus/homescreenpinky.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU_PINK, "Resources/game_sprites/intro/pink.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
-    img_menu_pinky = data.GetTexture(Resource::IMG_MENU_PINKY);
+    img_menu_pinky = data.GetTexture(Resource::IMG_MENU_PINK);
 
-    if (data.LoadTexture(Resource::IMG_MENU_INKY, "Resources/Menus/homescreeninky.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU_BLUE, "Resources/game_sprites/intro/blue.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
-    img_menu_inky = data.GetTexture(Resource::IMG_MENU_INKY);
+    img_menu_inky = data.GetTexture(Resource::IMG_MENU_BLUE);
 
-
-    //----------------------------------------------------------
     
-    if (data.LoadTexture(Resource::IMG_MENU1, "Resources/Menus/First menu.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU1, "Resources/game_sprites/intro/intro.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     menu1 = data.GetTexture(Resource::IMG_MENU1);
+
+    //-----------------------------------------------------------
+
+
+    if (data.LoadTexture(Resource::IMG_INTRO1, "Resources/game_sprites/preintro/imgintro1.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[0] = data.GetTexture(Resource::IMG_INTRO1);
+
+    if (data.LoadTexture(Resource::IMG_INTRO2, "Resources/game_sprites/preintro/imgintro2.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[1] = data.GetTexture(Resource::IMG_INTRO2);
+
+    if (data.LoadTexture(Resource::IMG_INTRO3, "Resources/game_sprites/preintro/imgintro3.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[2] = data.GetTexture(Resource::IMG_INTRO3);
+
+    if (data.LoadTexture(Resource::IMG_INTRO4, "Resources/game_sprites/preintro/imgintro4.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[3] = data.GetTexture(Resource::IMG_INTRO4);
+
+    if (data.LoadTexture(Resource::IMG_INTRO5, "Resources/game_sprites/preintro/imgintro5.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[4] = data.GetTexture(Resource::IMG_INTRO5);
+
+    if (data.LoadTexture(Resource::IMG_INTRO6, "Resources/game_sprites/preintro/imgintro6.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[5] = data.GetTexture(Resource::IMG_INTRO6);
+
+    if (data.LoadTexture(Resource::IMG_INTRO7, "Resources/game_sprites/preintro/imgintro7.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[6] = data.GetTexture(Resource::IMG_INTRO7);
+
+    if (data.LoadTexture(Resource::IMG_INTRO8, "Resources/game_sprites/preintro/imgintro8.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[7] = data.GetTexture(Resource::IMG_INTRO8);
+
+    if (data.LoadTexture(Resource::IMG_INTRO9, "Resources/game_sprites/preintro/imgintro9.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[8] = data.GetTexture(Resource::IMG_INTRO9);
+
+    if (data.LoadTexture(Resource::IMG_INTRO10, "Resources/game_sprites/preintro/imgintro10.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    ImagesIntro[9] = data.GetTexture(Resource::IMG_INTRO10);
 
     return AppStatus::OK;
 }
@@ -186,6 +247,10 @@ AppStatus Game::Update()
          if(BeginIntro() != AppStatus::OK) return AppStatus::ERROR;
          state = GameState::MAIN_MENU;
      }
+     else {
+
+         counter2 += 1.0f / 60.0f;
+     }
      break;
 
     case GameState::MAIN_MENU:
@@ -239,8 +304,66 @@ void Game::Render()
     switch (state)
     {
     case GameState::MENU:
-          
-        DrawTexture(*menu1, 0, 0, WHITE);
+        if (counter2 < 3.0f) {
+            DrawTexture(*menu1, 0, 0, WHITE);
+        }
+        else {
+            timer2 += 1.0f / 60.0f;
+            timer += 1.0f / 60.0f;
+            if (timer2 < 1.0f) {
+                if (timer >= 0.1f) { // Mostramos cada imagen durante 3 segundos
+                    currentImage++;
+                    if (currentImage == 2) {
+                        currentImage = 0;
+                    }
+                    timer = 0.0f;
+                }
+                DrawTexture(*ImagesIntro[currentImage], 0, 0, WHITE);
+            }
+            if (timer2 >= 1.0f && timer2 < 2.0f) {
+                if (timer >= 0.1f) { // Mostramos cada imagen durante 3 segundos
+                    currentImage++;
+                    if (currentImage == 4) {
+                        currentImage = 2;
+                    }
+                    timer = 0.0f;
+                }
+                DrawTexture(*ImagesIntro[currentImage], 0, 0, WHITE);
+            }
+            if (timer2 >= 2.0f && timer2 < 3.0f) {
+                if (timer >= 0.1f) { // Mostramos cada imagen durante 3 segundos
+                    currentImage++;
+                    if (currentImage == 6) {
+                        currentImage = 4;
+                    }
+                    timer = 0.0f;
+                }
+                DrawTexture(*ImagesIntro[currentImage], 0, 0, WHITE);
+            }
+            if (timer2 >= 3.0f && timer2 < 4.0f) {
+                if (timer >= 0.1f) { // Mostramos cada imagen durante 3 segundos
+                    currentImage++;
+                    if (currentImage == 8) {
+                        currentImage = 6;
+                    }
+                    timer = 0.0f;
+                }
+                DrawTexture(*ImagesIntro[currentImage], 0, 0, WHITE);
+            }
+            if (timer2 >= 4.0f && timer2 < 5.0f) {
+                if (timer >= 0.1f) { // Mostramos cada imagen durante 3 segundos
+                    currentImage++;
+                    if (currentImage == 10) {
+                        currentImage = 8;
+                    }
+                    timer = 0.0f;
+                }
+                DrawTexture(*ImagesIntro[currentImage], 0, 0, WHITE);
+            }
+
+        }
+
+        
         break;
 
     case GameState::MAIN_MENU:
@@ -297,12 +420,21 @@ void Game::UnloadResources()
 {
     ResourceManager& data = ResourceManager::Instance();
     data.ReleaseTexture(Resource::IMG_MENU);
-    data.ReleaseTexture(Resource::IMG_MENU_BLINKY);
-    data.ReleaseTexture(Resource::IMG_MENU_PINKY);
-    data.ReleaseTexture(Resource::IMG_MENU_INKY);
-    data.ReleaseTexture(Resource::IMG_MENU_CLYDE);
+    data.ReleaseTexture(Resource::IMG_MENU_RED);
+    data.ReleaseTexture(Resource::IMG_MENU_PINK);
+    data.ReleaseTexture(Resource::IMG_MENU_BLUE);
+    data.ReleaseTexture(Resource::IMG_MENU_ORANGE);
     data.ReleaseTexture(Resource::IMG_MENU_EMPTY);
-    data.ReleaseTexture(Resource::IMG_MENU1);
+    data.ReleaseTexture(Resource::IMG_INTRO1);
+    data.ReleaseTexture(Resource::IMG_INTRO2);
+    data.ReleaseTexture(Resource::IMG_INTRO3);
+    data.ReleaseTexture(Resource::IMG_INTRO4);
+    data.ReleaseTexture(Resource::IMG_INTRO5);
+    data.ReleaseTexture(Resource::IMG_INTRO6);
+    data.ReleaseTexture(Resource::IMG_INTRO7);
+    data.ReleaseTexture(Resource::IMG_INTRO8);
+    data.ReleaseTexture(Resource::IMG_INTRO9);
+    data.ReleaseTexture(Resource::IMG_INTRO10);
 
     UnloadRenderTexture(target);
 }
