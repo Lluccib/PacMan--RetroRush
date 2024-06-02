@@ -42,7 +42,7 @@ AppStatus Game::Initialise(float scale)
     h = WINDOW_HEIGHT * scale;
 
     //Initialise window
-    InitWindow((int)w, (int)h, "Pac-Man");
+    InitWindow((int)w, (int)h, "Pac-Man RetroRush");
 
     int monitor = GetCurrentMonitor();
     w2 = (float)GetMonitorWidth(monitor);
@@ -80,107 +80,105 @@ AppStatus Game::LoadResources()
 {
     ResourceManager& data = ResourceManager::Instance();
     //cargamos todos los assets para la intro
-    if (data.LoadTexture(Resource::IMG_MENU, "Resources/game_sprites/intro/full.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU, "Assets/sprites/intro/full.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     img_menu = data.GetTexture(Resource::IMG_MENU);
 
-    if (data.LoadTexture(Resource::IMG_MENU_EMPTY, "Resources/game_sprites/intro/empty.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU_EMPTY, "Assets/sprites/intro/empty.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     img_menu_empty = data.GetTexture(Resource::IMG_MENU_EMPTY);
 
-    if (data.LoadTexture(Resource::IMG_MENU_ORANGE, "Resources/game_sprites/intro/orange.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU_ORANGE, "Assets/sprites/intro/orange.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     img_menu_clyde = data.GetTexture(Resource::IMG_MENU_ORANGE);
 
-    if (data.LoadTexture(Resource::IMG_MENU_RED, "Resources/game_sprites/intro/red.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU_RED, "Assets/sprites/intro/red.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     img_menu_blinky = data.GetTexture(Resource::IMG_MENU_RED);
 
-    if (data.LoadTexture(Resource::IMG_MENU_PINK, "Resources/game_sprites/intro/pink.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU_PINK, "Assets/sprites/intro/pink.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     img_menu_pinky = data.GetTexture(Resource::IMG_MENU_PINK);
 
-    if (data.LoadTexture(Resource::IMG_MENU_BLUE, "Resources/game_sprites/intro/blue.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU_BLUE, "Assets/sprites/intro/blue.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     img_menu_inky = data.GetTexture(Resource::IMG_MENU_BLUE);
 
     
-    if (data.LoadTexture(Resource::IMG_MENU1, "Resources/game_sprites/intro/intro.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_MENU1, "Assets/sprites/intro/intro.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     menu1 = data.GetTexture(Resource::IMG_MENU1);
 
-    //-----------------------------------------------------------
 
-
-    if (data.LoadTexture(Resource::IMG_INTRO1, "Resources/game_sprites/preintro/imgintro1.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_INTRO1, "Assets/sprites/preintro/imgintro1.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     ImagesIntro[0] = data.GetTexture(Resource::IMG_INTRO1);
 
-    if (data.LoadTexture(Resource::IMG_INTRO2, "Resources/game_sprites/preintro/imgintro2.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_INTRO2, "Assets/sprites/preintro/imgintro2.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     ImagesIntro[1] = data.GetTexture(Resource::IMG_INTRO2);
 
-    if (data.LoadTexture(Resource::IMG_INTRO3, "Resources/game_sprites/preintro/imgintro3.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_INTRO3, "Assets/sprites/preintro/imgintro3.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     ImagesIntro[2] = data.GetTexture(Resource::IMG_INTRO3);
 
-    if (data.LoadTexture(Resource::IMG_INTRO4, "Resources/game_sprites/preintro/imgintro4.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_INTRO4, "Assets/sprites/preintro/imgintro4.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     ImagesIntro[3] = data.GetTexture(Resource::IMG_INTRO4);
 
-    if (data.LoadTexture(Resource::IMG_INTRO5, "Resources/game_sprites/preintro/imgintro5.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_INTRO5, "Assets/sprites/preintro/imgintro5.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     ImagesIntro[4] = data.GetTexture(Resource::IMG_INTRO5);
 
-    if (data.LoadTexture(Resource::IMG_INTRO6, "Resources/game_sprites/preintro/imgintro6.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_INTRO6, "Assets/sprites/preintro/imgintro6.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     ImagesIntro[5] = data.GetTexture(Resource::IMG_INTRO6);
 
-    if (data.LoadTexture(Resource::IMG_INTRO7, "Resources/game_sprites/preintro/imgintro7.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_INTRO7, "Assets/sprites/preintro/imgintro7.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     ImagesIntro[6] = data.GetTexture(Resource::IMG_INTRO7);
 
-    if (data.LoadTexture(Resource::IMG_INTRO8, "Resources/game_sprites/preintro/imgintro8.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_INTRO8, "Assets/sprites/preintro/imgintro8.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     ImagesIntro[7] = data.GetTexture(Resource::IMG_INTRO8);
 
-    if (data.LoadTexture(Resource::IMG_INTRO9, "Resources/game_sprites/preintro/imgintro9.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_INTRO9, "Assets/sprites/preintro/imgintro9.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }
     ImagesIntro[8] = data.GetTexture(Resource::IMG_INTRO9);
 
-    if (data.LoadTexture(Resource::IMG_INTRO10, "Resources/game_sprites/preintro/imgintro10.png") != AppStatus::OK)
+    if (data.LoadTexture(Resource::IMG_INTRO10, "Assets/sprites/preintro/imgintro10.png") != AppStatus::OK)
     {
         return AppStatus::ERROR;
     }

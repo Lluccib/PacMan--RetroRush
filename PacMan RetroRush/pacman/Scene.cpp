@@ -186,7 +186,7 @@ AppStatus Scene::Init()
 		LOG("Failed to allocate memory for font");
 		return AppStatus::ERROR;
 	}
-	if (font->Initialise(Resource::IMG_FONT, "Resources/game_sprites/fuente1.png", ' ', 8) != AppStatus::OK)
+	if (font->Initialise(Resource::IMG_FONT, "Assets/sprites/fuente1.png", ' ', 8) != AppStatus::OK)
 	{
 		LOG("Failed to initialise Level");
 		return AppStatus::ERROR;
