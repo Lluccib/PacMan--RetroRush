@@ -101,6 +101,7 @@ private:
 	//Tile sheet
 	const Texture2D *img_tiles;
 	const Texture2D* img_items;
+	const Texture2D* img_items2;
 	RenderComponent* render;
 
 	Vector2 pos;

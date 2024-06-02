@@ -255,6 +255,46 @@ void Scene::Update()
 		objects.push_back(obj); 
 	}
 
+	//godmode
+	if (IsKeyPressed(KEY_F4)) {
+		if (god_mode) god_mode = false;
+		else god_mode = true;
+	}
+
+	//Debug levels instantly
+	if (IsKeyPressed(KEY_ONE)) {
+		level_count = 1;
+		LoadLevel(1);
+	}
+	if (IsKeyPressed(KEY_TWO)) {
+		level_count = 2;
+		LoadLevel(2);
+	}
+
+	if (EndLevel) {
+		StopSound(sirens[siren]);
+		collectPellet = false;
+		pellet_timer = PELLETTIME;
+		if (IsSoundPlaying(sound_pellet)) StopSound(sound_pellet);
+
+		level->win = true;
+		player->Win();
+		/*inky->WinLose();
+		blinky->WinLose();
+		pinky->WinLose();
+		clyde->WinLose();*/
+		win = true;
+
+		LoadLevel(0);
+		EndLevel = false;
+	}
+
+	if (fruitcounter == 0) {
+		Object* obj = new Object({ fruitX, fruitY }, level_count);
+		objects.push_back(obj);
+	}
+	fruitcounter--;
+
 	level->Update();
 	player->Update();
 	CheckCollisions();

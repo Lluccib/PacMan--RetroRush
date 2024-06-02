@@ -39,7 +39,7 @@ Object::Object(const Point& p, int fruit) : Entity(p, OBJECT_PHYSICAL_SIZE, OBJE
 	}
 
 	ResourceManager& data = ResourceManager::Instance();
-	render = new StaticImage(data.GetTexture(Resource::IMG_ITEMS), rc, true);
+	render = new StaticImage(data.GetTexture(Resource::IMG_ITEMS2), rc, true);
 }
 Object::~Object()
 {
@@ -53,6 +53,7 @@ int Object::Points() const
 	if (type == ObjectType::APPLE)		return POINTS_APPLE;
 	else if (type == ObjectType::CHILI)	return POINTS_CHILI;
 	else if (type == ObjectType::MONDONGO) return POINTS_MONDONGO;
+	else if (type == ObjectType::STRAWBERRY) return POINTS_STRAWBERRY;
 	else
 	{
 		LOG("Internal error: object type invalid when giving points");

@@ -93,6 +93,12 @@ AppStatus TileMap::Initialise()
 	}
 	img_items = data.GetTexture(Resource::IMG_ITEMS);
 
+	if (data.LoadTexture(Resource::IMG_ITEMS2, "images/objetitos3.png") != AppStatus::OK)
+	{
+		return AppStatus::ERROR;
+	}
+	img_items2 = data.GetTexture(Resource::IMG_ITEMS2);
+
 	laser = new Sprite(img_tiles);
 	if (laser == nullptr)
 	{

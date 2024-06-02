@@ -28,6 +28,7 @@ enum class Resource {
     IMG_PLAYER,
     IMG_TILES,
     IMG_ITEMS,
+    IMG_ITEMS2,
     IMG_WIN,
     IMG_LOSE,
 };
