@@ -1,51 +1,33 @@
-# PacMan EXTREMO
-## Project
-https://github.com/Lluccib/PacMan--RetroRush
+"This is a triubute to Toru Iwatani 's original Pacman of 1980 by two students."
 
-## Video
 
-## Team members
-Lluc Cid Bernal
+  - **Introduction**
 
-CLaudia Ruiz
+ Pac-Man is a classic arcade game developed by Toru Iwatani and released by Namco in 1980. The game features a yellow character navigating a maze, eating pellets, and avoiding ghosts. It's a timeless, iconic game that has left a significant mark on pop culture. Our team has created a small tribute to this legendary classic.
 
-### Github acount
+  - **Members**
 
-Lluccib
 
-https://github.com/Lluccib
+    **RETRORUSH**
+    
+    ![LOGO](https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Logo.jpg)
 
-cla4d1a
+    **Lluc Cid Bernal**:                   Design / QA / Code /  Art / Project Management
+    
+  [GitHub Profile](https://github.com/Lluccib)
 
-https://github.com/cla4d1a
+    
+    ![god](https://github.com/paolo2kk/BubbleBobble-PatoProductions/assets/121867499/caad0bfd-7d34-445d-887c-97cf6baa61f1)
 
-## Description
 
-Welcome to the captivating world of Pac-Man, the iconic game that has enthralled players of all ages since its debut in 1980! Get ready to immerse yourself in a maze full of excitement and challenges.
+    **Claudia Ruiz Muñoz**:                                Design / QA / Code /  Art / Project Management
+    
+ [GitHub Profile](https://github.com/cla4d1a)
 
-In Pac-Man, you take on the role of the intrepid yellow hero as you venture through a maze packed with delicious dots and, of course, cunning ghosts that will try to catch you. But fear not! With your skill and cunning, you must devour all the dots while avoiding the persistent ghosts.
 
-## Key Features
+    ![Lewis_MTR](https://github.com/paolo2kk/BubbleBobble-PatoProductions/assets/121867499/cb124cb9-65f4-4feb-a144-52344fd75ed4)
 
- - Move Right, left, up or down to advance
- - Collect power ups to get stronger and eat ghosts!
- - Collect all the pills and fruits on the map to earn points and advance to the next level.
-
-## Controls
-
- - Key left-> move left
- - Key right  -> move right
- - Key up -> move up
- - Key down -> move down
- - F1 -> God mode
- - F2 -> Display colliders
- - F3 -> Direct win
- - F4 -> Direct lose
- - F5 -> Restart level
-
-## Features implemented
- - Basic player mechanics: move and eat.
- - Items or prop : pills and power-up pills.
- - Win and lose conditions.
- - Debug functionality: F1 (god mode), F2 (display colliders), F3 (direct win) and F4 (direct lose).
-   
+    
+  - Contact"
+    |
+      For support or inquiries, reach out to us at [gpaucayuela@gmail.com](mailto:gpaucayuela@gmail.com).
