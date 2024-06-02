@@ -27,8 +27,8 @@ Pac-Man is a classic arcade game developed by Toru Iwatani and released by Namco
 
    <ul>
         <li>
-            <strong>Lluc Cid Bernal</strong>: Design / QA / Code / Art / Project Management
-            <img src="Imatges/Grup/lluc.png" alt="Lluc">
+            <strong>Lluc Cid Bernal</strong>: Design / QA / Code / Art / Project Management  <br>
+           <img src="Imatges/Grup/lluc.png" alt="LLuc" width="150" height="auto">
             <br>
             <a href="https://github.com/Lluccib">GitHub Profile</a>
         </li>
