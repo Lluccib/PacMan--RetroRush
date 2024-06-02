@@ -23,59 +23,60 @@ TileMap::~TileMap()
 void TileMap::InitTileDictionary()
 {
 	const int n = TILE_SIZE;
-	const int k = TILE_SIZE + 1; //for the gray border in the tileset
+	//nos sirve para saber que rectangulo de la imagen de tiles corresponde a cada tile
+	const int Z = TILE_SIZE + 1;
 
-	dict_rect[(int)Tile::AIR] = { 12*k,  2*k, n, n };
+	dict_rect[(int)Tile::AIR] = { 12*Z,  2*Z, n, n };
 
 	dict_rect[(int)Tile::DOUBLECORNER_TR] = { 0,  0, n, n };
-	dict_rect[(int)Tile::DOUBLECORNER_TL] = { k,  0, n, n };
-	dict_rect[(int)Tile::DOUBLEWALL_R] = { 2*k, 0, n, n };
-	dict_rect[(int)Tile::DOUBLEWALL_L] = { 3 * k, 0, n, n };
-	dict_rect[(int)Tile::DOUBLECORNER_BR] = { 4 * k, 0, n, n };
-	dict_rect[(int)Tile::DOUBLECORNER_BL] = { 5 * k, 0, n, n };
-	dict_rect[(int)Tile::CORNERWALL_BR] = { 6 * k, 0, n, n };
-	dict_rect[(int)Tile::CORNERWALL_BL] = { 7 * k, 0, n, n };
-	dict_rect[(int)Tile::CORNERWALL_TR] = { 8 * k, 0, n, n };
-	dict_rect[(int)Tile::CORNERWALL_TL] = { 9 * k, 0, n, n };
-	dict_rect[(int)Tile::DOUBLEWALL_TR] = { 10 * k, 0, n, n };
-	dict_rect[(int)Tile::DOUBLEWALL_TL] = { 11 * k, 0, n, n };
-	dict_rect[(int)Tile::DOUBLEWALL_BR] = { 12 * k, 0, n, n };
-	dict_rect[(int)Tile::DOUBLEWALL_BL] = { 13 * k, 0, n, n };
-	dict_rect[(int)Tile::WALL_BR] = { 14 * k, 0, n, n };
-	dict_rect[(int)Tile::WALL_BL] = { 15 * k, 0, n, n };
+	dict_rect[(int)Tile::DOUBLECORNER_TL] = { Z,  0, n, n };
+	dict_rect[(int)Tile::DOUBLEWALL_R] = { 2*Z, 0, n, n };
+	dict_rect[(int)Tile::DOUBLEWALL_L] = { 3 * Z, 0, n, n };
+	dict_rect[(int)Tile::DOUBLECORNER_BR] = { 4 * Z, 0, n, n };
+	dict_rect[(int)Tile::DOUBLECORNER_BL] = { 5 * Z, 0, n, n };
+	dict_rect[(int)Tile::CORNERWALL_BR] = { 6 * Z, 0, n, n };
+	dict_rect[(int)Tile::CORNERWALL_BL] = { 7 * Z, 0, n, n };
+	dict_rect[(int)Tile::CORNERWALL_TR] = { 8 * Z, 0, n, n };
+	dict_rect[(int)Tile::CORNERWALL_TL] = { 9 * Z, 0, n, n };
+	dict_rect[(int)Tile::DOUBLEWALL_TR] = { 10 * Z, 0, n, n };
+	dict_rect[(int)Tile::DOUBLEWALL_TL] = { 11 * Z, 0, n, n };
+	dict_rect[(int)Tile::DOUBLEWALL_BR] = { 12 * Z, 0, n, n };
+	dict_rect[(int)Tile::DOUBLEWALL_BL] = { 13 * Z, 0, n, n };
+	dict_rect[(int)Tile::WALL_BR] = { 14 * Z, 0, n, n };
+	dict_rect[(int)Tile::WALL_BL] = { 15 * Z, 0, n, n };
 
-	dict_rect[(int)Tile::LARGECORNER_BR] = { 0,  k, n, n };
-	dict_rect[(int)Tile::LARGECORNER_BL] = { k,  k, n, n };
-	dict_rect[(int)Tile::LARGECORNER_TR] = { 2 * k, k, n, n };
-	dict_rect[(int)Tile::LARGECORNER_TL] = { 3 * k, k, n, n };
-	dict_rect[(int)Tile::WALL_TR] = { 4 * k, k, n, n };
-	dict_rect[(int)Tile::WALL_TL] = { 5 * k, k, n, n };
-	dict_rect[(int)Tile::CORNER_TR] = { 6 * k, k, n, n };
-	dict_rect[(int)Tile::CORNER_TL] = { 7 * k, k, n, n };
-	dict_rect[(int)Tile::WALL_R] = { 8 * k, k, n, n };
-	dict_rect[(int)Tile::WALL_L] = { 9 * k, k, n, n };
-	dict_rect[(int)Tile::CORNER_BR] = { 10 * k, k, n, n };
-	dict_rect[(int)Tile::CORNER_BL] = { 11 * k, k, n, n };
-	dict_rect[(int)Tile::SQUARECORNER_TR] = { 12 * k, k, n, n };
-	dict_rect[(int)Tile::SQUARECORNER_TL] = { 13 * k, k, n, n };
-	dict_rect[(int)Tile::SQUARECORNER_BR] = { 14 * k, k, n, n };
-	dict_rect[(int)Tile::SQUARECORNER_BL] = { 15 * k, k, n, n };
+	dict_rect[(int)Tile::LARGECORNER_BR] = { 0,  Z, n, n };
+	dict_rect[(int)Tile::LARGECORNER_BL] = { Z,  Z, n, n };
+	dict_rect[(int)Tile::LARGECORNER_TR] = { 2 * Z, Z, n, n };
+	dict_rect[(int)Tile::LARGECORNER_TL] = { 3 * Z, Z, n, n };
+	dict_rect[(int)Tile::WALL_TR] = { 4 * Z, Z, n, n };
+	dict_rect[(int)Tile::WALL_TL] = { 5 * Z, Z, n, n };
+	dict_rect[(int)Tile::CORNER_TR] = { 6 * Z, Z, n, n };
+	dict_rect[(int)Tile::CORNER_TL] = { 7 * Z, Z, n, n };
+	dict_rect[(int)Tile::WALL_R] = { 8 * Z, Z, n, n };
+	dict_rect[(int)Tile::WALL_L] = { 9 * Z, Z, n, n };
+	dict_rect[(int)Tile::CORNER_BR] = { 10 * Z, Z, n, n };
+	dict_rect[(int)Tile::CORNER_BL] = { 11 * Z, Z, n, n };
+	dict_rect[(int)Tile::SQUARECORNER_TR] = { 12 * Z, Z, n, n };
+	dict_rect[(int)Tile::SQUARECORNER_TL] = { 13 * Z, Z, n, n };
+	dict_rect[(int)Tile::SQUARECORNER_BR] = { 14 * Z, Z, n, n };
+	dict_rect[(int)Tile::SQUARECORNER_BL] = { 15 * Z, Z, n, n };
 
-	dict_rect[(int)Tile::SQUAREWALL_L] = { 0,  2*k, n, n };
-	dict_rect[(int)Tile::SQUAREWALL_R] = { k,  2 * k, n, n };
-	dict_rect[(int)Tile::TOPCORNER_L] = { 2 * k, 2 * k, n, n };
-	dict_rect[(int)Tile::TOPCORNER_R] = { 3 * k, 2 * k, n, n };
-	dict_rect[(int)Tile::BOTTOMCORNER_L] = { 4 * k, 2 * k, n, n };
-	dict_rect[(int)Tile::BOTTOMCORNER_R] = { 5 * k, 2 * k, n, n };
-	dict_rect[(int)Tile::SMALLCORNER_TR] = { 6 * k, 2 * k, n, n };
-	dict_rect[(int)Tile::SMALLCORNER_TL] = { 7 * k, 2 * k, n, n };
-	dict_rect[(int)Tile::SMALLCORNER_BR] = { 8 * k, 2 * k, n, n };
-	dict_rect[(int)Tile::SMALLCORNER_BL] = { 9 * k, 2 * k, n, n };
-	dict_rect[(int)Tile::TOPCORNERWALL_L] = { 10 * k, 2 * k, n, n };
-	dict_rect[(int)Tile::TOPCORNERWALL_R] = { 11 * k, 2 * k, n, n };
+	dict_rect[(int)Tile::SQUAREWALL_L] = { 0,  2*Z, n, n };
+	dict_rect[(int)Tile::SQUAREWALL_R] = { Z,  2 * Z, n, n };
+	dict_rect[(int)Tile::TOPCORNER_L] = { 2 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::TOPCORNER_R] = { 3 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::BOTTOMCORNER_L] = { 4 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::BOTTOMCORNER_R] = { 5 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::SMALLCORNER_TR] = { 6 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::SMALLCORNER_TL] = { 7 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::SMALLCORNER_BR] = { 8 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::SMALLCORNER_BL] = { 9 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::TOPCORNERWALL_L] = { 10 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::TOPCORNERWALL_R] = { 11 * Z, 2 * Z, n, n };
 
-	dict_rect[(int)Tile::FRUIT_ICON_1] = { 0, 3 * k, n*2, n*2 };
-	dict_rect[(int)Tile::FRUIT_ICON_2] = { n*2, 3 * k, n*2, n*2 };
+	dict_rect[(int)Tile::FRUIT_ICON_1] = { 0, 3 * Z, n*2, n*2 };
+	dict_rect[(int)Tile::FRUIT_ICON_2] = { n*2, 3 * Z, n*2, n*2 };
 
 }
 AppStatus TileMap::Initialise()
