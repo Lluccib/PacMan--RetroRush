@@ -9,13 +9,16 @@
 
     **RETRORUSH**
 
-![logo](https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Logo.jpg)
-    **LLuc Cid i Bernal**:                    Design / QA / Code /  Art / Project Management 
+<img src="https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Logo.jpg" width="800" height="800">
+
+
+
+**LLuc Cid i Bernal**:                    Design / QA / Code /  Art / Project Management 
     
  [GitHub Profile](https://github.com/Lluccib)
 
-    
-  ![Lluc](https://raw.githubusercontent.com/Lluccib/PacMan--RetroRush/web/Imatges/Grup/lluc.png)
+  <img src="https://raw.githubusercontent.com/Lluccib/PacMan--RetroRush/web/Imatges/Grup/lluc.png" width="200" height="200"> 
+  
 
 
  **Claudia Ruiz Muñoz**:                           Design / QA / Code / Art / Project Management 
@@ -23,8 +26,8 @@
   [GitHub Profile](https://github.com/cla4d1a)
 
 
-
-   ![Clau](https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Grup/clau.png)
+<img src="https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Grup/clau.png" width="200" height="200"> 
+  
 
     
   - **Gameplay**
