@@ -51,4 +51,12 @@ In Pac-Man, you take on the role of the intrepid yellow hero as you venture thro
  - Win and lose conditions.
  - Debug functionality: F1 (colliders), F2 (win), F3 (lose) and F4 (god mode).
  - Skip levels (press 1 or 2)
-   
+ - Correct player movements
+ - Lives and score systems
+ - UI implementation
+ - Enemies implementation
+ - Menu implementation
+ - Audio features implementations
+ - Entire level 1 and 2.
+ - Debug functionalities
+ - Interactive objects and power ups
