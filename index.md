@@ -13,13 +13,13 @@
 
 **RETRORUSH**
 
-<p align="center">
-  <img src="https://github.com/Lluccib/PacMan--RetroRush/blob/main/Imatges/Logo.jpg" width="500" height="500"><br><br>
+
 
 
 **Lluc Cid Bernal:** Design / QA / Code / Art / Project Management
 
- 
+ ![Logo](https://github.com/Lluccib/PacMan--RetroRush/assets/160216130/67b9eb92-839a-47bd-ad4f-3ec020d85473)
+
     
    <img src="https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Grup/lluc.png" width="200" height="200">
 
