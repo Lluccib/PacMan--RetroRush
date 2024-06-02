@@ -51,6 +51,11 @@ const Texture2D* ResourceManager::GetTexture(Resource id) const
     return nullptr;
 }
 
+Sound ResourceManager::GetSound(AudioResource id) const
+{
+    return (sounds[(int)id]);
+}
+
 void ResourceManager::Release()
 {
     for (auto& pair : textures)

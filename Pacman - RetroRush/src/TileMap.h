@@ -29,6 +29,8 @@ enum class Tile {
 	KEY_RED = 60, YELLOW_KEY, ITEM_APPLE, ITEM_CHILI,
 	LASER = 70, LASER_FRAME0, LASER_FRAME1, LASER_FRAME2,
 
+	GHOST_DOOR = 80, GHOST_DOOR2,
+
 	// id >= 100: entities' initial locations
 	PLAYER = 100,
 
@@ -60,6 +62,11 @@ public:
 	bool TestCollisionWallRight(const AABB& box) const;
 	bool TestCollisionWallUp(const AABB& box) const;
 	bool TestCollisionWallDown(const AABB& box) const;
+
+	bool TestCollisionWallLeft(const AABB& box, bool door) const;
+	bool TestCollisionWallRight(const AABB& box, bool door) const;
+	bool TestCollisionWallUp(const AABB& box, bool door) const;
+	bool TestCollisionWallDown(const AABB& box, bool door) const;
 	
 	Tile TestSideExit(const AABB& box) const;
 	bool SolidTest(const AABB& box) const;
@@ -84,6 +91,9 @@ private:
 
 	bool CollisionX(const Point& p, int distance) const;
 	bool CollisionY(const Point& p, int distance) const;
+	//FANTASMAS
+	bool CollisionX(const Point& p, int distance, bool door) const;
+	bool CollisionY(const Point& p, int distance, bool door) const;
 
 
 

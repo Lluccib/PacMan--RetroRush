@@ -31,6 +31,24 @@ enum class Resource {
     IMG_ITEMS2,
     IMG_WIN,
     IMG_LOSE,
+    IMG_ENEMY
+};
+
+enum class AudioResource {
+    AUD_INTRO,
+    AUD_MUNCH1,
+    AUD_MUNCH2,
+    AUD_DEATH,
+    AUD_SIREN1,
+    AUD_SIREN2,
+    AUD_SIREN3,
+    AUD_SIREN4,
+    AUD_SIREN5,
+    AUD_PELLET,
+    AUD_FRUIT,
+    AUD_EATGHOST,
+    AUD_RETREAT,
+    AUD_NUM
 };
 
 class ResourceManager {
@@ -48,7 +66,7 @@ public:
 
     //Get texture by key
     const Texture2D* GetTexture(Resource id) const;
-
+    Sound GetSound(AudioResource id) const;
     //Release resources
     void Release();
 
@@ -64,4 +82,5 @@ private:
 
     //Dictionary to store loaded textures
     std::unordered_map<Resource, Texture2D> textures;
+    Sound sounds[(int)AudioResource::AUD_NUM];
 };
