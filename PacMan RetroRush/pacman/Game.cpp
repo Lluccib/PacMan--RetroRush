@@ -5,7 +5,7 @@
 
 Game::Game()
 {
-    state = GameState::MENU;
+    state = GameState::EMPEZAR;
     scene = nullptr;
     intro = nullptr;
     img_menu = nullptr;
@@ -238,12 +238,12 @@ AppStatus Game::Update()
     switch (state)
     {
 
-    case GameState::MENU:
+    case GameState::EMPEZAR:
      if (IsKeyPressed(KEY_ESCAPE)) return AppStatus::QUIT;
      if(IsKeyPressed(KEY_SPACE))
      {
          if(BeginIntro() != AppStatus::OK) return AppStatus::ERROR;
-         state = GameState::MAIN_MENU;
+         state = GameState::MENU_PRINCIPAL;
      }
      else {
 
@@ -251,14 +251,14 @@ AppStatus Game::Update()
      }
      break;
 
-    case GameState::MAIN_MENU:
+    case GameState::MENU_PRINCIPAL:
 
 
         if (IsKeyPressed(KEY_ESCAPE))
         {
             FinishIntro();
             counter = 0;
-            state = GameState::MENU;
+            state = GameState::EMPEZAR;
         }
         else if (IsKeyPressed(KEY_SPACE))
         {
@@ -266,7 +266,7 @@ AppStatus Game::Update()
             counter = 0;
             if (BeginPlay() != AppStatus::OK) return AppStatus::ERROR;
             scene->intro = true;
-            state = GameState::PLAYING;
+            state = GameState::JUGANDO;
         }
         else {
             if (counter >= 840) {
@@ -277,12 +277,12 @@ AppStatus Game::Update()
         }
         break;
 
-    case GameState::PLAYING:
+    case GameState::JUGANDO:
         if (IsKeyPressed(KEY_ESCAPE) || scene->EndGame)
         {
             FinishPlay();
             if (BeginIntro() != AppStatus::OK) return AppStatus::ERROR;
-            state = GameState::MAIN_MENU;
+            state = GameState::MENU_PRINCIPAL;
         }
         else
         {
@@ -301,7 +301,7 @@ void Game::Render()
 
     switch (state)
     {
-    case GameState::MENU:
+    case GameState::EMPEZAR:
         if (counter2 < 3.0f) {
             DrawTexture(*menu1, 0, 0, WHITE);
         }
@@ -360,11 +360,9 @@ void Game::Render()
             }
 
         }
-
-        
         break;
 
-    case GameState::MAIN_MENU:
+    case GameState::MENU_PRINCIPAL:
         if (counter <= 60) {
             DrawTexture(*img_menu_empty, 0, 0, WHITE);
         }
@@ -397,7 +395,7 @@ void Game::Render()
         }
         break;
 
-    case GameState::PLAYING:
+    case GameState::JUGANDO:
         scene->Render();
         break;
     }

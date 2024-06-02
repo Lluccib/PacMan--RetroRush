@@ -3,7 +3,7 @@
 #include "Scene.h"
 #include "Intro.h"
 
-enum class GameState { MENU, MAIN_MENU, INTRO, PLAYING, SETTINGS, CREDITS };
+enum class GameState { EMPEZAR, MENU_PRINCIPAL, INTRO, JUGANDO, SETTINGS, CREDITS };
 
 class Game
 {

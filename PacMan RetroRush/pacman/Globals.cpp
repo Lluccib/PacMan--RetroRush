@@ -21,10 +21,7 @@ void log(const char file[], int line, const char* text, ...)
     //Construct the log message
     sprintf_s(tmp_string2, 256, "%s(%d): %s\n", filename, line, tmp_string);
 
-    //Option 1: print message in console (C), printf(tmp_string2);
-    //Option 2: print message in console (C++), std::cout << tmp_string2;
-    //Option 3: print message in Visual Studio output tab, OutputDebugString((LPCWSTR)tmp_string2);
-    //Option 4: use a log file
+
 
     //Open the log file
     std::ofstream logfile;
