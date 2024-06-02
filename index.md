@@ -7,7 +7,7 @@ HOLA HOLA HOLA HOLA HOLA
 
 
 
-  ![gif](https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/gif.gif)
+ <img src="gif.gif" alt="gift">
 
 <br>
 
@@ -26,7 +26,7 @@ HOLA HOLA HOLA HOLA HOLA
 
 
 
-![Logo](https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Logo.jpg)
+<img src="Logo.jpg" alt="Team Photo">
 
 
 
@@ -35,8 +35,7 @@ HOLA HOLA HOLA HOLA HOLA
 **Lluc Cid Bernal:** Design / QA / Code / Art / Project Management
 
  
-  ![lluc](https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Grup/lluc.png)
-
+ <img src="lluc.png" alt="LLuc">
  
 
   [GitHub Profile](https://github.com/Lluccib)<br><br>
@@ -45,7 +44,7 @@ HOLA HOLA HOLA HOLA HOLA
 **Claudia Ruiz Muñoz**:                                Design / QA / Code /  Art / Project Management
     
 
-![clau](https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/clau.jpg)
+<img src="clau.jpg" alt="Clau">
 
 
  [GitHub Profile](https://github.com/cla4d1a)
