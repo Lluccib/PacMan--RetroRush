@@ -37,15 +37,26 @@ In Pac-Man, you take on the role of the intrepid yellow hero as you venture thro
  - Key right  -> move right
  - Key up -> move up
  - Key down -> move down
- - F1 -> God mode
- - F2 -> Display colliders
- - F3 -> Direct win
- - F4 -> Direct lose
- - F5 -> Restart level
+ - F1 -> Show Colliders
+ - F2 -> Win functionality
+ - F3 -> Lose functionality
+ - F4 -> God Mode
+ - F5 -> Spawn random fruits
+ - Key 1 -> skip to level 1
+ - Key 2 -> skip to level 2
 
 ## Features implemented
- - Basic player mechanics: move and eat.
- - Items or prop : pills and power-up pills.
+ - Basic player mechanics: move to eat fruits and escape from the ghosts, or eat them too.
+ - Items or prop : pills and power-up pills and fruits
  - Win and lose conditions.
- - Debug functionality: F1 (god mode), F2 (display colliders), F3 (direct win) and F4 (direct lose).
-   
+ - Debug functionality: F1 (colliders), F2 (win), F3 (lose) and F4 (god mode).
+ - Skip levels (press 1 or 2)
+ - Correct player movements
+ - Lives and score systems
+ - UI implementation
+ - Enemies implementation
+ - Menu implementation
+ - Audio features implementations
+ - Entire level 1 and 2.
+ - Debug functionalities
+ - Interactive objects and power ups
