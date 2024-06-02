@@ -5,6 +5,12 @@ StaticImage::StaticImage(const Texture2D* texture, const Rectangle& rect)
 	img = texture;
 	rc = rect;
 }
+StaticImage::StaticImage(const Texture2D* texture, const Rectangle& rect, bool t)
+{
+	img = texture;
+	rc = rect;
+	type = true;
+}
 StaticImage::~StaticImage()
 {
 }

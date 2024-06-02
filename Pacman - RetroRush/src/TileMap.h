@@ -61,20 +61,16 @@ public:
 	bool TestCollisionWallUp(const AABB& box) const;
 	bool TestCollisionWallDown(const AABB& box) const;
 	
+	Tile TestSideExit(const AABB& box) const;
+	bool SolidTest(const AABB& box) const;
+	
+
+	bool win = false;
+	bool lose = false;
+
 	//Test collision with the ground and update 'py' with the maximum y-position to prevent
 	//penetration of the grounded tile, that is, the pixel y-position above the grounded tile.
 	//Grounded tile = solid tile (blocks) or ladder tops.
-	bool TestCollisionGround(const AABB& box, int *py) const;
-	
-	//Test if there is a ground tile one pixel below the given box
-	bool TestFalling(const AABB& box) const;
-	
-	//Test if box is on ladder and update 'px' with the x-center position of the ladder
-	bool TestOnLadder(const AABB& box, int* px) const;
-	
-	//Test if box is on ladder top and update 'px' with the x-center position of the ladder
-	bool TestOnLadderTop(const AABB& box, int* px) const;
-
 
 
 
@@ -83,11 +79,12 @@ private:
 
 	Tile GetTileIndex(int x, int y) const;
 	bool IsTileSolid(Tile tile) const;
-	bool IsTileLadderTop(Tile tile) const;
-	bool IsTileLadder(Tile tile) const;
+
+
+
 	bool CollisionX(const Point& p, int distance) const;
 	bool CollisionY(const Point& p, int distance) const;
-	int GetLadderCenterPos(int pixel_x, int pixel_y) const;
+
 
 
 	//Tile map
@@ -107,5 +104,9 @@ private:
 	RenderComponent* render;
 
 	Vector2 pos;
+
+	int delay = 30;
+	int white = 0;
+	int flash = 4;
 };
 

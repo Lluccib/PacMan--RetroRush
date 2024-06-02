@@ -144,14 +144,9 @@ bool TileMap::IsTileSolid(Tile tile) const
 {
 	return (Tile::SOLID_FIRST <= tile && tile <= Tile::SOLID_LAST);
 }
-bool TileMap::IsTileLadderTop(Tile tile) const
-{
-	return tile == Tile::PAREDRARA_INF_R || tile == Tile::PAREDRARA_INF_L;
-}
-bool TileMap::IsTileLadder(Tile tile) const
-{
-	return tile == Tile::CUADRADO_INF_R || tile == Tile::CUADRADO_INF_L;
-}
+
+
+
 bool TileMap::TestCollisionWallLeft(const AABB& box) const
 {
 	return CollisionX(box.pos, box.height);
@@ -168,24 +163,16 @@ bool TileMap::TestCollisionWallDown(const AABB& box) const
 {
 	return CollisionY(box.pos + Point(0, box.height - 1), box.height);
 }
-bool TileMap::TestCollisionGround(const AABB& box, int *py) const
-{
-	Point p(box.pos.x, *py);	//control point
-	int tile_y;
 
-	if (CollisionY(p, box.width))
-	{
-		tile_y = p.y / TILE_SIZE;
-
-		*py = tile_y * TILE_SIZE - 1;
-		return true;
-	}
-	return false;
-}
-bool TileMap::TestFalling(const AABB& box) const
+Tile TileMap::TestSideExit(const AABB& box) const
 {
-	return !CollisionY(box.pos + Point(0, box.height), box.width);
+	return GetTileIndex(box.pos.x, box.pos.y);
 }
+bool TileMap::SolidTest(const AABB& box) const
+{
+	return IsTileSolid(GetTileIndex(box.pos.x, box.pos.y));
+}
+
 bool TileMap::CollisionX(const Point& p, int distance) const
 {
 	int x, y, y0, y1;
@@ -224,74 +211,8 @@ bool TileMap::CollisionY(const Point& p, int distance) const
 	}
 	return false;
 }
-bool TileMap::TestOnLadder(const AABB& box, int* px) const
-{
-	int left, right, bottom;
-	int tx1, tx2, ty;
-	Tile tile1, tile2;
-	
-	//Control points
-	left = box.pos.x;
-	right = box.pos.x + box.width-1;
-	bottom = box.pos.y + box.height-1;
 
-	//Calculate the tile coordinates
-	tx1 = left / TILE_SIZE;
-	tx2 = right / TILE_SIZE;
-	ty = bottom / TILE_SIZE;
 
-	//To be able to climb up or down, both control points must be on ladder
-	tile1 = GetTileIndex(tx1, ty);
-	tile2 = GetTileIndex(tx2, ty);
-	if (IsTileLadder(tile1) && IsTileLadder(tile2))
-	{
-		*px = GetLadderCenterPos(left, bottom) - box.width/2;
-		return true;
-	}
-	return false;
-}
-bool TileMap::TestOnLadderTop(const AABB& box, int* px) const
-{
-	int left, right, bottom;
-	int tx1, tx2, ty;
-	Tile tile1, tile2;
-
-	//Control points
-	left = box.pos.x;
-	right = box.pos.x + box.width - 1;
-	bottom = box.pos.y + box.height - 1;
-
-	//Calculate the tile coordinates
-	tx1 = left / TILE_SIZE;
-	tx2 = right / TILE_SIZE;
-	ty = bottom / TILE_SIZE;
-
-	//To be able to climb up or down, both control points must be on ladder
-	tile1 = GetTileIndex(tx1, ty);
-	tile2 = GetTileIndex(tx2, ty);
-	if (IsTileLadderTop(tile1) && IsTileLadderTop(tile2))
-	{
-		*px = GetLadderCenterPos(left, bottom) - box.width / 2;
-		return true;
-	}
-	return false;
-}
-int TileMap::GetLadderCenterPos(int pixel_x, int pixel_y) const
-{
-	int tx, ty;
-	
-	tx = pixel_x / TILE_SIZE;
-	ty = pixel_y / TILE_SIZE;
-	Tile tile = GetTileIndex(tx, ty);
-
-	if (tile == Tile::CUADRADO_INF_R || tile == Tile::PAREDRARA_INF_R)		return tx * TILE_SIZE + TILE_SIZE;
-	else if (tile == Tile::CUADRADO_INF_L || tile == Tile::PAREDRARA_INF_L)	return tx * TILE_SIZE;
-	else
-	{
-		LOG("Internal error, tile should be a LADDER, coord: (%d,%d), tile type: %d", pixel_x, pixel_y, (int)tile);
-		return 0;
-	}
-}
 void TileMap::Render()
 {
 	Tile tile;
