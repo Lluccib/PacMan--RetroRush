@@ -46,8 +46,9 @@ In Pac-Man, you take on the role of the intrepid yellow hero as you venture thro
  - Key 2 -> skip to level 2
 
 ## Features implemented
- - Basic player mechanics: move and eat.
- - Items or prop : pills and power-up pills.
+ - Basic player mechanics: move to eat fruits and escape from the ghosts, or eat them too.
+ - Items or prop : pills and power-up pills and fruits
  - Win and lose conditions.
- - Debug functionality: F1 (god mode), F2 (display colliders), F3 (direct win) and F4 (direct lose).
+ - Debug functionality: F1 (colliders), F2 (win), F3 (lose) and F4 (god mode).
+ - Skip levels (press 1 or 2)
    
