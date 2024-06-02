@@ -1,7 +1,7 @@
 "This is a triubute to Toru Iwatani 's original Pacman of 1980 by two students."
 
 ## **Introduction**
-HOLA HOLA HOLA HOLA HOLA 
+HOLA HOLA HOLA HOLA HOLA HOLA HOLA HOLA HOLA HOLA HOLA HOLA HOLA HOLA HOLA 
 
  Pac-Man is a classic arcade game developed by Toru Iwatani and released by Namco in 1980. The game features a yellow character navigating a maze, eating pellets, and avoiding ghosts. It's a timeless, iconic game that has left a significant mark on pop culture. Our team has created a small tribute to this legendary classic.<br><br>
 
