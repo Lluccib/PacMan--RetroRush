@@ -27,6 +27,10 @@
    ![Clau](https://github.com/Lluccib/PacMan--RetroRush/blob/web/Imatges/Grup/clau.png)
 
     
-  - Contact"
-    |
-      For support or inquiries, reach out to us at [gpaucayuela@gmail.com](mailto:gpaucayuela@gmail.com).
+  - **Gameplay**
+
+
+
+  - **Download**
+   
+
