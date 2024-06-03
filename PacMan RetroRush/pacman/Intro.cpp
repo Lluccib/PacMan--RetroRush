@@ -64,25 +64,25 @@ AppStatus Intro::Init()
 		LOG("Failed to allocate memory for intro PacMan");
 		return AppStatus::ERROR;
 	}
-	Inky = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::ROJO);
+	Inky = new ENEMIGO({ 0,0 }, Estado::IDLE, Mirada::LEFT, TipoEnemigo::ROJO);
 	if (Inky == nullptr)
 	{
 		LOG("Failed to allocate memory for intro enemy");
 		return AppStatus::ERROR;
 	}
-	Blinky = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::AZULITO);
+	Blinky = new ENEMIGO({ 0,0 }, Estado::IDLE, Mirada::LEFT, TipoEnemigo::AZULITO);
 	if (Blinky == nullptr)
 	{
 		LOG("Failed to allocate memory for intro enemy");
 		return AppStatus::ERROR;
 	}
-	Pinky = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::ROSA);
+	Pinky = new ENEMIGO({ 0,0 }, Estado::IDLE, Mirada::LEFT, TipoEnemigo::ROSA);
 	if (Pinky == nullptr)
 	{
 		LOG("Failed to allocate memory for intro enemy");
 		return AppStatus::ERROR;
 	}
-	Clyde = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::NARANJITA);
+	Clyde = new ENEMIGO({ 0,0 }, Estado::IDLE, Mirada::LEFT, TipoEnemigo::NARANJITA);
 	if (Clyde == nullptr)
 	{
 		LOG("Failed to allocate memory for intro enemy");
@@ -143,7 +143,7 @@ AppStatus Intro::LoadIntro()
 	int x, y, i;
 	Tile tile;
 	Point pos;
-	Object* obj;
+	OBJETOS* obj;
 	int* map = nullptr;
 	size = LEVEL_WIDTH * LEVEL_HEIGHT;
 
@@ -211,7 +211,7 @@ AppStatus Intro::LoadIntro()
 				dotX = pos.x;
 				pos.y = y * TILE_SIZE + TILE_SIZE - 1;
 				dotY = pos.y;
-				obj = new Object(pos, ObjectType::PELLET);
+				obj = new OBJETOS(pos, ObjectType::PILL2);
 				pellet.push_back(obj);
 				map[i] = 0;
 			}
@@ -230,17 +230,17 @@ void Intro::Update()
 	if (end) {
 		turn = false;
 		PacMan->SetPos({ playerX, playerY });
-		Object* obj = new Object({ dotX, dotY }, ObjectType::PELLET);
+		OBJETOS* obj = new OBJETOS({ dotX, dotY }, ObjectType::PILL2);
 		pellet.push_back(obj);
 		isDot = true;
 
-		Blinky->introCaught = false;
+		Blinky->pilladointro = false;
 		isBlinky = false;
-		Pinky->introCaught = false;
+		Pinky->pilladointro = false;
 		isPinky = false;
-		Inky->introCaught = false;
+		Inky->pilladointro = false;
 		isInky = false;
-		Clyde->introCaught = false;
+		Clyde->pilladointro = false;
 		isClyde = false;
 
 		end = false;
@@ -275,10 +275,10 @@ void Intro::Update()
 		end = PacMan->IntroUpdate(turn);
 		if (end) loop = true;
 
-		if (isBlinky) Blinky->IntroUpdate(turn);
-		if (isInky) Inky->IntroUpdate(turn);
-		if (isPinky) Pinky->IntroUpdate(turn);
-		if (isClyde) Clyde->IntroUpdate(turn);
+		if (isBlinky) Blinky->UPDATEintro(turn);
+		if (isInky) Inky->UPDATEintro(turn);
+		if (isPinky) Pinky->UPDATEintro(turn);
+		if (isClyde) Clyde->UPDATEintro(turn);
 
 		CheckCollisions();
 		timer++;
@@ -294,7 +294,7 @@ void Intro::Render()
 	Inky->DrawPlayer();
 	Pinky->DrawPlayer();
 	Clyde->DrawPlayer();
-	for (Object* obj : pellet)
+	for (OBJETOS* obj : pellet)
 	{
 		obj->Draw();
 	}
@@ -325,22 +325,22 @@ void Intro::CheckCollisions()
 
 	if (isClyde) {
 		enemy_box = Clyde->GetHitbox();
-		if (player_box.TestAABB(enemy_box)) Clyde->introCaught = true;
+		if (player_box.TestAABB(enemy_box)) Clyde->pilladointro = true;
 	}
 
 	if (isInky) {
 		enemy_box = Inky->GetHitbox();
-		if (player_box.TestAABB(enemy_box)) Inky->introCaught = true;
+		if (player_box.TestAABB(enemy_box)) Inky->pilladointro = true;
 	}
 
 	if (isPinky) {
 		enemy_box = Pinky->GetHitbox();
-		if (player_box.TestAABB(enemy_box)) Pinky->introCaught = true;
+		if (player_box.TestAABB(enemy_box)) Pinky->pilladointro = true;
 	}
 	
 	if (isBlinky) {
 		enemy_box = Blinky->GetHitbox();
-		if (player_box.TestAABB(enemy_box)) Blinky->introCaught = true;
+		if (player_box.TestAABB(enemy_box)) Blinky->pilladointro = true;
 	}
 }
 

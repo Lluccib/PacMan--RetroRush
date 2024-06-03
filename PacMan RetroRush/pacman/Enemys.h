@@ -1,50 +1,41 @@
 #pragma once
 #include "Entity.h"
 #include "TileMap.h"
-
-//Representation model size: 16x16
 #define ENEMY_FRAME_SIZE		16
-
-//Logical model size: 12x28
 #define ENEMY_PHYSICAL_WIDTH	8
 #define ENEMY_PHYSICAL_HEIGHT	8
+#define VELOCIDAD_ENEMIGO			1
 
-//Horizontal speed and vertical speed while falling down
-#define ENEMY_SPEED			1
+enum class Estado { IDLE, WALKING, PELLET, EYES };
+enum class Mirada { RIGHT, LEFT, UP, DOWN };
+enum class Modo { BUSCAR, ENCONTRAR };
+enum class TipoEnemigo {AZULITO, ROSA, ROJO, NARANJITA};
 
-//Logic states
-enum class State_e { IDLE, WALKING, PELLET, EYES };
-enum class Look_e { RIGHT, LEFT, UP, DOWN };
-enum class Mode_e { BUSCAR, ENCONTRAR };
-enum class EnemyType {AZULITO, ROSA, ROJO, NARANJITA};
-
-//Rendering states
-enum class EnemyAnim {
+enum class AnimacionesEnemigos {
 	IDLE,
-	WALKING_LEFT, WALKING_RIGHT, WALKING_UP, WALKING_DOWN, PELLET, PELLET_FLASH,
-	 HIDDEN, EYES_LEFT, EYES_RIGHT, EYES_UP, EYES_DOWN,
+	VAIZQUIERDA, VADERECHA, VAARRIBA, VAABAJO, CEREZA, CEREZAS,
+	 ESCONDIDO, IZQUIERDA, DERECHA, ARRIBA, ABAJO,
 	NUM_ANIMATIONS
 };
 
 class ENEMIGO : public Entity
 {
 public:
-	ENEMIGO(const Point& p, State_e s, Look_e view, EnemyType t);
+	ENEMIGO(const Point& p, Estado s, Mirada view, TipoEnemigo t);
 	~ENEMIGO();
-
+	bool pillado = false;
+	bool Valla = false;
 	AppStatus Initialise();
 	void SetTileMap(TileMap* tilemap);
-
 	void Intro(int count);
 	void Pellet(bool ifPellet, int count);
-	void SetTarget(Point t);
-	void SetTargetExit();
-	void SetHome(Point t);
-	void SetHomeExit(Point t);
-	void SetNormal();
-	bool IsDead();
-	bool caught = false;
-	bool useDoor = false;
+	void EstablecerObjetivo(Point t);
+	void EstablecerSalida();
+	void EstablecerCasa(Point t);
+	void EstablecerSalidaCasa(Point t);
+	void A_normal();
+	bool TaMuerto();
+	
 	Point GetEnemyPos();
 
 	void Update(Point pacmanDir, Point pacmanPos, Point blinkypos);
@@ -52,52 +43,48 @@ public:
 	void DrawDebug(const Color& col) const;
 	void WinLose();
 
-	bool introCaught = false;
-	void IntroUpdate(bool turn);
+	bool pilladointro = false;
+	void UPDATEintro(bool turn);
 
-private:
+private:	
+	Point casa;
+	Point salida_casa;
+	Point objetivo;
 	bool IsLookingRight() const;
 	bool IsLookingLeft() const;
 	bool IsLookingUp() const;
 	bool IsLookingDown() const;
-
-	//Enemy mechanics
 	float GetTargetDistance(Point dir);
-	void Move(Point pacmanDir, Point pacmanPos, Point blinkypos);
-	void UpdateTarget(Point pacmanDir, Point pacmanPos, Point blinkypos);
-
-	//Animation management
 	void SetAnimation(int id);
-	EnemyAnim GetAnimation();
-	void Stop();
+	AnimacionesEnemigos GetAnimation();
+	void Parar();
 	void StartWalkingLeft();
 	void StartWalkingRight();
 	void StartWalkingUp();
 	void StartWalkingDown();
-	void StartDying();
+	void EmpiezaMorir();
 	void ChangeAnimRight();
 	void ChangeAnimLeft();
 	void ChangeAnimUp();
 	void ChangeAnimDown();
-
+	void Move(Point pacmanDir, Point pacmanPos, Point blinkypos);
+	void UpdateTarget(Point pacmanDir, Point pacmanPos, Point blinkypos);
 	void UpdateLook(int anim_id);
-	int current_step;
-	int current_frames;
+	int pasos;
+	int fps;
+	bool comible = false;
+	bool lucecita = true;
+	Estado state;
+	Mirada vista;
+	Modo mode;
+	TipoEnemigo type;
+	TileMap* mapa;
+	int retardo = 30;
+	Sound retratado;
 
-	State_e state;
-	Look_e look;
-	Mode_e mode;
-	EnemyType type;
-	TileMap* map;
 
-	Sound sound_retreat;
 
-	Point home;
-	Point home_exit;
-	Point target;
-
-	bool vulnearble = false;
-	bool flash = true;
-	int delay = 30;
+	
+	
 
 };

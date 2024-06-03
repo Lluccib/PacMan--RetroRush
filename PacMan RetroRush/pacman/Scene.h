@@ -62,7 +62,7 @@ private:
     HUD* livesUI;
 
     TileMap* level;
-    std::vector<Object*> objects;
+    std::vector<OBJETOS*> objects;
 
     //efects
     Sound sound_intro, sound_munch1, sound_munch2, sound_pellet, sound_fruit, sound_eatghost;

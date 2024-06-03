@@ -42,7 +42,7 @@ private:
 	ENEMIGO* Pinky;
 	ENEMIGO* Clyde;
 
-	std::vector<Object*> pellet;
+	std::vector<OBJETOS*> pellet;
 
 	Camera2D camera;
 	TileMap* introScene;

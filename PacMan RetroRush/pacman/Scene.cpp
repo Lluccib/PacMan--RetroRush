@@ -105,25 +105,25 @@ AppStatus Scene::Init()
 		LOG("Failed to allocate memory for Player");
 		return AppStatus::ERROR;
 	}
-	inky = new ENEMIGO({0,0}, State_e::IDLE, Look_e::UP, EnemyType::ROJO);
+	inky = new ENEMIGO({0,0}, Estado::IDLE, Mirada::UP, TipoEnemigo::ROJO);
 	if (inky == nullptr)
 	{
 		LOG("Failed to allocate memory for enemy");
 		return AppStatus::ERROR;
 	}
-	blinky = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::AZULITO);
+	blinky = new ENEMIGO({ 0,0 }, Estado::IDLE, Mirada::LEFT, TipoEnemigo::AZULITO);
 	if (blinky == nullptr)
 	{
 		LOG("Failed to allocate memory for enemy");
 		return AppStatus::ERROR;
 	}
-	pinky = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::UP, EnemyType::ROSA);
+	pinky = new ENEMIGO({ 0,0 }, Estado::IDLE, Mirada::UP, TipoEnemigo::ROSA);
 	if (pinky == nullptr)
 	{
 		LOG("Failed to allocate memory for enemy");
 		return AppStatus::ERROR;
 	}
-	clyde = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::UP, EnemyType::NARANJITA);
+	clyde = new ENEMIGO({ 0,0 }, Estado::IDLE, Mirada::UP, TipoEnemigo::NARANJITA);
 	if (clyde == nullptr)
 	{
 		LOG("Failed to allocate memory for enemy");
@@ -201,7 +201,7 @@ AppStatus Scene::LoadLevel(int stage)
 	Tile tile;
 	Point posicionamiento;
 	int* map = nullptr;
-	Object *objetito;
+	OBJETOS *objetito;
 	
 	ClearLevel();
 
@@ -293,13 +293,13 @@ AppStatus Scene::LoadLevel(int stage)
 		fruitcounter = FRUITTIME;
 		collectPellet = false;
 		pellet_timer = PELLETTIME;
-		inky->SetTargetExit();
-		pinky->SetTargetExit();
-		clyde->SetTargetExit();
-		blinky->SetNormal();
-		inky->SetNormal();
-		pinky->SetNormal();
-		clyde->SetNormal();
+		inky->EstablecerSalida();
+		pinky->EstablecerSalida();
+		clyde->EstablecerSalida();
+		blinky->A_normal();
+		inky->A_normal();
+		pinky->A_normal();
+		clyde->A_normal();
 		if (IsSoundPlaying(sound_pellet)) StopSound(sound_pellet);
 	}
 	else
@@ -342,10 +342,10 @@ AppStatus Scene::LoadLevel(int stage)
 				blinkyX = posicionamiento.x;
 				blinkyY = posicionamiento.y;
 				blinky->SetPos(posicionamiento);
-				blinky->SetHome(posicionamiento);
-				pinky->SetHome(posicionamiento);
-				clyde->SetHome(posicionamiento);
-				inky->SetHome(posicionamiento);
+				blinky->EstablecerCasa(posicionamiento);
+				pinky->EstablecerCasa(posicionamiento);
+				clyde->EstablecerCasa(posicionamiento);
+				inky->EstablecerCasa(posicionamiento);
 				map[i] = 0;
 			}
 			else if (tile == Tile::PINKY)
@@ -370,7 +370,7 @@ AppStatus Scene::LoadLevel(int stage)
 			{
 				posicionamiento.x = x * TILE_SIZE;
 				posicionamiento.y = y * TILE_SIZE + TILE_SIZE - 1;
-				objetito = new Object(posicionamiento, ObjectType::DOT);
+				objetito = new OBJETOS(posicionamiento, ObjectType::PILL1);
 				objects.push_back(objetito);
 				map[i] = 0;
 			}
@@ -378,7 +378,7 @@ AppStatus Scene::LoadLevel(int stage)
 			{
 				posicionamiento.x = x * TILE_SIZE;
 				posicionamiento.y = y * TILE_SIZE + TILE_SIZE - 1;
-				objetito = new Object(posicionamiento, ObjectType::PELLET);
+				objetito = new OBJETOS(posicionamiento, ObjectType::PILL2);
 				objects.push_back(objetito);
 				map[i] = 0;
 			}
@@ -398,13 +398,13 @@ AppStatus Scene::LoadLevel(int stage)
 			else if (tile == Tile::GHOST_DOOR) {
 				posicionamiento.x = x * TILE_SIZE;
 				posicionamiento.y = y * TILE_SIZE + TILE_SIZE - 1;
-				inky->SetTarget(posicionamiento);
-				pinky->SetTarget(posicionamiento);
-				clyde->SetTarget(posicionamiento);
-				blinky->SetHomeExit(posicionamiento);
-				inky->SetHomeExit(posicionamiento);
-				pinky->SetHomeExit(posicionamiento);
-				clyde->SetHomeExit(posicionamiento);
+				inky->EstablecerObjetivo(posicionamiento);
+				pinky->EstablecerObjetivo(posicionamiento);
+				clyde->EstablecerObjetivo(posicionamiento);
+				blinky->EstablecerSalidaCasa(posicionamiento);
+				inky->EstablecerSalidaCasa(posicionamiento);
+				pinky->EstablecerSalidaCasa(posicionamiento);
+				clyde->EstablecerSalidaCasa(posicionamiento);
 			}
 			++i;
 		}
@@ -444,7 +444,7 @@ void Scene::Update()
 		}
 		objectX = objectX * TILE_SIZE;
 		objectY = objectY * TILE_SIZE + TILE_SIZE - 1;
-		Object* obj = new Object({objectX, objectY}, level_count);
+		OBJETOS* obj = new OBJETOS({objectX, objectY}, level_count);
 		objects.push_back(obj);
 	}
 	if (IsKeyPressed(KEY_F4)) {
@@ -477,7 +477,7 @@ void Scene::Update()
 		EndLevel = false;
 	}
 	if (fruitcounter == 0) {
-		Object* obj = new Object({ fruitX, fruitY }, level_count);
+		OBJETOS* obj = new OBJETOS({ fruitX, fruitY }, level_count);
 		objects.push_back(obj);
 	}
 	fruitcounter--;
@@ -633,8 +633,8 @@ void Scene::CheckCollisions()
 		obj_box = (*it)->GetHitbox();
 		if (player_box.TestAABB(obj_box))
 		{
-			player->IncrementarPuntuación((*it)->Points());
-			if ((*it)->Sounds() == (int)ObjectType::DOT) 
+			player->IncrementarPuntuación((*it)->Puntos());
+			if ((*it)->Sonidos() == (int)ObjectType::PILL1) 
 			{
 				if (munch1) 
 				{
@@ -647,10 +647,10 @@ void Scene::CheckCollisions()
 					munch1 = true;
 				}
 			}
-            else if ((*it)->Sounds() == (int)ObjectType::PELLET) {
+            else if ((*it)->Sonidos() == (int)ObjectType::PILL2) {
 				collectPellet = true;
 			}
-			else if ((*it)->Sounds() == (int)ObjectType::CHERRY or (*it)->Sounds() == (int)ObjectType::STRAWBERRY) {
+			else if ((*it)->Sonidos() == (int)ObjectType::FRUTAS1 or (*it)->Sonidos() == (int)ObjectType::FRUTAS2) {
 				PlaySound(sound_fruit);
 			}
 			delete* it;
@@ -673,12 +673,12 @@ void Scene::CheckCollisions()
 
 	enemy_box = inky->GetHitbox();
 	if (player_box.TestAABB(enemy_box)) {
-		if (!inky->IsDead() and !collectPellet and !god_mode) lose = true;
+		if (!inky->TaMuerto() and !collectPellet and !god_mode) lose = true;
 		else {
 			if (!inkyCaught and collectPellet) {
 				player->IncrementarPuntuación(ghost_points);
 				ghost_points *= 2;
-				inky->caught = true;
+				inky->pillado = true;
 				inkyCaught = true;
 				PlaySound(sound_eatghost);
 			}
@@ -687,12 +687,12 @@ void Scene::CheckCollisions()
 	else {
 		enemy_box = blinky->GetHitbox();
 		if (player_box.TestAABB(enemy_box)) {
-			if (!blinky->IsDead() and !collectPellet and !god_mode) lose = true;
+			if (!blinky->TaMuerto() and !collectPellet and !god_mode) lose = true;
 			else {
 				if (!blinkyCaught and collectPellet) {
 					player->IncrementarPuntuación(ghost_points);
 					ghost_points *= 2;
-					blinky->caught = true;
+					blinky->pillado = true;
 					blinkyCaught = true;
 					PlaySound(sound_eatghost);
 				}
@@ -701,12 +701,12 @@ void Scene::CheckCollisions()
 		else {
 			enemy_box = pinky->GetHitbox();
 			if (player_box.TestAABB(enemy_box)) {
-				if (!pinky->IsDead() and !collectPellet and !god_mode) lose = true;
+				if (!pinky->TaMuerto() and !collectPellet and !god_mode) lose = true;
 				else {
 					if (!pinkyCaught and collectPellet) {
 						player->IncrementarPuntuación(ghost_points);
 						ghost_points *= 2;
-						pinky->caught = true;
+						pinky->pillado = true;
 						pinkyCaught = true;
 						PlaySound(sound_eatghost);
 					}
@@ -715,12 +715,12 @@ void Scene::CheckCollisions()
 			else {
 				enemy_box = clyde->GetHitbox();
 				if (player_box.TestAABB(enemy_box)) {
-					if (!clyde->IsDead() and !collectPellet and !god_mode) lose = true;
+					if (!clyde->TaMuerto() and !collectPellet and !god_mode) lose = true;
 					else {
 						if (!clydeCaught and collectPellet) {
 							player->IncrementarPuntuación(ghost_points);
 							ghost_points *= 2;
-							clyde->caught = true;
+							clyde->pillado = true;
 							clydeCaught = true;
 							PlaySound(sound_eatghost);
 						}
@@ -733,7 +733,7 @@ void Scene::CheckCollisions()
 }
 void Scene::ClearLevel()
 {
-	for (Object* obj : objects)
+	for (OBJETOS* obj : objects)
 	{
 		delete obj;
 	}
@@ -741,14 +741,14 @@ void Scene::ClearLevel()
 }
 void Scene::RenderObjects() const
 {
-	for (Object* obj : objects)
+	for (OBJETOS* obj : objects)
 	{
 		obj->Draw();
 	}
 }
 void Scene::RenderObjectsDebug(const Color& col) const
 {
-	for (Object* obj : objects)
+	for (OBJETOS* obj : objects)
 	{
 		obj->DrawDebug(col);
 	}
