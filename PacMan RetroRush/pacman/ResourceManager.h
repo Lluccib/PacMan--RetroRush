@@ -34,55 +34,44 @@ enum class Resource {
 };
 
 enum class AudioResource {
-    AUDIO_INTRO,
-    AUDIO_PUNCH1,
-    AUDIO_PUNCH2,
-    AUDIO_MUERTE,
-    AUDIO_SIRENA1,
-    AUDIO_SIRENA2,
-    AUDIO_SIRENA3,
-    AUDIO_SIRENA4,
-    AUDIO_SIRENA5,
+    INTRO,
+    PUNCH1,
+    PUNCH2,
+    SIRENA1,
+    SIRENA2,
+    SIRENA3,
+    SIRENA4,
+    SIRENA5,
+    MUERTE,
     AUD_PELLET,
-    AUD_FRUIT,
-    AUD_EATGHOST,
-    AUD_RETREAT,
+    FRUITAUD,
+    EATGHOST,
+    RETRATADO,
     AUD_NUMERO
 };
 
 class ResourceManager {
 public:
-    //Singleton instance retrieval
     static ResourceManager& Instance()
     {
-        static ResourceManager instance; //Guaranteed to be initialized only once
+        static ResourceManager instance;
         return instance;
     }
-
-    //Load and unload texture
     AppStatus LoadTexture(Resource id, const std::string& file_path);
     void LoadSounds();
+    void Release();
 
+    ResourceManager(const ResourceManager&) = delete;
+    ResourceManager& operator=(const ResourceManager&) = delete;
+    
     void ReleaseTexture(Resource id);
-
-    //Get texture by key
     const Texture2D* GetTexture(Resource id) const;
     Sound GetSound(AudioResource id) const;
 
-    //Release resources
-    void Release();
-
-    //Ensure Singleton cannot be copied or assigned
-    ResourceManager(const ResourceManager&) = delete;
-    ResourceManager& operator=(const ResourceManager&) = delete;
-
 private:
-    //Private constructor to prevent instantiation
-    ResourceManager();
-    //Destructor
-    ~ResourceManager();
-
-    //Dictionary to store loaded textures
+   
     std::unordered_map<Resource, Texture2D> textures;
-    Sound sounds[(int)AudioResource::AUD_NUMERO];
+    Sound sounds[(int)AudioResource::AUD_NUMERO]; 
+    ResourceManager();
+    ~ResourceManager();
 };

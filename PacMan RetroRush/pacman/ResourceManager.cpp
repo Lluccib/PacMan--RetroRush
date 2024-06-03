@@ -30,22 +30,22 @@ AppStatus ResourceManager::LoadTexture(Resource id, const std::string& file_path
 
 void ResourceManager::LoadSounds()
 {
-    sounds[(int)AudioResource::AUDIO_INTRO] = LoadSound("Assets/audios/principio.wav");
+    sounds[(int)AudioResource::INTRO] = LoadSound("Assets/audios/principio.wav");
 
-    sounds[(int)AudioResource::AUDIO_PUNCH1] = LoadSound("Assets/audios/punch1.wav");
-    sounds[(int)AudioResource::AUDIO_PUNCH2] = LoadSound("Assets/audios/punch2.wav");
+    sounds[(int)AudioResource::PUNCH1] = LoadSound("Assets/audios/punch1.wav");
+    sounds[(int)AudioResource::PUNCH2] = LoadSound("Assets/audios/punch2.wav");
 
-    sounds[(int)AudioResource::AUDIO_MUERTE] = LoadSound("Assets/audios/muerte.wav");
+    sounds[(int)AudioResource::MUERTE] = LoadSound("Assets/audios/muerte.wav");
 
-    sounds[(int)AudioResource::AUDIO_SIRENA1] = LoadSound("Assets/audios/sirena1.wav");
-    sounds[(int)AudioResource::AUDIO_SIRENA2] = LoadSound("Assets/audios/sirena2.wav");
-    sounds[(int)AudioResource::AUDIO_SIRENA3] = LoadSound("Assets/audios/sirena3.wav");
-    sounds[(int)AudioResource::AUDIO_SIRENA4] = LoadSound("Assets/audios/sirena4.wav");
-    sounds[(int)AudioResource::AUDIO_SIRENA5] = LoadSound("Assets/audios/sirena5.wav");
+    sounds[(int)AudioResource::SIRENA1] = LoadSound("Assets/audios/sirena1.wav");
+    sounds[(int)AudioResource::SIRENA2] = LoadSound("Assets/audios/sirena2.wav");
+    sounds[(int)AudioResource::SIRENA3] = LoadSound("Assets/audios/sirena3.wav");
+    sounds[(int)AudioResource::SIRENA4] = LoadSound("Assets/audios/sirena4.wav");
+    sounds[(int)AudioResource::SIRENA5] = LoadSound("Assets/audios/sirena5.wav");
     sounds[(int)AudioResource::AUD_PELLET] = LoadSound("Assets/audios/super.wav");
-    sounds[(int)AudioResource::AUD_FRUIT] = LoadSound("Assets/audios/comerfruta.wav");
-    sounds[(int)AudioResource::AUD_EATGHOST] = LoadSound("Assets/audios/comerfantasma.wav");
-    sounds[(int)AudioResource::AUD_RETREAT] = LoadSound("Assets/audios/retratado.wav");
+    sounds[(int)AudioResource::FRUITAUD] = LoadSound("Assets/audios/comerfruta.wav");
+    sounds[(int)AudioResource::EATGHOST] = LoadSound("Assets/audios/comerfantasma.wav");
+    sounds[(int)AudioResource::RETRATADO] = LoadSound("Assets/audios/retratado.wav");
 }
 
 //Release the texture associated with the key id

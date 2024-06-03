@@ -23,20 +23,20 @@ Scene::Scene()
 	camera.zoom = 1.0f;						//Default zoom
 
 	ResourceManager& data = ResourceManager::Instance();
-	sound_intro = data.GetSound(AudioResource::AUDIO_INTRO);
+	sound_intro = data.GetSound(AudioResource::INTRO);
 
-	sound_munch1 = data.GetSound(AudioResource::AUDIO_PUNCH1);
-	sound_munch2 = data.GetSound(AudioResource::AUDIO_PUNCH2);
+	sound_munch1 = data.GetSound(AudioResource::PUNCH1);
+	sound_munch2 = data.GetSound(AudioResource::PUNCH2);
 
 	sound_pellet = data.GetSound(AudioResource::AUD_PELLET);
-	sound_fruit = data.GetSound(AudioResource::AUD_FRUIT);
-	sound_eatghost = data.GetSound(AudioResource::AUD_EATGHOST);
+	sound_fruit = data.GetSound(AudioResource::FRUITAUD);
+	sound_eatghost = data.GetSound(AudioResource::EATGHOST);
 
-	sirens[0] = data.GetSound(AudioResource::AUDIO_SIRENA1);
-	sirens[1] = data.GetSound(AudioResource::AUDIO_SIRENA2);
-	sirens[2] = data.GetSound(AudioResource::AUDIO_SIRENA3);
-	sirens[3] = data.GetSound(AudioResource::AUDIO_SIRENA4);
-	sirens[4] = data.GetSound(AudioResource::AUDIO_SIRENA5);
+	sirens[0] = data.GetSound(AudioResource::SIRENA1);
+	sirens[1] = data.GetSound(AudioResource::SIRENA2);
+	sirens[2] = data.GetSound(AudioResource::SIRENA3);
+	sirens[3] = data.GetSound(AudioResource::SIRENA4);
+	sirens[4] = data.GetSound(AudioResource::SIRENA5);
 
 	debug = DebugMode::OFF;
 }
@@ -105,25 +105,25 @@ AppStatus Scene::Init()
 		LOG("Failed to allocate memory for Player");
 		return AppStatus::ERROR;
 	}
-	inky = new ENEMIGO({0,0}, Estado::IDLE, Mirada::UP, TipoEnemigo::ROJO);
+	inky = new ENEMIGO({0,0}, Estado::QUIETO, Mirada::UP, TipoEnemigo::ROJO);
 	if (inky == nullptr)
 	{
 		LOG("Failed to allocate memory for enemy");
 		return AppStatus::ERROR;
 	}
-	blinky = new ENEMIGO({ 0,0 }, Estado::IDLE, Mirada::LEFT, TipoEnemigo::AZULITO);
+	blinky = new ENEMIGO({ 0,0 }, Estado::QUIETO, Mirada::LEFT, TipoEnemigo::AZULITO);
 	if (blinky == nullptr)
 	{
 		LOG("Failed to allocate memory for enemy");
 		return AppStatus::ERROR;
 	}
-	pinky = new ENEMIGO({ 0,0 }, Estado::IDLE, Mirada::UP, TipoEnemigo::ROSA);
+	pinky = new ENEMIGO({ 0,0 }, Estado::QUIETO, Mirada::UP, TipoEnemigo::ROSA);
 	if (pinky == nullptr)
 	{
 		LOG("Failed to allocate memory for enemy");
 		return AppStatus::ERROR;
 	}
-	clyde = new ENEMIGO({ 0,0 }, Estado::IDLE, Mirada::UP, TipoEnemigo::NARANJITA);
+	clyde = new ENEMIGO({ 0,0 }, Estado::QUIETO, Mirada::UP, TipoEnemigo::NARANJITA);
 	if (clyde == nullptr)
 	{
 		LOG("Failed to allocate memory for enemy");

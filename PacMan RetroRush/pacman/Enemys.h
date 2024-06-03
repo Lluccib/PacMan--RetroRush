@@ -6,7 +6,7 @@
 #define ENEMY_PHYSICAL_HEIGHT	8
 #define VELOCIDAD_ENEMIGO			1
 
-enum class Estado { IDLE, WALKING, PELLET, EYES };
+enum class Estado { QUIETO, ANDANDO, PILL1, OJOS };
 enum class Mirada { RIGHT, LEFT, UP, DOWN };
 enum class Modo { BUSCAR, ENCONTRAR };
 enum class TipoEnemigo {AZULITO, ROSA, ROJO, NARANJITA};
@@ -34,18 +34,15 @@ public:
 	void EstablecerCasa(Point t);
 	void EstablecerSalidaCasa(Point t);
 	void A_normal();
+	bool pilladointro = false;
+	void UPDATEintro(bool turn);
 	bool TaMuerto();
-	
 	Point GetEnemyPos();
-
 	void Update(Point pacmanDir, Point pacmanPos, Point blinkypos);
 	void Release();
 	void DrawDebug(const Color& col) const;
 	void WinLose();
-
-	bool pilladointro = false;
-	void UPDATEintro(bool turn);
-
+	
 private:	
 	Point casa;
 	Point salida_casa;
@@ -81,10 +78,4 @@ private:
 	TileMap* mapa;
 	int retardo = 30;
 	Sound retratado;
-
-
-
-	
-	
-
 };

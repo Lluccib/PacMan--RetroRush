@@ -23,19 +23,19 @@ ENEMIGO::~ENEMIGO()
 AppStatus ENEMIGO::Initialise()
 {
 	const int n = ENEMY_FRAME_SIZE;
-	int k;
+	int G;
 	switch (type) {
 	case TipoEnemigo::AZULITO:
-		k = n * 2;
+		G = n * 2;
 		break;
 	case TipoEnemigo::ROSA:
-		k = n;
+		G = n;
 		break;
 	case TipoEnemigo::ROJO:
-		k = 0;
+		G = 0;
 		break;
 	case TipoEnemigo::NARANJITA:
-		k = n * 3;
+		G = n * 3;
 		break;
 	}
 
@@ -45,7 +45,7 @@ AppStatus ENEMIGO::Initialise()
 		return AppStatus::ERROR;
 	}
 
-	retratado = data.GetSound(AudioResource::AUD_RETREAT);
+	retratado = data.GetSound(AudioResource::RETRATADO);
 
 	render = new Sprite(data.GetTexture(Resource::IMG_ENEMY));
 	if (render == nullptr)
@@ -58,40 +58,10 @@ AppStatus ENEMIGO::Initialise()
 	sprite->SetNumberAnimations((int)AnimacionesEnemigos::NUM_ANIMATIONS);
 
 	sprite->SetAnimationDelay((int)AnimacionesEnemigos::IDLE, ANIM_DELAY);
-	sprite->AddKeyFrame((int)AnimacionesEnemigos::IDLE, { n*4, (float)k, n, n });
+	sprite->AddKeyFrame((int)AnimacionesEnemigos::IDLE, { n*4, (float)G, n, n });
 
 	sprite->SetAnimationDelay((int)AnimacionesEnemigos::ESCONDIDO, ANIM_DELAY);
 	sprite->AddKeyFrame((int)AnimacionesEnemigos::ESCONDIDO, { n * 4, 5*n, n, n });
-
-	sprite->SetAnimationDelay((int)AnimacionesEnemigos::VADERECHA, ANIM_DELAY);
-	for (int i = 0; i < 2; ++i) {
-		sprite->AddKeyFrame((int)AnimacionesEnemigos::VADERECHA, { (float)i*n, (float)k, n, n });
-	}
-
-	sprite->SetAnimationDelay((int)AnimacionesEnemigos::VAIZQUIERDA, ANIM_DELAY);
-	for (int i = 0; i < 2; ++i) {
-		sprite->AddKeyFrame((int)AnimacionesEnemigos::VAIZQUIERDA, { 2 * n + ((float)i*n), (float)k, n, n });
-	}
-
-	sprite->SetAnimationDelay((int)AnimacionesEnemigos::VAARRIBA, ANIM_DELAY);
-	for (int i = 0; i < 2; ++i) {
-		sprite->AddKeyFrame((int)AnimacionesEnemigos::VAARRIBA, { 4 * n + ((float)i * n), (float)k, n, n });
-	}
-
-	sprite->SetAnimationDelay((int)AnimacionesEnemigos::VAABAJO, ANIM_DELAY);
-	for (int i = 0; i < 2; ++i) {
-		sprite->AddKeyFrame((int)AnimacionesEnemigos::VAABAJO, { 6 * n + ((float)i * n), (float)k, n, n });
-	}
-
-	sprite->SetAnimationDelay((int)AnimacionesEnemigos::CEREZA, ANIM_DELAY);
-	for (int i = 0; i < 2; ++i) {
-		sprite->AddKeyFrame((int)AnimacionesEnemigos::CEREZA, { (float)i * n, 4*n , n, n });
-	}
-
-	sprite->SetAnimationDelay((int)AnimacionesEnemigos::CEREZAS, ANIM_DELAY);
-	for (int i = 0; i < 2; ++i) {
-		sprite->AddKeyFrame((int)AnimacionesEnemigos::CEREZAS, { 2*n +((float)i * n), 4*n , n, n });
-	}
 
 	sprite->SetAnimationDelay((int)AnimacionesEnemigos::IZQUIERDA, ANIM_DELAY);
 	sprite->AddKeyFrame((int)AnimacionesEnemigos::IZQUIERDA, { 0, 5 * n , n, n });
@@ -104,26 +74,76 @@ AppStatus ENEMIGO::Initialise()
 
 	sprite->SetAnimationDelay((int)AnimacionesEnemigos::ABAJO, ANIM_DELAY);
 	sprite->AddKeyFrame((int)AnimacionesEnemigos::ABAJO, { 3*n, 5 * n , n, n });
+	sprite->SetAnimationDelay((int)AnimacionesEnemigos::VADERECHA, ANIM_DELAY);
+	for (int i = 0; i < 2; ++i) {
+		sprite->AddKeyFrame((int)AnimacionesEnemigos::VADERECHA, { (float)i*n, (float)G, n, n });
+	}
+
+	sprite->SetAnimationDelay((int)AnimacionesEnemigos::VAIZQUIERDA, ANIM_DELAY);
+	for (int i = 0; i < 2; ++i) {
+		sprite->AddKeyFrame((int)AnimacionesEnemigos::VAIZQUIERDA, { 2 * n + ((float)i*n), (float)G, n, n });
+	}
+
+	sprite->SetAnimationDelay((int)AnimacionesEnemigos::VAARRIBA, ANIM_DELAY);
+	for (int i = 0; i < 2; ++i) {
+		sprite->AddKeyFrame((int)AnimacionesEnemigos::VAARRIBA, { 4 * n + ((float)i * n), (float)G, n, n });
+	}
+
+	sprite->SetAnimationDelay((int)AnimacionesEnemigos::VAABAJO, ANIM_DELAY);
+	for (int i = 0; i < 2; ++i) {
+		sprite->AddKeyFrame((int)AnimacionesEnemigos::VAABAJO, { 6 * n + ((float)i * n), (float)G, n, n });
+	}
+
+	sprite->SetAnimationDelay((int)AnimacionesEnemigos::CEREZA, ANIM_DELAY);
+	for (int i = 0; i < 2; ++i) {
+		sprite->AddKeyFrame((int)AnimacionesEnemigos::CEREZA, { (float)i * n, 4*n , n, n });
+	}
+
+	sprite->SetAnimationDelay((int)AnimacionesEnemigos::CEREZAS, ANIM_DELAY);
+	for (int i = 0; i < 2; ++i) {
+		sprite->AddKeyFrame((int)AnimacionesEnemigos::CEREZAS, { 2*n +((float)i * n), 4*n , n, n });
+	}
+
+	
 
 	return AppStatus::OK;
 }
+void ENEMIGO::EstablecerObjetivo(Point t) 
+{
+	objetivo = t;
+}
 
+void ENEMIGO::EstablecerSalida()
+{
+	Valla = true;
+	objetivo = salida_casa;
+}
+
+void ENEMIGO::EstablecerCasa(Point t)
+{
+	casa = t;
+}
+
+void ENEMIGO::EstablecerSalidaCasa(Point t)
+{
+	salida_casa = t;
+}
 void ENEMIGO::UPDATEintro(bool turn) 
 {
 	Sprite* sprite = dynamic_cast<Sprite*>(render);
 	if (turn) {
 		pos.x += ((VELOCIDAD_ENEMIGO*2) - 1);
-		if (state != Estado::PELLET) {
-			state = Estado::PELLET;
+		if (state != Estado::PILL1) {
+			state = Estado::PILL1;
 			SetAnimation((int)AnimacionesEnemigos::CEREZA);
 		}
 
 		if (pilladointro) {
 			SetAnimation((int)AnimacionesEnemigos::ESCONDIDO);
-			state = Estado::WALKING;
+			state = Estado::ANDANDO;
 		}
 		else {
-			if (state == Estado::IDLE) StartWalkingRight();
+			if (state == Estado::QUIETO) StartWalkingRight();
 			else {
 				if (!IsLookingRight()) ChangeAnimRight();
 			}
@@ -131,7 +151,7 @@ void ENEMIGO::UPDATEintro(bool turn)
 	}
 	else {
 		pos.x += -(VELOCIDAD_ENEMIGO * 2);
-		if (state == Estado::IDLE) StartWalkingLeft();
+		if (state == Estado::QUIETO) StartWalkingLeft();
 		else {
 			if (!IsLookingLeft()) ChangeAnimLeft();
 		}
@@ -156,39 +176,18 @@ Point ENEMIGO::GetEnemyPos()
 
 void ENEMIGO::A_normal()
 {
-	state = Estado::IDLE;
+	state = Estado::QUIETO;
 	SetAnimation((int)AnimacionesEnemigos::IDLE);
 }
 
-void ENEMIGO::EstablecerObjetivo(Point t) 
-{
-	objetivo = t;
-}
-
-void ENEMIGO::EstablecerSalida()
-{
-	Valla = true;
-	objetivo = salida_casa;
-}
-
-void ENEMIGO::EstablecerCasa(Point t)
-{
-	casa = t;
-}
-
-void ENEMIGO::EstablecerSalidaCasa(Point t)
-{
-	salida_casa = t;
-}
-
 bool ENEMIGO::TaMuerto() {
-	return(state == Estado::EYES);
+	return(state == Estado::OJOS);
 }
 
 void ENEMIGO::Pellet(bool ifPellet, int count) {
 	if (!pillado) {
 		if (ifPellet) {
-			state = Estado::PELLET;
+			state = Estado::PILL1;
 			comible = true;
 			if (count < 300) {
 				if (lucecita) SetAnimation((int)AnimacionesEnemigos::CEREZAS);
@@ -206,7 +205,7 @@ void ENEMIGO::Pellet(bool ifPellet, int count) {
 			}
 		}
 		else {
-			state = Estado::WALKING;
+			state = Estado::ANDANDO;
 			switch (vista) {
 			case Mirada::DOWN:
 				ChangeAnimDown();
@@ -225,8 +224,8 @@ void ENEMIGO::Pellet(bool ifPellet, int count) {
 		}
 	}
 	else {
-		if (state != Estado::EYES) {
-			state = Estado::WALKING;
+		if (state != Estado::OJOS) {
+			state = Estado::ANDANDO;
 			switch (vista) {
 			case Mirada::DOWN:
 				ChangeAnimDown();
@@ -284,46 +283,46 @@ AnimacionesEnemigos ENEMIGO::GetAnimation()
 void ENEMIGO::Parar()
 {
 	dir = { 0,0 };
-	if (state != Estado::PELLET) {
-		state = Estado::IDLE;
+	if (state != Estado::PILL1) {
+		state = Estado::QUIETO;
 		SetAnimation((int)AnimacionesEnemigos::IDLE);
 	}
 }
 void ENEMIGO::StartWalkingLeft()
 {
 	vista = Mirada::LEFT;
-	if (state != Estado::PELLET) {
-		state = Estado::WALKING;
+	if (state != Estado::PILL1) {
+		state = Estado::ANDANDO;
 		SetAnimation((int)AnimacionesEnemigos::VAIZQUIERDA);
 	}
 }
 void ENEMIGO::StartWalkingRight()
 {
 	vista = Mirada::RIGHT;
-	if (state != Estado::PELLET) {
-		state = Estado::WALKING;
+	if (state != Estado::PILL1) {
+		state = Estado::ANDANDO;
 		SetAnimation((int)AnimacionesEnemigos::VADERECHA);
 	}
 }
 void ENEMIGO::StartWalkingUp()
 {
 	vista = Mirada::UP;
-	if (state != Estado::PELLET) {
-		state = Estado::WALKING;
+	if (state != Estado::PILL1) {
+		state = Estado::ANDANDO;
 		SetAnimation((int)AnimacionesEnemigos::VAARRIBA);
 	}
 }
 void ENEMIGO::StartWalkingDown()
 {
 	vista = Mirada::DOWN;
-	if (state != Estado::PELLET) {
-		state = Estado::WALKING;
+	if (state != Estado::PILL1) {
+		state = Estado::ANDANDO;
 		SetAnimation((int)AnimacionesEnemigos::VAABAJO);
 	}
 }
 void ENEMIGO::EmpiezaMorir()
 {
-	state = Estado::EYES;
+	state = Estado::OJOS;
 }
 
 void ENEMIGO::ChangeAnimUp()
@@ -331,10 +330,10 @@ void ENEMIGO::ChangeAnimUp()
 	vista = Mirada::UP;
 	switch (state)
 	{
-	case Estado::IDLE:	 SetAnimation((int)AnimacionesEnemigos::IDLE);    break;
-	case Estado::WALKING: SetAnimation((int)AnimacionesEnemigos::VAARRIBA); break;
-	case Estado::PELLET: SetAnimation((int)AnimacionesEnemigos::CEREZA); break;
-	case Estado::EYES: SetAnimation((int)AnimacionesEnemigos::ARRIBA); break;
+	case Estado::QUIETO:	 SetAnimation((int)AnimacionesEnemigos::IDLE);    break;
+	case Estado::ANDANDO: SetAnimation((int)AnimacionesEnemigos::VAARRIBA); break;
+	case Estado::PILL1: SetAnimation((int)AnimacionesEnemigos::CEREZA); break;
+	case Estado::OJOS: SetAnimation((int)AnimacionesEnemigos::ARRIBA); break;
 	}
 }
 void ENEMIGO::ChangeAnimDown()
@@ -342,10 +341,10 @@ void ENEMIGO::ChangeAnimDown()
 	vista = Mirada::DOWN;
 	switch (state)
 	{
-	case Estado::IDLE:	 SetAnimation((int)AnimacionesEnemigos::IDLE);    break;
-	case Estado::WALKING: SetAnimation((int)AnimacionesEnemigos::VAABAJO); break;
-	case Estado::PELLET: SetAnimation((int)AnimacionesEnemigos::CEREZA); break;
-	case Estado::EYES: SetAnimation((int)AnimacionesEnemigos::ABAJO); break;
+	case Estado::QUIETO:	 SetAnimation((int)AnimacionesEnemigos::IDLE);    break;
+	case Estado::ANDANDO: SetAnimation((int)AnimacionesEnemigos::VAABAJO); break;
+	case Estado::PILL1: SetAnimation((int)AnimacionesEnemigos::CEREZA); break;
+	case Estado::OJOS: SetAnimation((int)AnimacionesEnemigos::ABAJO); break;
 	}
 }
 void ENEMIGO::ChangeAnimRight()
@@ -353,10 +352,10 @@ void ENEMIGO::ChangeAnimRight()
 	vista = Mirada::RIGHT;
 	switch (state)
 	{
-	case Estado::IDLE:	 SetAnimation((int)AnimacionesEnemigos::IDLE);    break;
-	case Estado::WALKING: SetAnimation((int)AnimacionesEnemigos::VADERECHA); break;
-	case Estado::PELLET: SetAnimation((int)AnimacionesEnemigos::CEREZA); break;
-	case Estado::EYES: SetAnimation((int)AnimacionesEnemigos::DERECHA); break;
+	case Estado::QUIETO:	 SetAnimation((int)AnimacionesEnemigos::IDLE);    break;
+	case Estado::ANDANDO: SetAnimation((int)AnimacionesEnemigos::VADERECHA); break;
+	case Estado::PILL1: SetAnimation((int)AnimacionesEnemigos::CEREZA); break;
+	case Estado::OJOS: SetAnimation((int)AnimacionesEnemigos::DERECHA); break;
 	}
 }
 void ENEMIGO::ChangeAnimLeft()
@@ -364,10 +363,10 @@ void ENEMIGO::ChangeAnimLeft()
 	vista = Mirada::LEFT;
 	switch (state)
 	{
-	case Estado::IDLE:	 SetAnimation((int)AnimacionesEnemigos::IDLE);    break;
-	case Estado::WALKING: SetAnimation((int)AnimacionesEnemigos::VAIZQUIERDA); break;
-	case Estado::PELLET: SetAnimation((int)AnimacionesEnemigos::CEREZA); break;
-	case Estado::EYES: SetAnimation((int)AnimacionesEnemigos::IZQUIERDA); break;
+	case Estado::QUIETO:	 SetAnimation((int)AnimacionesEnemigos::IDLE);    break;
+	case Estado::ANDANDO: SetAnimation((int)AnimacionesEnemigos::VAIZQUIERDA); break;
+	case Estado::PILL1: SetAnimation((int)AnimacionesEnemigos::CEREZA); break;
+	case Estado::OJOS: SetAnimation((int)AnimacionesEnemigos::IZQUIERDA); break;
 	}
 }
 void ENEMIGO::Update(Point pacmanDir, Point pacmanPos, Point blinkypos)
@@ -388,15 +387,16 @@ float ENEMIGO::GetTargetDistance(Point dir)
 void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 {
 	AABB box;
+	Mirada atras;
 	int prev_x = pos.x;
 	int prev_y = pos.y;
-	int availableWays = 0;
-	Point optimalWay;
-	Mirada backwards;
+	int alternativas = 0;
+	Point alternativarapida;
+	
 
 	if (pillado) {
-		if (state != Estado::EYES) {
-			state = Estado::EYES;
+		if (state != Estado::OJOS) {
+			state = Estado::OJOS;
 			switch (vista) {
 			case Mirada::LEFT:
 				ChangeAnimLeft();
@@ -417,7 +417,7 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 			if (IsSoundPlaying(retratado)) StopSound(retratado);
 			Valla = false;
 			objetivo = salida_casa;
-			state = Estado::WALKING;
+			state = Estado::ANDANDO;
 			switch (vista) {
 			case Mirada::LEFT:
 				ChangeAnimLeft();
@@ -433,7 +433,11 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 				break;
 			}
 		}
+
+
+
 		objetivo = casa;
+
 		if (!IsSoundPlaying(retratado)) PlaySound(retratado);
 	} 
 	
@@ -445,102 +449,104 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 	}
 	else mode = Modo::ENCONTRAR;
 
-	if (state != Estado::PELLET) {
-		Point direction;
-		Mirada checking;
+	if (state != Estado::PILL1) {
+		Point dir;
+		Mirada comprobando;
 
 		switch (vista) {
 		case Mirada::LEFT:
-			optimalWay = { -1, 0 };
-			backwards = Mirada::RIGHT;
+			alternativarapida = { -1, 0 };
+			atras = Mirada::RIGHT;
 			break;
 		case Mirada::RIGHT:
-			optimalWay = { 1, 0 };
-			backwards = Mirada::LEFT;
+			alternativarapida = { 1, 0 };
+			atras = Mirada::LEFT;
 			break;
 		case Mirada::UP:
-			optimalWay = { 0, -1 };
-			backwards = Mirada::DOWN;
+			alternativarapida = { 0, -1 };
+			atras = Mirada::DOWN;
 			break;
 		case Mirada::DOWN:
-			optimalWay = { 0, 1 };
-			backwards = Mirada::UP;
+			alternativarapida = { 0, 1 };
+			atras = Mirada::UP;
 			break;
 		}
 
+
+
 		for (int i = 0; i < 4; ++i) {
-			if (i != (int)backwards) {
-				checking = (Mirada)i;
+			if (i != (int)atras) {
+				comprobando = (Mirada)i;
 				bool possible = false;
-				switch (checking) {
+				switch (comprobando) {
 				case Mirada::LEFT:
 					pos.x += -VELOCIDAD_ENEMIGO;
 					box = GetHitbox();
 					if (!mapa->TestCollisionWallLeft(box)) {
-						availableWays++;
+						alternativas++;
 						possible = true;
 					}
 					pos.x = prev_x;
-					direction = { -1, 0 };
+					dir = { -1, 0 };
 					break;
 				case Mirada::RIGHT:
 					pos.x += VELOCIDAD_ENEMIGO;
 					box = GetHitbox();
 					if (!mapa->TestCollisionWallRight(box)) {
-						availableWays++;
+						alternativas++;
 						possible = true;
 					}
 					pos.x = prev_x;
-					direction = { 1, 0 };
+					dir = { 1, 0 };
 					break;
 				case Mirada::UP:
 					pos.y -= VELOCIDAD_ENEMIGO;
 					box = GetHitbox();
 					if (!mapa->TestCollisionWallUp(box, Valla)) {
-						availableWays++;
+						alternativas++;
 						possible = true;
 					}
 					pos.y = prev_y;
-					direction = { 0, -1 };
+					dir = { 0, -1 };
 					break;
 				case Mirada::DOWN:
 					pos.y += VELOCIDAD_ENEMIGO;
 					box = GetHitbox();
 					if (!mapa->TestCollisionWallDown(box, Valla)) {
-						availableWays++;
+						alternativas++;
 						possible = true;
 					}
 					pos.y = prev_y;
-					direction = { 0, 1 };
+					dir = { 0, 1 };
 					break;
 				}
 				if (possible) {
-					if (GetTargetDistance(direction) < GetTargetDistance(optimalWay)) optimalWay = direction;
+					if (GetTargetDistance(dir) < GetTargetDistance(alternativarapida)) alternativarapida = dir;
 				}
 			}
 		}
 
-		if (availableWays > 0) {
-			if (optimalWay.x == 0) {
-				if (optimalWay.y == 1) {
+		if (alternativas > 0) {
+			if (alternativarapida.x == 0) {
+				if (alternativarapida.y == 1) {
 					pos.y += VELOCIDAD_ENEMIGO;
-					if (state == Estado::IDLE) StartWalkingDown();
+					if (state == Estado::QUIETO) StartWalkingDown();
 					else {
 						if (!IsLookingDown()) ChangeAnimDown();
 					}
 				}
 				else {
 					pos.y -= VELOCIDAD_ENEMIGO;
-					if (state == Estado::IDLE) StartWalkingUp();
+					if (state == Estado::QUIETO) StartWalkingUp();
 					else {
 						if (!IsLookingUp()) ChangeAnimUp();
 					}
 				}
 			}
 			else {
-				if (optimalWay.x == 1) {
+				if (alternativarapida.x == 1) {
 					pos.x += VELOCIDAD_ENEMIGO;
-					if (state == Estado::IDLE) StartWalkingRight();
+					if (state == Estado::QUIETO) StartWalkingRight();
 					else {
 						if (!IsLookingRight()) ChangeAnimRight();
 					}
@@ -551,7 +557,7 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 				}
 				else {
 					pos.x += -VELOCIDAD_ENEMIGO;
-					if (state == Estado::IDLE) StartWalkingLeft();
+					if (state == Estado::QUIETO) StartWalkingLeft();
 					else {
 						if (!IsLookingLeft()) ChangeAnimLeft();
 					}
@@ -563,31 +569,31 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 			}
 		}
 		else {
-			switch (backwards) {
+			switch (atras) {
 			case Mirada::LEFT:
 				pos.x += -VELOCIDAD_ENEMIGO;
-				if (state == Estado::IDLE) StartWalkingLeft();
+				if (state == Estado::QUIETO) StartWalkingLeft();
 				else {
 					if (!IsLookingLeft()) ChangeAnimLeft();
 				}
 				break;
 			case Mirada::RIGHT:
 				pos.x += VELOCIDAD_ENEMIGO;
-				if (state == Estado::IDLE) StartWalkingRight();
+				if (state == Estado::QUIETO) StartWalkingRight();
 				else {
 					if (!IsLookingRight()) ChangeAnimRight();
 				}
 				break;
 			case Mirada::UP:
 				pos.y += -VELOCIDAD_ENEMIGO;
-				if (state == Estado::IDLE) StartWalkingUp();
+				if (state == Estado::QUIETO) StartWalkingUp();
 				else {
 					if (!IsLookingUp()) ChangeAnimUp();
 				}
 				break;
 			case Mirada::DOWN:
 				pos.y += VELOCIDAD_ENEMIGO;
-				if (state == Estado::IDLE) StartWalkingDown();
+				if (state == Estado::QUIETO) StartWalkingDown();
 				else {
 					if (!IsLookingDown()) ChangeAnimDown();
 				}
@@ -605,25 +611,25 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 
 	 switch (vista) {
 	 case Mirada::LEFT:
-		 optimalWay = { -1, 0 };
-		 backwards = Mirada::RIGHT;
+		 alternativarapida = { -1, 0 };
+		 atras = Mirada::RIGHT;
 		 break;
 	 case Mirada::RIGHT:
-		 optimalWay = { 1, 0 };
-		 backwards = Mirada::LEFT;
+		 alternativarapida = { 1, 0 };
+		 atras = Mirada::LEFT;
 		 break;
 	 case Mirada::UP:
-		 optimalWay = { 0, -1 };
-		 backwards = Mirada::DOWN;
+		 alternativarapida = { 0, -1 };
+		 atras = Mirada::DOWN;
 		 break;
 	 case Mirada::DOWN:
-		 optimalWay = { 0, 1 };
-		 backwards = Mirada::UP;
+		 alternativarapida = { 0, 1 };
+		 atras = Mirada::UP;
 		 break;
 	 }
 
 	 for (int i = 0; i < 4; ++i) {
-		 if (i != (int)backwards) {
+		 if (i != (int)atras) {
 			 targetDir = (Mirada)i;
 			 switch (targetDir) {
 			 case Mirada::LEFT:
@@ -658,12 +664,12 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 		 random = GetRandomValue(0, possible.size() - 1);
 		 targetDir = possible[random];
 	 }
-	 else targetDir = backwards;
+	 else targetDir = atras;
 	 
 	 switch (targetDir) {
 	 case Mirada::LEFT:
 		 pos.x += -(VELOCIDAD_ENEMIGO + 1);
-		 if (state == Estado::IDLE) StartWalkingLeft();
+		 if (state == Estado::QUIETO) StartWalkingLeft();
 		 else {
 			 if (!IsLookingLeft()) ChangeAnimLeft();
 		 }
@@ -674,7 +680,7 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 		 break;
 	 case Mirada::RIGHT:
 		 pos.x += (VELOCIDAD_ENEMIGO + 1);
-		 if (state == Estado::IDLE) StartWalkingRight();
+		 if (state == Estado::QUIETO) StartWalkingRight();
 		 else {
 			 if (!IsLookingRight()) ChangeAnimRight();
 		 }
@@ -685,14 +691,14 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 		 break;
 	 case Mirada::UP:
 		 pos.y += -(VELOCIDAD_ENEMIGO + 1);
-		 if (state == Estado::IDLE) StartWalkingUp();
+		 if (state == Estado::QUIETO) StartWalkingUp();
 		 else {
 			 if (!IsLookingUp()) ChangeAnimUp();
 		 }
 		 break;
 	 case Mirada::DOWN:
 		 pos.y += (VELOCIDAD_ENEMIGO + 1);
-		 if (state == Estado::IDLE) StartWalkingDown();
+		 if (state == Estado::QUIETO) StartWalkingDown();
 		 else {
 			 if (!IsLookingDown()) ChangeAnimDown();
 		 }
@@ -707,12 +713,12 @@ void ENEMIGO::UpdateTarget(Point pacmanDir, Point pacmanPos, Point blinkypos)
 	if (Valla) {
 		if (pos.x == objetivo.x and pos.y == objetivo.y-1) Valla = false;
 		else if (casa.x == objetivo.x and casa.y == objetivo.y-1) {
-			state = Estado::IDLE;
+			state = Estado::QUIETO;
 			pillado = false;
 			objetivo = salida_casa;
 		}
 	}
-	else if(state != Estado::EYES){
+	else if(state != Estado::OJOS){
 		if (mode == Modo::ENCONTRAR) {
 			switch (type) {
 			case TipoEnemigo::AZULITO:

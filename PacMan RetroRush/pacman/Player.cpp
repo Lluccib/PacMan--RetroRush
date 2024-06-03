@@ -26,7 +26,7 @@ AppStatus Player::Initialise()
 		return AppStatus::ERROR;
 	}
 
-	sound_death = data.GetSound(AudioResource::AUDIO_MUERTE);
+	sound_death = data.GetSound(AudioResource::MUERTE);
 
 	render = new Sprite(data.GetTexture(Resource::IMG_PLAYER));
 	if (render == nullptr)
