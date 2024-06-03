@@ -206,7 +206,7 @@ AppStatus Intro::LoadIntro()
 				pacman->SetPos(pos);
 				map[i] = 0;
 			}
-			else if (tile == Tile::PELLET)
+			else if (tile == Tile::CEREZA)
 			{
 				pos.x = x * TILE_SIZE;
 				pill1X = pos.x;

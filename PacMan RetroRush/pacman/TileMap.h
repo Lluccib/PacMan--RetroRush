@@ -9,53 +9,47 @@
 enum class Tile {
 
 	EMPTY = -1,
-	// -: check if player has left the screen
 	EXIT_LEFT = -3, EXIT_RIGHT = -2,
-	//  0: air tile
-	AIR = 0,
+	AIR = 0,//ESPACIO VACÍO
 
-	// 0 < id < 50: static tiles (in tileset order)
-	DOUBLECORNER_TR = 1, DOUBLECORNER_TL, DOUBLEWALL_R, DOUBLEWALL_L, DOUBLECORNER_BR, DOUBLECORNER_BL,
-	CORNERWALL_BR, CORNERWALL_BL, CORNERWALL_TR, CORNERWALL_TL, 
-	DOUBLEWALL_TR, DOUBLEWALL_TL, DOUBLEWALL_BR, DOUBLEWALL_BL,
-	WALL_BR, WALL_BL, 
-
-	LARGECORNER_BR = 17, LARGECORNER_BL, LARGECORNER_TR, LARGECORNER_TL,
-	WALL_TR, WALL_TL, 
-	CORNER_TR, CORNER_TL, 
-	WALL_R, WALL_L,
-	CORNER_BR, CORNER_BL,
-	SQUARECORNER_TR, SQUARECORNER_TL, SQUARECORNER_BR, SQUARECORNER_BL,
-
-	SQUAREWALL_L = 33, SQUAREWALL_R,
-	TOPCORNER_L, TOPCORNER_R, BOTTOMCORNER_L, BOTTOMCORNER_R,
-	SMALLCORNER_TR, SMALLCORNER_TL, SMALLCORNER_BR, SMALLCORNER_BL,
-	TOPCORNERWALL_L, TOPCORNERWALL_R,
+	//0<50 SERAN ESTATICOS
+	ESQUINALARGA_BR = 17, ESQUINALARGA_BL, ESQUINALARGA_TR, ESQUINALARGA_TL,//esquinas
+	PARED_TR, PARED_TL, //paredes
+	ESQUINA_TR, ESQUINA_TL, //esquinas
+	PARED_R, PARED_L,//paredes
+	ESQUINA_BR, ESQUINA_BL,//esquinas
+	CUADRADO_TR, CUADRADO_TL, CUADRADO_BR, CUADRADO_BL,//cuadraditos
+	
+	ESQUINADOBLE_R = 1, ESQUINADOBLE_L, PAREDDOBLE_R, PAREDDOBLE_L, ESQUINADOBLE_BR, ESQUINADOBLE_BL,
+	ESQUINAPARED_BR, ESQUINAPARED_BL, ESQUINAPARED_TR, ESQUINAPARED_TL, 
+	DOBLEPARED_TR, DOBLEPARED_TL, DOBLEPARED_BR, DOBLEPARED_BL,
+	PARED_BR, PARED_BL, 
 
 
+	PAREDCUADRADA_L = 33, PAREDCUADRADA_R,
+	ESQUINASUPERIOR_L, ESQUINASUPERIOR_R, ESQUINAINFERIOR_L, ESQUINAINFERIOR_R,
+	PEQUEÑA_TR, PEQUEÑA_TL, PEQUEÑA_BR, PEQUEÑA_BL,
+	TOPE_L, TOPE_R,
 	// 50 <= id < 100: special tiles
-	DOT = 50, LARGE_DOT, PELLET, FRUIT,
+	PILL1 = 50, PILL2, CEREZA, MONDONGO,
 
 	GHOST_DOOR = 70, GHOST_DOOR2,
 
-	//Intervals
-	STATIC_FIRST = DOUBLECORNER_TR,
-	STATIC_LAST = TOPCORNERWALL_R,
-	SOLID_FIRST = DOUBLECORNER_TR,
-	SOLID_LAST = TOPCORNERWALL_R,
-	SPECIAL_FIRST = DOT,
-	SPECIAL_LAST = PELLET,
+	//Intervalos
+	STATIC_FIRST = ESQUINADOBLE_R,
+	STATIC_LAST = TOPE_R,
+	SOLID_FIRST = ESQUINADOBLE_R,
+	SOLID_LAST = TOPE_R,
+	SPECIAL_FIRST = PILL1,
+	SPECIAL_LAST = CEREZA,
 
+	ICONO1 = 200, ICONO2, ICONO3,
+	//jugador & enemigos
 	PLAYER = 100,
+	BLINKY = 101, PINKY, INKY, CLYDE
 
-	//enemies
-	BLINKY = 101, PINKY, INKY, CLYDE,
-
-	FRUIT_ICON = 200, FRUIT_ICON_1, FRUIT_ICON_2
 	
 
-	/*ENTITY_FIRST = PLAYER,
-	ENTITY_LAST = PLAYER*/
 };
 
 class TileMap
@@ -69,8 +63,6 @@ public:
 	void Update();
 	void Render();
 	void Release();
-
-	//Test for collisions with walls
 	bool TestCollisionWallLeft(const AABB& box) const;
 	bool TestCollisionWallRight(const AABB& box) const;
 	bool TestCollisionWallUp(const AABB& box) const;
@@ -80,12 +72,12 @@ public:
 	bool TestCollisionWallRight(const AABB& box, bool door) const;
 	bool TestCollisionWallUp(const AABB& box, bool door) const;
 	bool TestCollisionWallDown(const AABB& box, bool door) const;
-
+	bool ganar = false;
+	bool perder = false;
 	Tile TestSideExit(const AABB& box) const;
 	bool SolidTest(const AABB& box) const;
 
-	bool win = false;
-	bool lose = false;
+
 
 private:
 	void InitTileDictionary();
@@ -96,22 +88,16 @@ private:
 	bool CollisionY(const Point& p, int distance) const;
 	bool CollisionX(const Point& p, int distance, bool door) const;
 	bool CollisionY(const Point& p, int distance, bool door) const;
-
-	//Tile map
 	Tile* map;
-
-	//Size of the tile map
 	int size, width, height;
-
-	//Dictionary of tile frames
+	int tiempos = 4;
 	std::unordered_map<int, Rectangle> dict_rect;
 
-	//Tile sheet
-	const Texture2D* img_tiles;
-	const Texture2D* img_tiles_white;
+	int blanco = 0;
+	const Texture2D* tilesnormales;
+	const Texture2D* tilesganar;
 
-	//count for win screen
-	int delay = 30;
-	int white = 0;
-	int flash = 4;
+	int retraso = 30;
+	
+	
 };

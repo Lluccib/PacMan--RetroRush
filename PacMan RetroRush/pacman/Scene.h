@@ -78,8 +78,8 @@ private:
 
     //game check
     bool EndLevel = false;
-    bool win = false;
-    bool lose = false;
+    bool ganar = false;
+    bool perder = false;
     int level_count = 1;
 
     //munch 1 or 2 check

@@ -8,7 +8,7 @@ TileMap::TileMap()
 	map = nullptr;
 	width = 0;
 	height = 0;
-	img_tiles = nullptr;
+	tilesnormales = nullptr;
 
 	InitTileDictionary();
 }
@@ -28,55 +28,62 @@ void TileMap::InitTileDictionary()
 
 	dict_rect[(int)Tile::AIR] = { 12*Z,  2*Z, n, n };
 
-	dict_rect[(int)Tile::DOUBLECORNER_TR] = { 0,  0, n, n };
-	dict_rect[(int)Tile::DOUBLECORNER_TL] = { Z,  0, n, n };
-	dict_rect[(int)Tile::DOUBLEWALL_R] = { 2*Z, 0, n, n };
-	dict_rect[(int)Tile::DOUBLEWALL_L] = { 3 * Z, 0, n, n };
-	dict_rect[(int)Tile::DOUBLECORNER_BR] = { 4 * Z, 0, n, n };
-	dict_rect[(int)Tile::DOUBLECORNER_BL] = { 5 * Z, 0, n, n };
-	dict_rect[(int)Tile::CORNERWALL_BR] = { 6 * Z, 0, n, n };
-	dict_rect[(int)Tile::CORNERWALL_BL] = { 7 * Z, 0, n, n };
-	dict_rect[(int)Tile::CORNERWALL_TR] = { 8 * Z, 0, n, n };
-	dict_rect[(int)Tile::CORNERWALL_TL] = { 9 * Z, 0, n, n };
-	dict_rect[(int)Tile::DOUBLEWALL_TR] = { 10 * Z, 0, n, n };
-	dict_rect[(int)Tile::DOUBLEWALL_TL] = { 11 * Z, 0, n, n };
-	dict_rect[(int)Tile::DOUBLEWALL_BR] = { 12 * Z, 0, n, n };
-	dict_rect[(int)Tile::DOUBLEWALL_BL] = { 13 * Z, 0, n, n };
-	dict_rect[(int)Tile::WALL_BR] = { 14 * Z, 0, n, n };
-	dict_rect[(int)Tile::WALL_BL] = { 15 * Z, 0, n, n };
+	dict_rect[(int)Tile::PARED_TR] = { 4 * Z, Z, n, n };//21
+	dict_rect[(int)Tile::PARED_TL] = { 5 * Z, Z, n, n };//22
+	dict_rect[(int)Tile::ESQUINAPARED_BR] = { 6 * Z, 0, n, n };//7
+	dict_rect[(int)Tile::ESQUINAPARED_BL] = { 7 * Z, 0, n, n };//8
+	dict_rect[(int)Tile::PAREDDOBLE_R] = { 2*Z, 0, n, n };//3
+	dict_rect[(int)Tile::PAREDDOBLE_L] = { 3 * Z, 0, n, n };//4
 
-	dict_rect[(int)Tile::LARGECORNER_BR] = { 0,  Z, n, n };
-	dict_rect[(int)Tile::LARGECORNER_BL] = { Z,  Z, n, n };
-	dict_rect[(int)Tile::LARGECORNER_TR] = { 2 * Z, Z, n, n };
-	dict_rect[(int)Tile::LARGECORNER_TL] = { 3 * Z, Z, n, n };
-	dict_rect[(int)Tile::WALL_TR] = { 4 * Z, Z, n, n };
-	dict_rect[(int)Tile::WALL_TL] = { 5 * Z, Z, n, n };
-	dict_rect[(int)Tile::CORNER_TR] = { 6 * Z, Z, n, n };
-	dict_rect[(int)Tile::CORNER_TL] = { 7 * Z, Z, n, n };
-	dict_rect[(int)Tile::WALL_R] = { 8 * Z, Z, n, n };
-	dict_rect[(int)Tile::WALL_L] = { 9 * Z, Z, n, n };
-	dict_rect[(int)Tile::CORNER_BR] = { 10 * Z, Z, n, n };
-	dict_rect[(int)Tile::CORNER_BL] = { 11 * Z, Z, n, n };
-	dict_rect[(int)Tile::SQUARECORNER_TR] = { 12 * Z, Z, n, n };
-	dict_rect[(int)Tile::SQUARECORNER_TL] = { 13 * Z, Z, n, n };
-	dict_rect[(int)Tile::SQUARECORNER_BR] = { 14 * Z, Z, n, n };
-	dict_rect[(int)Tile::SQUARECORNER_BL] = { 15 * Z, Z, n, n };
+	dict_rect[(int)Tile::ESQUINADOBLE_BR] = { 4 * Z, 0, n, n };//5
+	dict_rect[(int)Tile::ESQUINADOBLE_BL] = { 5 * Z, 0, n, n };//6
+	dict_rect[(int)Tile::DOBLEPARED_BR] = { 12 * Z, 0, n, n };//13
+	dict_rect[(int)Tile::DOBLEPARED_BL] = { 13 * Z, 0, n, n };//14
+	dict_rect[(int)Tile::PARED_BR] = { 14 * Z, 0, n, n };//15
+	dict_rect[(int)Tile::PARED_BL] = { 15 * Z, 0, n, n };//16
 
-	dict_rect[(int)Tile::SQUAREWALL_L] = { 0,  2*Z, n, n };
-	dict_rect[(int)Tile::SQUAREWALL_R] = { Z,  2 * Z, n, n };
-	dict_rect[(int)Tile::TOPCORNER_L] = { 2 * Z, 2 * Z, n, n };
-	dict_rect[(int)Tile::TOPCORNER_R] = { 3 * Z, 2 * Z, n, n };
-	dict_rect[(int)Tile::BOTTOMCORNER_L] = { 4 * Z, 2 * Z, n, n };
-	dict_rect[(int)Tile::BOTTOMCORNER_R] = { 5 * Z, 2 * Z, n, n };
-	dict_rect[(int)Tile::SMALLCORNER_TR] = { 6 * Z, 2 * Z, n, n };
-	dict_rect[(int)Tile::SMALLCORNER_TL] = { 7 * Z, 2 * Z, n, n };
-	dict_rect[(int)Tile::SMALLCORNER_BR] = { 8 * Z, 2 * Z, n, n };
-	dict_rect[(int)Tile::SMALLCORNER_BL] = { 9 * Z, 2 * Z, n, n };
-	dict_rect[(int)Tile::TOPCORNERWALL_L] = { 10 * Z, 2 * Z, n, n };
-	dict_rect[(int)Tile::TOPCORNERWALL_R] = { 11 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::ESQUINAPARED_TR] = { 8 * Z, 0, n, n };//9
+	dict_rect[(int)Tile::ESQUINAPARED_TL] = { 9 * Z, 0, n, n };//10
 
-	dict_rect[(int)Tile::FRUIT_ICON_1] = { 0, 3 * Z, n*2, n*2 };
-	dict_rect[(int)Tile::FRUIT_ICON_2] = { n*2, 3 * Z, n*2, n*2 };
+	dict_rect[(int)Tile::DOBLEPARED_TR] = { 10 * Z, 0, n, n };//11
+	dict_rect[(int)Tile::DOBLEPARED_TL] = { 11 * Z, 0, n, n };//12
+	dict_rect[(int)Tile::ESQUINASUPERIOR_L] = { 2 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::ESQUINASUPERIOR_R] = { 3 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::ESQUINAINFERIOR_L] = { 4 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::ESQUINAINFERIOR_R] = { 5 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::PEQUEÑA_TR] = { 6 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::PEQUEÑA_TL] = { 7 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::PEQUEÑA_BR] = { 8 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::PEQUEÑA_BL] = { 9 * Z, 2 * Z, n, n };
+	
+	dict_rect[(int)Tile::PARED_R] = { 8 * Z, Z, n, n };//25
+	dict_rect[(int)Tile::PARED_L] = { 9 * Z, Z, n, n };//26
+	dict_rect[(int)Tile::ESQUINA_BR] = { 10 * Z, Z, n, n };
+	dict_rect[(int)Tile::ESQUINA_BL] = { 11 * Z, Z, n, n };
+	dict_rect[(int)Tile::CUADRADO_TR] = { 12 * Z, Z, n, n };
+	dict_rect[(int)Tile::CUADRADO_TL] = { 13 * Z, Z, n, n };
+	dict_rect[(int)Tile::CUADRADO_BR] = { 14 * Z, Z, n, n };
+	dict_rect[(int)Tile::CUADRADO_BL] = { 15 * Z, Z, n, n };
+	
+	dict_rect[(int)Tile::ESQUINADOBLE_R] = { 0,  0, n, n };//1
+	dict_rect[(int)Tile::ESQUINADOBLE_L] = { Z,  0, n, n };//2
+	dict_rect[(int)Tile::ESQUINALARGA_BR] = { 0,  Z, n, n };//17
+	dict_rect[(int)Tile::ESQUINALARGA_BL] = { Z,  Z, n, n };//18
+	dict_rect[(int)Tile::ESQUINALARGA_TR] = { 2 * Z, Z, n, n };//19
+	dict_rect[(int)Tile::ESQUINALARGA_TL] = { 3 * Z, Z, n, n };//20
+
+	dict_rect[(int)Tile::ESQUINA_TR] = { 6 * Z, Z, n, n };//23
+	dict_rect[(int)Tile::ESQUINA_TL] = { 7 * Z, Z, n, n };//24
+	
+
+	dict_rect[(int)Tile::PAREDCUADRADA_L] = { 0,  2*Z, n, n };
+	dict_rect[(int)Tile::PAREDCUADRADA_R] = { Z,  2 * Z, n, n };
+
+	dict_rect[(int)Tile::TOPE_L] = { 10 * Z, 2 * Z, n, n };
+	dict_rect[(int)Tile::TOPE_R] = { 11 * Z, 2 * Z, n, n };
+
+	dict_rect[(int)Tile::ICONO2] = { 0, 3 * Z, n*2, n*2 };
+	dict_rect[(int)Tile::ICONO3] = { n*2, 3 * Z, n*2, n*2 };
 
 }
 AppStatus TileMap::Initialise()
@@ -87,13 +94,13 @@ AppStatus TileMap::Initialise()
 	{
 		return AppStatus::ERROR;
 	}
-	img_tiles = data.GetTexture(Resource::IMG_TILES);
+	tilesnormales = data.GetTexture(Resource::IMG_TILES);
 
 	if (data.LoadTexture(Resource::IMG_TILES_WHITE, "Assets/mapas/blancos.png") != AppStatus::OK)
 	{
 		return AppStatus::ERROR;
 	}
-	img_tiles_white = data.GetTexture(Resource::IMG_TILES_WHITE);
+	tilesganar = data.GetTexture(Resource::IMG_TILES_WHITE);
 
 	return AppStatus::OK;
 }
@@ -117,7 +124,8 @@ AppStatus TileMap::Load(int data[], int w, int h)
 }
 void TileMap::Update()
 {
-	int y = 0;
+	int c = 0;
+	//////////
 }
 Tile TileMap::GetTileIndex(int x, int y) const
 {
@@ -133,6 +141,7 @@ bool TileMap::IsTileSolid(Tile tile) const
 {
 	return (Tile::SOLID_FIRST <= tile && tile <= Tile::SOLID_LAST);
 }
+//player
 bool TileMap::TestCollisionWallLeft(const AABB& box) const
 {
 	return CollisionX(box.pos, box.height);
@@ -149,6 +158,7 @@ bool TileMap::TestCollisionWallDown(const AABB& box) const
 {
 	return CollisionY(box.pos + Point(0, box.height - 1), box.height);
 }
+//fantasmas
 bool TileMap::TestCollisionWallLeft(const AABB& box, bool door) const
 {
 	if (!door) return CollisionX(box.pos, box.height, door);
@@ -177,6 +187,7 @@ bool TileMap::SolidTest(const AABB& box) const
 {
 	return IsTileSolid(GetTileIndex(box.pos.x, box.pos.y));
 }
+//player
 bool TileMap::CollisionX(const Point& p, int distance) const
 {
 	int x, y, y0, y1;
@@ -216,6 +227,7 @@ bool TileMap::CollisionY(const Point& p, int distance) const
 	}
 	return false;
 }
+//fantasmas
 bool TileMap::CollisionX(const Point& p, int distance, bool door) const
 {
 	int x, y, y0, y1;
@@ -261,8 +273,8 @@ void TileMap::Render()
 	Rectangle rc;
 	Vector2 pos;
 
-	if (win) {
-		if (white == 0) {
+	if (ganar) {
+		if (blanco == 0) {
 			for (int i = 0; i < height; ++i)
 			{
 				for (int j = 0; j < width; ++j)
@@ -273,16 +285,16 @@ void TileMap::Render()
 						pos.x = (float)j * TILE_SIZE;
 						pos.y = (float)i * TILE_SIZE;
 						rc = dict_rect[(int)tile];
-						DrawTextureRec(*img_tiles_white, rc, pos, WHITE);
+						DrawTextureRec(*tilesganar, rc, pos, WHITE);
 
 					}
 				}
 			}
-			--delay;
-			if (delay <= 0) {
-				delay = 30;
-				white = 4;
-				--flash;
+			--retraso;
+			if (retraso <= 0) {
+				retraso = 30;
+				blanco = 4;
+				--tiempos;
 			}
 		}
 		else {
@@ -296,21 +308,21 @@ void TileMap::Render()
 						pos.x = (float)j * TILE_SIZE;
 						pos.y = (float)i * TILE_SIZE;
 						rc = dict_rect[(int)tile];
-						DrawTextureRec(*img_tiles, rc, pos, WHITE);
+						DrawTextureRec(*tilesnormales, rc, pos, WHITE);
 
 					}
 				}
 			}
-			--delay;
-			if (delay <= 0) {
-				delay = 30;
-				white = 0;
-				--flash;
+			--retraso;
+			if (retraso <= 0) {
+				retraso = 30;
+				blanco = 0;
+				--tiempos;
 			}
 		}
-		if (flash == 0) {
-			win = false;
-			flash = 4;
+		if (tiempos == 0) {
+			ganar = false;
+			tiempos = 4;
 		}
 
 	}
@@ -325,7 +337,7 @@ void TileMap::Render()
 					pos.x = (float)j * TILE_SIZE;
 					pos.y = (float)i * TILE_SIZE;
 					rc = dict_rect[(int)tile];
-					DrawTextureRec(*img_tiles, rc, pos, WHITE);
+					DrawTextureRec(*tilesnormales, rc, pos, WHITE);
 
 				}
 			}

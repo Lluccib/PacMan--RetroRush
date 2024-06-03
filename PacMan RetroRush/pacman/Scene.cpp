@@ -366,7 +366,7 @@ AppStatus Scene::LoadLevel(int stage)
 				clyde->SetPos(posicionamiento);
 				map[i] = 0;
 			}
-			else if (tile == Tile::DOT)
+			else if (tile == Tile::PILL1)
 			{
 				posicionamiento.x = x * TILE_SIZE;
 				posicionamiento.y = y * TILE_SIZE + TILE_SIZE - 1;
@@ -374,7 +374,7 @@ AppStatus Scene::LoadLevel(int stage)
 				objects.push_back(objetito);
 				map[i] = 0;
 			}
-			else if (tile == Tile::PELLET)
+			else if (tile == Tile::CEREZA)
 			{
 				posicionamiento.x = x * TILE_SIZE;
 				posicionamiento.y = y * TILE_SIZE + TILE_SIZE - 1;
@@ -382,7 +382,7 @@ AppStatus Scene::LoadLevel(int stage)
 				objects.push_back(objetito);
 				map[i] = 0;
 			}
-			else if (tile == Tile::FRUIT)
+			else if (tile == Tile::MONDONGO)
 			{
 				posicionamiento.x = x * TILE_SIZE + TILE_SIZE / 2;
 				posicionamiento.y = y * TILE_SIZE + TILE_SIZE - 1;
@@ -390,10 +390,10 @@ AppStatus Scene::LoadLevel(int stage)
 				fruitY = posicionamiento.y;
 				map[i] = 0;
 			}
-			else if (tile == Tile::FRUIT_ICON)
+			else if (tile == Tile::ICONO1)
 			{
-				if(level_count == 1) map[i] = (int)Tile::FRUIT_ICON_1;
-				if (level_count == 2) map[i] = (int)Tile::FRUIT_ICON_2;
+				if(level_count == 1) map[i] = (int)Tile::ICONO2;
+				if (level_count == 2) map[i] = (int)Tile::ICONO3;
 			}
 			else if (tile == Tile::GHOST_DOOR) {
 				posicionamiento.x = x * TILE_SIZE;
@@ -422,7 +422,7 @@ void Scene::Update()
 		debug = (DebugMode)(((int)debug + 1) % (int)DebugMode::SIZE);
 	}
 	if (IsKeyPressed(KEY_F2))       EndLevel = true;
-	if (IsKeyPressed(KEY_F3))       lose = true;
+	if (IsKeyPressed(KEY_F3))       perder = true;
 	if (IsKeyPressed(KEY_F5)) {
 		int objectX, objectY;
 		bool checkTile = true;
@@ -465,13 +465,13 @@ void Scene::Update()
 		pellet_timer = PELLETTIME;
 		if(IsSoundPlaying(sound_pellet)) StopSound(sound_pellet);
 
-		level->win = true;
+		level->ganar = true;
 		player->Ganar();
 		inky->WinLose();
 		blinky->WinLose();
 		pinky->WinLose();
 		clyde->WinLose();
-		win = true;
+		ganar = true;
 
 		LoadLevel(0);
 		EndLevel = false;
@@ -499,10 +499,10 @@ void Scene::Update()
 			--intro_count;
 		}
 	}
-	else if (win) {
-		if (!level->win) {
+	else if (ganar) {
+		if (!level->ganar) {
 			level_count++;
-			win = false;
+			ganar = false;
 			if (level_count > (int)LEVELS) {
 				EndGame = true;
 			}
@@ -511,11 +511,11 @@ void Scene::Update()
 			}
 		}
 	}
-	else if (lose) {
+	else if (perder) {
 		StopSound(sirens[siren]);
 		player->PERDER();
 		if (!player->perder) {
-			lose = false;
+			perder = false;
 			if (player->Getvidas() >= 0) {
 				player->SetPos({ playerX, playerY });
 				inky->SetPos({ inkyX, inkyY });
@@ -673,7 +673,7 @@ void Scene::CheckCollisions()
 
 	enemy_box = inky->GetHitbox();
 	if (player_box.TestAABB(enemy_box)) {
-		if (!inky->TaMuerto() and !collectPellet and !god_mode) lose = true;
+		if (!inky->TaMuerto() and !collectPellet and !god_mode) perder = true;
 		else {
 			if (!inkyCaught and collectPellet) {
 				player->IncrementarPuntuación(ghost_points);
@@ -687,7 +687,7 @@ void Scene::CheckCollisions()
 	else {
 		enemy_box = blinky->GetHitbox();
 		if (player_box.TestAABB(enemy_box)) {
-			if (!blinky->TaMuerto() and !collectPellet and !god_mode) lose = true;
+			if (!blinky->TaMuerto() and !collectPellet and !god_mode) perder = true;
 			else {
 				if (!blinkyCaught and collectPellet) {
 					player->IncrementarPuntuación(ghost_points);
@@ -701,7 +701,7 @@ void Scene::CheckCollisions()
 		else {
 			enemy_box = pinky->GetHitbox();
 			if (player_box.TestAABB(enemy_box)) {
-				if (!pinky->TaMuerto() and !collectPellet and !god_mode) lose = true;
+				if (!pinky->TaMuerto() and !collectPellet and !god_mode) perder = true;
 				else {
 					if (!pinkyCaught and collectPellet) {
 						player->IncrementarPuntuación(ghost_points);
@@ -715,7 +715,7 @@ void Scene::CheckCollisions()
 			else {
 				enemy_box = clyde->GetHitbox();
 				if (player_box.TestAABB(enemy_box)) {
-					if (!clyde->TaMuerto() and !collectPellet and !god_mode) lose = true;
+					if (!clyde->TaMuerto() and !collectPellet and !god_mode) perder = true;
 					else {
 						if (!clydeCaught and collectPellet) {
 							player->IncrementarPuntuación(ghost_points);
