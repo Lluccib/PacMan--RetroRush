@@ -9,22 +9,14 @@
 
 enum class DebugMode { OFF, SPRITES_AND_HITBOXES, ONLY_HITBOXES, SIZE };
 
-//total amount of created levels
 #define LEVELS 2
-
-//amount of items in a level divided by 5 (for the siren)
-#define FRACTION5_ITEMS 48
-
-//siren length
-#define SIREN_LENGTH 48
-
-//font color
-#define CYANBLUE CLITERAL(Color){0, 255, 255, 255}
-
-//timers
+//temmporizadores en (ms)
 #define PELLETTIME 480;
 #define FRUITTIME 900;
 
+#define CYANBLUE CLITERAL(Color){0, 255, 255, 255}//fuente color pacman 1980
+#define PARTICIONES 48//las particiones de los items
+#define SIREN_LENGTH 48//toda la alargada de la sirena (sonido)
 class Scene
 {
 public:
@@ -35,80 +27,80 @@ public:
     void Update();
     void Render();
     void Release();
-
-    bool EndGame = false;
+    
     bool intro = false;
     bool levelintro = 0;
-
+    bool fin = false;
 private:
     AppStatus LoadLevel(int stage);
+    //renderizado
+    void RenderObjects() const;
+    void RenderObjectsDebug(const Color& col) const;
+    void RenderGUI() const;
 
     void CheckCollisions();
     void ClearLevel();
-    void RenderObjects() const;
-    void RenderObjectsDebug(const Color& col) const;
 
-    void RenderGUI() const;
-
+    //jugador
     Jugador* player;
 
-    //enemies
+    //enemigos
     ENEMIGO* blinky;
     ENEMIGO* inky;
     ENEMIGO* clyde;
     ENEMIGO* pinky;
 
-    //UI
-    HUD* livesUI;
+    //interfaz 
+    HUD* vidasHUD;
 
-    TileMap* level;
+    TileMap* nivel;
     std::vector<OBJETOS*> objects;
+    
+    //sirena de fondo
+    Sound sirenas[5];
+    //efectos
+    Sound pill_sonido, intro_sonido, fruta_sonido, comerenemigo_sonido, punch1_sonido, punch2_sonido;   
+    //cambio de sirena
+    int sirena = 0;
+    //largo de sirena
+    int largoSirena = SIREN_LENGTH;
+   
+    //activadores de boost
+    bool pillarcereza = false;
+    int cerezaTimepo = 480;
 
-    //efects
-    Sound sound_intro, sound_munch1, sound_munch2, sound_pellet, sound_fruit, sound_eatghost;
-    //background sirem
-    Sound sirens[5];
-    //siren length for looping
-    int siren_length = SIREN_LENGTH;
-    //for changing between the sirens
-    int siren = 0;
-
-    bool collectPellet = false;
-    int pellet_timer = 480;
-
-    //game check
+    //estados de la partida (ganas, pierdes, se acaba nivel, nivel actual)
     bool EndLevel = false;
     bool ganar = false;
     bool perder = false;
     int level_count = 1;
+  
+    bool punch1 = true;
 
-    //munch 1 or 2 check
-    bool munch1 = true;
-
-    //check for godmode
+    //godmode
     bool god_mode = false;
 
-    //intro frame length
     int intro_count = 240;
+    int ghost_points = 200;
 
-    //player and enemies intial position save
-    int playerX, playerY;
+    int cuentafrutas = FRUITTIME;
+    //Estado de pillado
+    bool blinkypillado = false;
+    bool inkypillado = false;
+    bool clycepillado = false;
+    bool pinkypillado = false;
+    //posiciones 
+    int clydeX, clydeY;
     int blinkyX, blinkyY;
     int pinkyX, pinkyY;
     int inkyX, inkyY;
-    int clydeX, clydeY;
+    int playerX, playerY;
     int fruitX, fruitY;
-    int fruitcounter = FRUITTIME;
-
-    bool blinkyCaught = false;
-    bool inkyCaught = false;
-    bool clydeCaught = false;
-    bool pinkyCaught = false;
-
-    int ghost_points = 200;
-
-    Text* font;
-
+    
     Camera2D camera;
     DebugMode debug;
+
+    Text* fuente;
+
+   
 };

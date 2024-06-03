@@ -11,39 +11,39 @@ Scene::Scene()
 	pinky = nullptr;
 	clyde = nullptr;
 
-    level = nullptr;
+    nivel = nullptr;
+	fuente = nullptr;
+	vidasHUD = nullptr;
 
-	livesUI = nullptr;
-
-	font = nullptr;
 	
-	camera.target = { 0, 0 };				//Center of the screen
-	camera.offset = { 0, 0 };	//Offset from the target (center of the screen)
-	camera.rotation = 0.0f;					//No rotation
-	camera.zoom = 1.0f;						//Default zoom
+	
+	camera.target = { 0, 0 };				
+	camera.offset = { 0, 0 };	
+	camera.rotation = 0.0f;					
+	camera.zoom = 1.0f;		
 
 	ResourceManager& data = ResourceManager::Instance();
-	sound_intro = data.GetSound(AudioResource::INTRO);
+	intro_sonido = data.GetSound(AudioResource::INTRO);
 
-	sound_munch1 = data.GetSound(AudioResource::PUNCH1);
-	sound_munch2 = data.GetSound(AudioResource::PUNCH2);
+	sirenas[0] = data.GetSound(AudioResource::SIRENA1);
+	sirenas[1] = data.GetSound(AudioResource::SIRENA2);
+	sirenas[2] = data.GetSound(AudioResource::SIRENA3);
+	sirenas[3] = data.GetSound(AudioResource::SIRENA4);
+	sirenas[4] = data.GetSound(AudioResource::SIRENA5);
 
-	sound_pellet = data.GetSound(AudioResource::AUD_PELLET);
-	sound_fruit = data.GetSound(AudioResource::FRUITAUD);
-	sound_eatghost = data.GetSound(AudioResource::EATGHOST);
+	fruta_sonido = data.GetSound(AudioResource::FRUITAUD);
+	comerenemigo_sonido = data.GetSound(AudioResource::EATGHOST);
+	punch1_sonido = data.GetSound(AudioResource::PUNCH1);
+	punch2_sonido = data.GetSound(AudioResource::PUNCH2);
 
-	sirens[0] = data.GetSound(AudioResource::SIRENA1);
-	sirens[1] = data.GetSound(AudioResource::SIRENA2);
-	sirens[2] = data.GetSound(AudioResource::SIRENA3);
-	sirens[3] = data.GetSound(AudioResource::SIRENA4);
-	sirens[4] = data.GetSound(AudioResource::SIRENA5);
+	pill_sonido = data.GetSound(AudioResource::AUD_PELLET);
 
 	debug = DebugMode::OFF;
 }
 Scene::~Scene()
 {
-	StopSound(sirens[siren]);
-	if(IsSoundPlaying(sound_pellet)) StopSound(sound_pellet);
+	StopSound(sirenas[sirena]);
+	if(IsSoundPlaying(pill_sonido)) StopSound(pill_sonido);
 
 	if (player != nullptr)
 	{
@@ -75,20 +75,20 @@ Scene::~Scene()
 		delete clyde;
 		clyde = nullptr;
 	}
-    if (level != nullptr)
+    if (nivel != nullptr)
     {
-		level->Release();
-        delete level;
-        level = nullptr;
+		nivel->Release();
+        delete nivel;
+        nivel = nullptr;
     }
-	if (livesUI != nullptr) {
-		livesUI->Release();
-		delete livesUI;
-		livesUI = nullptr;
+	if (vidasHUD != nullptr) {
+		vidasHUD->Release();
+		delete vidasHUD;
+		vidasHUD = nullptr;
 	}
-	if (font != nullptr) {
-		delete font;
-		font = nullptr;
+	if (fuente != nullptr) {
+		delete fuente;
+		fuente = nullptr;
 	}
 	for (Entity* obj : objects)
 	{
@@ -129,7 +129,7 @@ AppStatus Scene::Init()
 		LOG("Failed to allocate memory for enemy");
 		return AppStatus::ERROR;
 	}
-	livesUI = new HUD({10, (WINDOW_HEIGHT)});
+	vidasHUD = new HUD({10, (WINDOW_HEIGHT)});
 	if (player->Initialise() != AppStatus::OK)
 	{
 		LOG("Failed to initialise Player");
@@ -155,17 +155,17 @@ AppStatus Scene::Init()
 		LOG("Failed to initialise Enemy");
 		return AppStatus::ERROR;
 	}
-	if (livesUI->Initialise() != AppStatus::OK) {
+	if (vidasHUD->Initialise() != AppStatus::OK) {
 		LOG("Failed to initialise lives UI");
 		return AppStatus::ERROR;
 	}
-    level = new TileMap();
-    if (level == nullptr)
+    nivel = new TileMap();
+    if (nivel == nullptr)
     {
         LOG("Failed to allocate memory for Level");
         return AppStatus::ERROR;
     }
-	if (level->Initialise() != AppStatus::OK)
+	if (nivel->Initialise() != AppStatus::OK)
 	{
 		LOG("Failed to initialise Level");
 		return AppStatus::ERROR;
@@ -175,18 +175,18 @@ AppStatus Scene::Init()
 		LOG("Failed to load Level 1");
 		return AppStatus::ERROR;
 	}
-	player->SetTileMap(level);
-	inky->SetTileMap(level);
-	blinky->SetTileMap(level);
-	pinky->SetTileMap(level);
-	clyde->SetTileMap(level);
-	PlaySound(sound_intro);
-	font = new Text();
-	if (font == nullptr) {
+	player->SetTileMap(nivel);
+	inky->SetTileMap(nivel);
+	blinky->SetTileMap(nivel);
+	pinky->SetTileMap(nivel);
+	clyde->SetTileMap(nivel);
+	PlaySound(intro_sonido);
+	fuente = new Text();
+	if (fuente == nullptr) {
 		LOG("Failed to allocate memory for font");
 		return AppStatus::ERROR;
 	}
-	if (font->Initialise(Resource::IMG_FONT, "Assets/sprites/fuente1.png", ' ', 8) != AppStatus::OK)
+	if (fuente->Initialise(Resource::IMG_FONT, "Assets/sprites/fuente1.png", ' ', 8) != AppStatus::OK)
 	{
 		LOG("Failed to initialise Level");
 		return AppStatus::ERROR;
@@ -206,48 +206,8 @@ AppStatus Scene::LoadLevel(int stage)
 	ClearLevel();
 
 	size = LEVEL_WIDTH * LEVEL_HEIGHT;
-	if (stage == 0)
-	{
-		map = new int[size] {
-			 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,
-			 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,
-			 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,
-			 2, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 44, 43, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 1,
-			 4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 25, 26,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 3,
-			 4,  0, 40, 15, 15, 39,  0, 40, 15, 15, 15, 39,  0, 25, 26,  0, 40, 15, 15, 15, 39,  0, 40, 15, 15, 39,  0, 3,
-			 4,  0, 25,  0,  0, 26,  0, 25,  0,  0,  0, 26,  0, 25, 26,  0, 25,  0,  0,  0, 26,  0, 25,  0,  0, 26,  0, 3,
-			 4,  0, 28, 21, 21, 27,  0, 28, 21, 21, 21, 27,  0, 37, 38,  0, 28, 21, 21, 21, 27,  0, 28, 21, 21, 27,  0, 3,
-			 4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 3,
-			 4,  0, 40, 15, 15, 39,  0, 35, 36,  0, 40, 15, 15, 15, 15, 15, 15, 39,  0, 35, 36,  0, 40, 15, 15, 39,  0, 3,
-			 4,  0, 28, 21, 21, 27,  0, 25, 26,  0, 28, 21, 21, 36, 35, 21, 21, 27,  0, 25, 26,  0, 28, 21, 21, 27,  0, 3,
-			 4,  0,  0,  0,  0,  0,  0, 25, 26,  0,  0,  0,  0, 25, 26,  0,  0,  0,  0, 25, 26,  0,  0,  0,  0,  0,  0, 3,
-			 6, 13, 13, 13, 13, 23,  0, 25, 28, 15, 15, 39,  0, 25, 26,  0, 40, 15, 15, 27, 26,  0, 24, 13, 13, 13, 13, 5,
-			 0,  0,  0,  0,  0,  4,  0, 25, 40, 21, 21, 27,  0, 37, 38,  0, 28, 21, 21, 39, 26,  0,  3,  0,  0,  0,  0, 0,
-			 0,  0,  0,  0,  0,  4,  0, 25, 26,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 25, 26,  0,  3,  0,  0,  0,  0, 0,
-			 0,  0,  0,  0,  0,  4,  0, 25, 26,  0, 30, 13, 34, 70, 71, 33, 13, 29,  0, 25, 26,  0,  3,  0,  0,  0,  0, 0,
-			11, 11, 11, 11, 11, 27,  0, 37, 38,  0,  3,  0,  0,  0,  0,  0,  0,  4,  0, 37, 38,  0, 28, 11, 11, 11, 11, 11,
-			-3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3,  0,  0,  0,  0,  0,  0,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0, -2,
-			13, 13, 13, 13, 13, 23,  0, 35, 36,  0,  3,  0,  0,  0,  0,  0,  0,  4,  0, 35, 36,  0, 24, 13, 13, 13, 13, 13,
-			 0,  0,  0,  0,  0,  4,  0, 25, 26,  0, 32, 11, 11, 11, 11, 11, 11, 31,  0, 25, 26,  0,  3,  0,  0,  0,  0, 0,
-			 0,  0,  0,  0,  0,  4,  0, 25, 26,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 25, 26, 0,  3,  0,  0,  0,  0, 0,
-			 0,  0,  0,  0,  0,  4,  0, 25, 26,  0, 40, 15, 15, 15, 15, 15, 15, 39,  0, 25, 26,  0,  3,  0,  0,  0,  0, 0,
-			 2, 11, 11, 11, 11, 27,  0, 37, 38,  0, 28, 21, 21, 36, 35, 21, 21, 27,  0, 37, 38,  0, 28, 11, 11, 11, 11, 1,
-			 4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 25, 26,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 3,
-			 4,  0, 40, 15, 15, 39,  0, 40, 15, 15, 15, 39,  0, 25, 26,  0, 40, 15, 15, 15, 39,  0, 40, 15, 15, 39,  0, 3,
-			 4,  0, 28, 21, 39, 26,  0, 28, 21, 21, 21, 27,  0, 37, 38,  0, 28, 21, 21, 21, 27,  0, 25, 40, 21, 27,  0, 3,
-			 4,  0,  0,  0, 25, 26,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 25, 26,  0,  0,  0, 3,
-			 8, 15, 39,  0, 25, 26,  0, 35, 36,  0, 40, 15, 15, 15, 15, 15, 15, 39,  0, 35, 36,  0, 25, 26,  0, 40, 15, 7,
-			10, 21, 27,  0, 37, 38,  0, 25, 26,  0, 28, 21, 21, 36, 35, 21, 21, 27,  0, 25, 26,  0, 37, 38,  0, 28, 21, 9,
-			 4,  0,  0,  0,  0,  0,  0, 25, 26,  0,  0,  0,  0, 25, 26,  0,  0,  0,  0, 25, 26,  0,  0,  0,  0,  0,  0, 3,
-			 4,  0, 40, 15, 15, 15, 15, 27, 28, 15, 15, 39,  0, 25, 26,  0, 40, 15, 15, 27, 28, 15, 15, 15, 15, 39,  0, 3,
-			 4,  0, 28, 21, 21, 21, 21, 21, 21, 21, 21, 27,  0, 37, 38,  0, 28, 21, 21, 21, 21, 21, 21, 21, 21, 27,  0, 3,
-			 4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 3,
-			 6, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 5,
-			 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,
-			 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0 
-		};
-	}
-	else if (stage == 1 or stage == 2)
+	//dos niveles iguales. Misma lógica. Cambian Items
+	if (stage == 1 or stage == 2)
 	{
 		map = new int[size] {
 			 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0,
@@ -289,18 +249,19 @@ AppStatus Scene::LoadLevel(int stage)
 		};
 		if(stage == 1) player->InitScore();
 		if (stage == 2) levelintro = true;
-		siren = 0;
-		fruitcounter = FRUITTIME;
-		collectPellet = false;
-		pellet_timer = PELLETTIME;
+		sirena = 0;
+		cuentafrutas = FRUITTIME;
+		pillarcereza = false;
+		cerezaTimepo = PELLETTIME;
 		inky->EstablecerSalida();
 		pinky->EstablecerSalida();
 		clyde->EstablecerSalida();
-		blinky->A_normal();
-		inky->A_normal();
 		pinky->A_normal();
 		clyde->A_normal();
-		if (IsSoundPlaying(sound_pellet)) StopSound(sound_pellet);
+		blinky->A_normal();
+		inky->A_normal();
+		
+		if (IsSoundPlaying(pill_sonido)) StopSound(pill_sonido);
 	}
 	else
 	{
@@ -401,15 +362,16 @@ AppStatus Scene::LoadLevel(int stage)
 				inky->EstablecerObjetivo(posicionamiento);
 				pinky->EstablecerObjetivo(posicionamiento);
 				clyde->EstablecerObjetivo(posicionamiento);
-				blinky->EstablecerSalidaCasa(posicionamiento);
 				inky->EstablecerSalidaCasa(posicionamiento);
 				pinky->EstablecerSalidaCasa(posicionamiento);
+				blinky->EstablecerSalidaCasa(posicionamiento);
+				
 				clyde->EstablecerSalidaCasa(posicionamiento);
 			}
 			++i;
 		}
 	}
-	level->Load(map, LEVEL_WIDTH, LEVEL_HEIGHT);
+	nivel->Load(map, LEVEL_WIDTH, LEVEL_HEIGHT);
 	delete[] map;
 	return AppStatus::OK;
 }
@@ -435,11 +397,11 @@ void Scene::Update()
 					checkTile = true;
 				}
 				else {
-					if (!level->SolidTest(box)) checkTile = false;
+					if (!nivel->SolidTest(box)) checkTile = false;
 				}
 			}
 			else {
-				if (!level->SolidTest(box)) checkTile = false;
+				if (!nivel->SolidTest(box)) checkTile = false;
 			}
 		}
 		objectX = objectX * TILE_SIZE;
@@ -460,12 +422,12 @@ void Scene::Update()
 		LoadLevel(2);
 	}
 	if (EndLevel) {
-		StopSound(sirens[siren]);
-		collectPellet = false;
-		pellet_timer = PELLETTIME;
-		if(IsSoundPlaying(sound_pellet)) StopSound(sound_pellet);
+		StopSound(sirenas[sirena]);
+		pillarcereza = false;
+		cerezaTimepo = PELLETTIME;
+		if(IsSoundPlaying(pill_sonido)) StopSound(pill_sonido);
 
-		level->ganar = true;
+		nivel->ganar = true;
 		player->Ganar();
 		inky->WinLose();
 		blinky->WinLose();
@@ -476,11 +438,11 @@ void Scene::Update()
 		LoadLevel(0);
 		EndLevel = false;
 	}
-	if (fruitcounter == 0) {
+	if (cuentafrutas == 0) {
 		OBJETOS* obj = new OBJETOS({ fruitX, fruitY }, level_count);
 		objects.push_back(obj);
 	}
-	fruitcounter--;
+	cuentafrutas--;
 	if (intro or levelintro) 
 	{
 		if (intro_count <= 0) {
@@ -500,11 +462,11 @@ void Scene::Update()
 		}
 	}
 	else if (ganar) {
-		if (!level->ganar) {
+		if (!nivel->ganar) {
 			level_count++;
 			ganar = false;
 			if (level_count > (int)LEVELS) {
-				EndGame = true;
+				fin = true;
 			}
 			else {
 				LoadLevel(level_count);
@@ -512,7 +474,7 @@ void Scene::Update()
 		}
 	}
 	else if (perder) {
-		StopSound(sirens[siren]);
+		StopSound(sirenas[sirena]);
 		player->PERDER();
 		if (!player->perder) {
 			perder = false;
@@ -524,59 +486,60 @@ void Scene::Update()
 				clyde->SetPos({ clydeX, clydeY });
 			}
 			else {
-				collectPellet = false;
-				pellet_timer = PELLETTIME;
-				if (IsSoundPlaying(sound_pellet)) StopSound(sound_pellet); StopSound(sound_pellet);
-				EndGame = true;
+				pillarcereza = false;
+				cerezaTimepo = PELLETTIME;
+				if (IsSoundPlaying(pill_sonido)) StopSound(pill_sonido); StopSound(pill_sonido);
+				fin = true;
 			}
 		}
 	}
 	else {
-		if (!IsSoundPlaying(sirens[siren])) {
-			if (siren != 0) {
-				if (!IsSoundPlaying(sirens[siren - 1])) PlaySound(sirens[siren]);
-			} else PlaySound(sirens[siren]);
+		if (!IsSoundPlaying(sirenas[sirena])) {
+			if (sirena != 0) {
+				if (!IsSoundPlaying(sirenas[sirena - 1])) PlaySound(sirenas[sirena]);
+			} else PlaySound(sirenas[sirena]);
 		}
 
-		if (collectPellet) {
+		if (pillarcereza) {
 
-			if (blinkyCaught and inkyCaught and clydeCaught and pinkyCaught) {
-				blinkyCaught = false;
-				inkyCaught = false;
-				clydeCaught = false;
-				pinkyCaught = false;
-				collectPellet = false;
+			if (blinkypillado and inkypillado and clycepillado and pinkypillado) {
+				blinkypillado = false;
+				inkypillado = false;
+				clycepillado = false;
+				pinkypillado = false;
+				pillarcereza = false;
 				ghost_points = 200;
-				pellet_timer = PELLETTIME;
-				StopSound(sound_pellet);
+				cerezaTimepo = PELLETTIME;
+				StopSound(pill_sonido);
 			}
 
-			if (pellet_timer >= 0) {
-				if (!IsSoundPlaying(sound_pellet)) PlaySound(sound_pellet);
-				--pellet_timer;
+			if (cerezaTimepo >= 0) {
+				if (!IsSoundPlaying(pill_sonido)) PlaySound(pill_sonido);
+				--cerezaTimepo;
 			}
 			else {
-				blinkyCaught = false;
-				inkyCaught = false;
-				clydeCaught = false;
-				pinkyCaught = false;
-				collectPellet = false;
+				blinkypillado = false;
+				inkypillado = false;
+				clycepillado = false;
+				pinkypillado = false;
+				pillarcereza = false;
 				ghost_points = 200;
-				pellet_timer = PELLETTIME;
-				StopSound(sound_pellet);
+				cerezaTimepo = PELLETTIME;
+				StopSound(pill_sonido);
 			}
-			if(!blinkyCaught) blinky->Pellet(collectPellet, pellet_timer);
-			if(!inkyCaught) inky->Pellet(collectPellet, pellet_timer);
-			if(!clydeCaught) clyde->Pellet(collectPellet, pellet_timer);
-			if(!pinkyCaught) pinky->Pellet(collectPellet, pellet_timer);
+			if(!blinkypillado) blinky->Pellet(pillarcereza, cerezaTimepo);
+			if(!inkypillado) inky->Pellet(pillarcereza, cerezaTimepo);
+			if(!clycepillado) clyde->Pellet(pillarcereza, cerezaTimepo);
+			if(!pinkypillado) pinky->Pellet(pillarcereza, cerezaTimepo);
 		}
 
-		level->Update();
+		nivel->Update();
 		player->Update();
-		inky->Update(player->GetDirection(), player->GetPosition(), blinky->GetEnemyPos());
 		blinky->Update(player->GetDirection(), player->GetPosition(), blinky->GetEnemyPos());
 		pinky->Update(player->GetDirection(), player->GetPosition(), blinky->GetEnemyPos());
 		clyde->Update(player->GetDirection(), player->GetPosition(), blinky->GetEnemyPos());
+		inky->Update(player->GetDirection(), player->GetPosition(), blinky->GetEnemyPos());
+		
 		CheckCollisions();
 	}
 }
@@ -584,15 +547,16 @@ void Scene::Render()
 {
 	BeginMode2D(camera);
 
-    level->Render();
+    nivel->Render();
 	if (debug == DebugMode::OFF || debug == DebugMode::SPRITES_AND_HITBOXES)
 	{
 		RenderObjects(); 
 		player->DrawPlayer();
-		inky->DrawPlayer();
 		blinky->DrawPlayer();
 		pinky->DrawPlayer();
 		clyde->DrawPlayer();
+		inky->DrawPlayer();
+		
 	}
 	if (debug == DebugMode::SPRITES_AND_HITBOXES || debug == DebugMode::ONLY_HITBOXES)
 	{
@@ -609,7 +573,7 @@ void Scene::Render()
 }
 void Scene::Release()
 {
-    level->Release();
+    nivel->Release();
 	player->Release();
 
 	inky->Release();
@@ -617,7 +581,7 @@ void Scene::Release()
 	pinky->Release();
 	clyde->Release();
 
-	livesUI->Release();
+	vidasHUD->Release();
 	ClearLevel();
 }
 void Scene::CheckCollisions()
@@ -636,22 +600,22 @@ void Scene::CheckCollisions()
 			player->IncrementarPuntuación((*it)->Puntos());
 			if ((*it)->Sonidos() == (int)ObjectType::PILL1) 
 			{
-				if (munch1) 
+				if (punch1) 
 				{
-					PlaySound(sound_munch1);
-					munch1 = false;
+					PlaySound(punch1_sonido);
+					punch1 = false;
 				}
 				else 
 				{
-					PlaySound(sound_munch2);
-					munch1 = true;
+					PlaySound(punch2_sonido);
+					punch1 = true;
 				}
 			}
             else if ((*it)->Sonidos() == (int)ObjectType::PILL2) {
-				collectPellet = true;
+				pillarcereza = true;
 			}
 			else if ((*it)->Sonidos() == (int)ObjectType::FRUTAS1 or (*it)->Sonidos() == (int)ObjectType::FRUTAS2) {
-				PlaySound(sound_fruit);
+				PlaySound(fruta_sonido);
 			}
 			delete* it;
 			it = objects.erase(it);
@@ -665,64 +629,64 @@ void Scene::CheckCollisions()
 		EndLevel = true;
 		count = 0;
 	}
-	else if (count <= FRACTION5_ITEMS) siren = 4;
-	else if (count <= FRACTION5_ITEMS * 2) siren = 3;
-	else if (count <= FRACTION5_ITEMS * 3) siren = 2;
-	else if (count <= FRACTION5_ITEMS * 4) siren = 1;
+	else if (count <= PARTICIONES) sirena = 4;
+	else if (count <= PARTICIONES * 2) sirena = 3;
+	else if (count <= PARTICIONES * 3) sirena = 2;
+	else if (count <= PARTICIONES * 4) sirena = 1;
 
 
 	enemy_box = inky->GetHitbox();
 	if (player_box.TestAABB(enemy_box)) {
-		if (!inky->TaMuerto() and !collectPellet and !god_mode) perder = true;
+		if (!inky->TaMuerto() and !pillarcereza and !god_mode) perder = true;
 		else {
-			if (!inkyCaught and collectPellet) {
+			if (!inkypillado and pillarcereza) {
 				player->IncrementarPuntuación(ghost_points);
 				ghost_points *= 2;
 				inky->pillado = true;
-				inkyCaught = true;
-				PlaySound(sound_eatghost);
+				inkypillado = true;
+				PlaySound(comerenemigo_sonido);
 			}
 		}
 	}
 	else {
 		enemy_box = blinky->GetHitbox();
 		if (player_box.TestAABB(enemy_box)) {
-			if (!blinky->TaMuerto() and !collectPellet and !god_mode) perder = true;
+			if (!blinky->TaMuerto() and !pillarcereza and !god_mode) perder = true;
 			else {
-				if (!blinkyCaught and collectPellet) {
+				if (!blinkypillado and pillarcereza) {
 					player->IncrementarPuntuación(ghost_points);
 					ghost_points *= 2;
 					blinky->pillado = true;
-					blinkyCaught = true;
-					PlaySound(sound_eatghost);
+					blinkypillado = true;
+					PlaySound(comerenemigo_sonido);
 				}
 			}
 		}
 		else {
 			enemy_box = pinky->GetHitbox();
 			if (player_box.TestAABB(enemy_box)) {
-				if (!pinky->TaMuerto() and !collectPellet and !god_mode) perder = true;
+				if (!pinky->TaMuerto() and !pillarcereza and !god_mode) perder = true;
 				else {
-					if (!pinkyCaught and collectPellet) {
+					if (!pinkypillado and pillarcereza) {
 						player->IncrementarPuntuación(ghost_points);
 						ghost_points *= 2;
 						pinky->pillado = true;
-						pinkyCaught = true;
-						PlaySound(sound_eatghost);
+						pinkypillado = true;
+						PlaySound(comerenemigo_sonido);
 					}
 				}
 			}
 			else {
 				enemy_box = clyde->GetHitbox();
 				if (player_box.TestAABB(enemy_box)) {
-					if (!clyde->TaMuerto() and !collectPellet and !god_mode) perder = true;
+					if (!clyde->TaMuerto() and !pillarcereza and !god_mode) perder = true;
 					else {
-						if (!clydeCaught and collectPellet) {
+						if (!clycepillado and pillarcereza) {
 							player->IncrementarPuntuación(ghost_points);
 							ghost_points *= 2;
 							clyde->pillado = true;
-							clydeCaught = true;
-							PlaySound(sound_eatghost);
+							clycepillado = true;
+							PlaySound(comerenemigo_sonido);
 						}
 					}
 				}
@@ -731,14 +695,7 @@ void Scene::CheckCollisions()
 	}
 	
 }
-void Scene::ClearLevel()
-{
-	for (OBJETOS* obj : objects)
-	{
-		delete obj;
-	}
-	objects.clear();
-}
+
 void Scene::RenderObjects() const
 {
 	for (OBJETOS* obj : objects)
@@ -755,14 +712,22 @@ void Scene::RenderObjectsDebug(const Color& col) const
 }
 void Scene::RenderGUI() const
 {
-	font->Draw(10, 5, TextFormat("1UP"));
-	font->Draw(10, 13, TextFormat("%d", player->pillarpuntos()));
+	fuente->Draw(10, 5, TextFormat("1UP"));
+	fuente->Draw(10, 13, TextFormat("%d", player->pillarpuntos()));
 	
-	livesUI->RenderUI(player->Getvidas());
-	livesUI->DrawPlayer();
+	vidasHUD->RenderUI(player->Getvidas());
+	vidasHUD->DrawPlayer();
 
-	if (intro or levelintro) font->Draw((WINDOW_WIDTH / 2)-22, (WINDOW_HEIGHT / 2)+15, TextFormat("READY!"), YELLOW);
-	if (intro and intro_count > 60) font->Draw((WINDOW_WIDTH / 2) - 40, (WINDOW_HEIGHT / 2) - 32, TextFormat("PLAYER ONE"), CYANBLUE);
+	if (intro or levelintro) fuente->Draw((WINDOW_WIDTH / 2)-22, (WINDOW_HEIGHT / 2)+15, TextFormat("READY!"), YELLOW);
+	if (intro and intro_count > 60) fuente->Draw((WINDOW_WIDTH / 2) - 40, (WINDOW_HEIGHT / 2) - 32, TextFormat("PLAYER ONE"), CYANBLUE);
 
-	if(god_mode) font->Draw(WINDOW_WIDTH - 125, 5, TextFormat("modo god activo"));
+	if(god_mode) fuente->Draw(WINDOW_WIDTH - 125, 5, TextFormat("modo god activo"));
+}
+void Scene::ClearLevel()
+{
+	for (OBJETOS* obj : objects)
+	{
+		delete obj;
+	}
+	objects.clear();
 }

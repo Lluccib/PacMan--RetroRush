@@ -7,7 +7,7 @@ enum class AnimMode { AUTOMATIC, MANUAL };
 
 struct Animation
 {
-    int delay;
+    int retraso;
     std::vector<Rectangle> frames;
 };
 
@@ -18,7 +18,7 @@ public:
     ~Sprite();
 
     void SetNumberAnimations(int num);
-    void SetAnimationDelay(int id, int delay);
+    void SetAnimationDelay(int id, int retraso);
     void AddKeyFrame(int id, const Rectangle& rect);
     void SetAnimation(int id);
     int GetAnimation();

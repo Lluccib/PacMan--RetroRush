@@ -273,7 +273,7 @@ AppStatus Game::Update()
         break;
 
     case GameState::JUGANDO:
-        if (IsKeyPressed(KEY_ESCAPE) || scene->EndGame)
+        if (IsKeyPressed(KEY_ESCAPE) || scene->fin)
         {
             FinishPlay();
             if (EmpezarIntro() != AppStatus::OK) return AppStatus::ERROR;

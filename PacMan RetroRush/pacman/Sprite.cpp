@@ -17,11 +17,11 @@ void Sprite::SetNumberAnimations(int num)
     animations.clear();
     animations.resize(num);
 }
-void Sprite::SetAnimationDelay(int id, int delay)
+void Sprite::SetAnimationDelay(int id, int retraso)
 {
     if (id >= 0 && id < animations.size())
     {
-        animations[id].delay = delay;
+        animations[id].retraso = retraso;
     }
 }
 void Sprite::AddKeyFrame(int id, const Rectangle& rect)
@@ -37,7 +37,7 @@ void Sprite::SetAnimation(int id)
     {
         animacionactual = id;
         frameactual = 0;
-        retardoactual = animations[animacionactual].delay;
+        retardoactual = animations[animacionactual].retraso;
     }
 }
 int Sprite::GetAnimation()
@@ -65,7 +65,7 @@ void Sprite::Update()
             {
                 frameactual++;
                 frameactual %= animations[animacionactual].frames.size();
-                retardoactual = animations[animacionactual].delay;
+                retardoactual = animations[animacionactual].retraso;
             }
         }
     }
@@ -80,7 +80,7 @@ void Sprite::NextFrame()
         {
             frameactual++;
             frameactual %= animations[animacionactual].frames.size();
-            retardoactual = animations[animacionactual].delay;
+            retardoactual = animations[animacionactual].retraso;
         }
     }
 }
@@ -94,7 +94,7 @@ void Sprite::PrevFrame()
         {
             frameactual--;
             frameactual %= animations[animacionactual].frames.size();
-            retardoactual = animations[animacionactual].delay;
+            retardoactual = animations[animacionactual].retraso;
         }
     }
 }
