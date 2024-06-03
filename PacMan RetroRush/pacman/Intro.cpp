@@ -58,7 +58,7 @@ Intro::~Intro()
 
 AppStatus Intro::Init() 
 {
-	PacMan = new Player({ 0,0 }, State::IDLE, Look::LEFT);
+	PacMan = new Jugador({ 0,0 }, State::QUIETO, Vista::IZQUIERDA);
 	if (PacMan == nullptr)
 	{
 		LOG("Failed to allocate memory for intro PacMan");

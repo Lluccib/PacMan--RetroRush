@@ -99,7 +99,7 @@ Scene::~Scene()
 AppStatus Scene::Init()
 {
 
-	player = new Player({ 0,0 }, State::IDLE, Look::RIGHT);
+	player = new Jugador({ 0,0 }, State::QUIETO, Vista::DERECHA);
 	if (player == nullptr)
 	{
 		LOG("Failed to allocate memory for Player");
@@ -484,7 +484,7 @@ void Scene::Update()
 	if (intro or levelintro) 
 	{
 		if (intro_count <= 0) {
-			if (intro) player->setLives(2);
+			if (intro) player->establecervidas(2);
 			if(intro) intro = false;
 			if (levelintro) levelintro = false;
 			intro_count = 240;
@@ -514,7 +514,7 @@ void Scene::Update()
 	else if (lose) {
 		StopSound(sirens[siren]);
 		player->PERDER();
-		if (!player->lose) {
+		if (!player->perder) {
 			lose = false;
 			if (player->Getvidas() >= 0) {
 				player->SetPos({ playerX, playerY });
@@ -756,7 +756,7 @@ void Scene::RenderObjectsDebug(const Color& col) const
 void Scene::RenderGUI() const
 {
 	font->Draw(10, 5, TextFormat("1UP"));
-	font->Draw(10, 13, TextFormat("%d", player->GetPuntos()));
+	font->Draw(10, 13, TextFormat("%d", player->pillarpuntos()));
 	
 	livesUI->RenderUI(player->Getvidas());
 	livesUI->DrawPlayer();

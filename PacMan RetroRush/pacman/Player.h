@@ -1,85 +1,79 @@
 #pragma once
 #include "Entity.h"
 #include "TileMap.h"
-
 #define PLAYER_FRAME_SIZE		16
-
 #define PLAYER_PHYSICAL_WIDTH	8
 #define PLAYER_PHYSICAL_HEIGHT	8
-
 #define PLAYER_SPEED			1
-
-enum class State { INTRO, IDLE, WALKING, MURIENDO, CERRADO };
-enum class Look { RIGHT, LEFT, UP, DOWN };
-
-enum class PlayerAnim {
+enum class State { INTRO, QUIETO, ANDANDO, MURIENDO, CERRADO };
+enum class Vista { DERECHA, IZQUIERDA, ARRIBA, ABAJO };
+enum class AnimacionesJugador {
 	IDLE_LEFT, IDLE_RIGHT, IDLE_UP, IDLE_DOWN,
 	WALKING_LEFT, WALKING_RIGHT, WALKING_UP, WALKING_DOWN, MURIENDO,
 	CERRADO, ESCONDIDO,
 	NUM_ANIMATIONS
 };
 
-class Player : public Entity
+class Jugador : public Entity
 {
 public:
-	Player(const Point& p, State s, Look view);
-	~Player();
+	Jugador(const Point& p, State s, Vista view);
+	~Jugador();
 
-	AppStatus Initialise();
+	AppStatus Initialise();	
+	
+	bool perder = false;
+
+	bool PilladoIntro = false;
 	void SetTileMap(TileMap* tilemap);
-
 	void InitScore();
 	void IncrementarPuntuación(int n);
-	int GetPuntos();
-
-	void setLives(int l);
+	int pillarpuntos();
+	void establecervidas(int l);	
+	void LoseLives();
+	int Getvidas();
 	void Ganar();
 	void PERDER();
 	void Intro(int count);
 	void Update();
 	void DrawDebug(const Color& col) const;
 	void Release();
-	void LoseLives();
-	int Getvidas();
+
 	Point GetDirection();
 	Point GetPosition();
 
-
-	bool lose = false;
-
-	bool introCaught = false;
 	bool IntroUpdate(bool turn);
 
 private:
+	AnimacionesJugador GetAnimation();
 	bool MirandoDerecha() const;
 	bool MirandoIzquierda() const;
 	bool MirandoArrriba() const;
 	bool MirandoAbajo() const;
-	void Move();
+	void Mover();
 	void SetAnimation(int id);
 	void ChangeAnimRight();
 	void ChangeAnimLeft();
 	void ChangeAnimUp();
 	void ChangeAnimDown();
-
-	PlayerAnim GetAnimation();
+	
+	
 	void PARAR();
 	void StartWalkingLeft();
 	void StartWalkingRight();
 	void StartWalkingUp();
 	void StartWalkingDown();
 	void StartDying();
+
+	Vista look;
 	
-	State state;
-	Look look;
-	//new var turn to check which way the player wants to turn (initialized as right since its the starting direction)
-	Look turn = Look::RIGHT;
-
-	TileMap* map;
-
 	int puntos;
 	int vidas = 3;
-	int count = 0;
-	bool pellet = false;
-	Sound sound_death;
+	Vista turn = Vista::DERECHA;
+	TileMap* mapa;
+	int contador = 0;
+	bool pill1 = false;
+	State state;
+	
+	Sound sonidomuerte;
 };

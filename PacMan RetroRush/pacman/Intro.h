@@ -35,7 +35,7 @@ private:
 	bool isClyde = false;
 	bool isDot = true;
 
-	Player* PacMan;
+	Jugador* PacMan;
 
 	ENEMIGO* Blinky;
 	ENEMIGO* Inky;

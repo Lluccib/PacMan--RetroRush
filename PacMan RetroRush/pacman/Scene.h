@@ -50,7 +50,7 @@ private:
 
     void RenderGUI() const;
 
-    Player* player;
+    Jugador* player;
 
     //enemies
     ENEMIGO* blinky;
