@@ -44,9 +44,7 @@ AppStatus ENEMIGO::Initialise()
 	{
 		return AppStatus::ERROR;
 	}
-
 	retratado = data.GetSound(AudioResource::RETRATADO);
-
 	render = new Sprite(data.GetTexture(Resource::IMG_ENEMY));
 	if (render == nullptr)
 	{
@@ -132,7 +130,7 @@ void ENEMIGO::UPDATEintro(bool turn)
 {
 	Sprite* sprite = dynamic_cast<Sprite*>(render);
 	if (turn) {
-		pos.x += ((VELOCIDAD_ENEMIGO*2) - 1);
+		position.x += ((VELOCIDAD_ENEMIGO*2) - 1);
 		if (state != Estado::PILL1) {
 			state = Estado::PILL1;
 			SetAnimation((int)AnimacionesEnemigos::CEREZA);
@@ -150,7 +148,7 @@ void ENEMIGO::UPDATEintro(bool turn)
 		}
 	}
 	else {
-		pos.x += -(VELOCIDAD_ENEMIGO * 2);
+		position.x += -(VELOCIDAD_ENEMIGO * 2);
 		if (state == Estado::QUIETO) StartWalkingLeft();
 		else {
 			if (!IsLookingLeft()) ChangeAnimLeft();
@@ -171,7 +169,7 @@ void ENEMIGO::Intro(int count) {
 
 Point ENEMIGO::GetEnemyPos() 
 {
-	return pos;
+	return position;
 }
 
 void ENEMIGO::A_normal()
@@ -282,7 +280,7 @@ AnimacionesEnemigos ENEMIGO::GetAnimation()
 }
 void ENEMIGO::Parar()
 {
-	dir = { 0,0 };
+	direction = { 0,0 };
 	if (state != Estado::PILL1) {
 		state = Estado::QUIETO;
 		SetAnimation((int)AnimacionesEnemigos::IDLE);
@@ -379,7 +377,7 @@ void ENEMIGO::Update(Point pacmanDir, Point pacmanPos, Point blinkypos)
 }
 float ENEMIGO::GetTargetDistance(Point dir) 
 {
-	Point check = pos;
+	Point check = position;
 	check.x += (dir.x * VELOCIDAD_ENEMIGO);
 	check.y += (dir.y * VELOCIDAD_ENEMIGO);
 	return static_cast<float>(sqrt(pow(check.x - objetivo.x, 2) + pow(check.y - objetivo.y, 2)));
@@ -388,8 +386,8 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 {
 	AABB box;
 	Mirada atras;
-	int prev_x = pos.x;
-	int prev_y = pos.y;
+	int prev_x = position.x;
+	int prev_y = position.y;
 	int alternativas = 0;
 	Point alternativarapida;
 	
@@ -412,7 +410,7 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 				break;
 			}
 		}
-		if (casa.x == pos.x and casa.y == pos.y) {
+		if (casa.x == position.x and casa.y == position.y) {
 			pillado = false;
 			if (IsSoundPlaying(retratado)) StopSound(retratado);
 			Valla = false;
@@ -443,8 +441,8 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 	
 	UpdateTarget(pacmanDir, pacmanPos, blinkypos);
 
-	if (pacmanPos.x <= (pos.x + TILE_SIZE * 10) and pacmanPos.x >= (pos.x - TILE_SIZE * 10)) {
-		if (pacmanPos.y <= (pos.y + TILE_SIZE * 10) and pacmanPos.y >= (pos.y - TILE_SIZE * 10)) mode = Modo::BUSCAR;
+	if (pacmanPos.x <= (position.x + TILE_SIZE * 10) and pacmanPos.x >= (position.x - TILE_SIZE * 10)) {
+		if (pacmanPos.y <= (position.y + TILE_SIZE * 10) and pacmanPos.y >= (position.y - TILE_SIZE * 10)) mode = Modo::BUSCAR;
 		else mode = Modo::ENCONTRAR;
 	}
 	else mode = Modo::ENCONTRAR;
@@ -480,43 +478,43 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 				bool possible = false;
 				switch (comprobando) {
 				case Mirada::LEFT:
-					pos.x += -VELOCIDAD_ENEMIGO;
+					position.x += -VELOCIDAD_ENEMIGO;
 					box = GetHitbox();
 					if (!mapa->TestCollisionWallLeft(box)) {
 						alternativas++;
 						possible = true;
 					}
-					pos.x = prev_x;
+					position.x = prev_x;
 					dir = { -1, 0 };
 					break;
 				case Mirada::RIGHT:
-					pos.x += VELOCIDAD_ENEMIGO;
+					position.x += VELOCIDAD_ENEMIGO;
 					box = GetHitbox();
 					if (!mapa->TestCollisionWallRight(box)) {
 						alternativas++;
 						possible = true;
 					}
-					pos.x = prev_x;
+					position.x = prev_x;
 					dir = { 1, 0 };
 					break;
 				case Mirada::UP:
-					pos.y -= VELOCIDAD_ENEMIGO;
+					position.y -= VELOCIDAD_ENEMIGO;
 					box = GetHitbox();
 					if (!mapa->TestCollisionWallUp(box, Valla)) {
 						alternativas++;
 						possible = true;
 					}
-					pos.y = prev_y;
+					position.y = prev_y;
 					dir = { 0, -1 };
 					break;
 				case Mirada::DOWN:
-					pos.y += VELOCIDAD_ENEMIGO;
+					position.y += VELOCIDAD_ENEMIGO;
 					box = GetHitbox();
 					if (!mapa->TestCollisionWallDown(box, Valla)) {
 						alternativas++;
 						possible = true;
 					}
-					pos.y = prev_y;
+					position.y = prev_y;
 					dir = { 0, 1 };
 					break;
 				}
@@ -529,14 +527,14 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 		if (alternativas > 0) {
 			if (alternativarapida.x == 0) {
 				if (alternativarapida.y == 1) {
-					pos.y += VELOCIDAD_ENEMIGO;
+					position.y += VELOCIDAD_ENEMIGO;
 					if (state == Estado::QUIETO) StartWalkingDown();
 					else {
 						if (!IsLookingDown()) ChangeAnimDown();
 					}
 				}
 				else {
-					pos.y -= VELOCIDAD_ENEMIGO;
+					position.y -= VELOCIDAD_ENEMIGO;
 					if (state == Estado::QUIETO) StartWalkingUp();
 					else {
 						if (!IsLookingUp()) ChangeAnimUp();
@@ -545,24 +543,24 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 			}
 			else {
 				if (alternativarapida.x == 1) {
-					pos.x += VELOCIDAD_ENEMIGO;
+					position.x += VELOCIDAD_ENEMIGO;
 					if (state == Estado::QUIETO) StartWalkingRight();
 					else {
 						if (!IsLookingRight()) ChangeAnimRight();
 					}
-					if (pos.x == WINDOW_WIDTH - 9) {
-						pos.x = 1;
+					if (position.x == WINDOW_WIDTH - 9) {
+						position.x = 1;
 						ChangeAnimLeft();
 					}
 				}
 				else {
-					pos.x += -VELOCIDAD_ENEMIGO;
+					position.x += -VELOCIDAD_ENEMIGO;
 					if (state == Estado::QUIETO) StartWalkingLeft();
 					else {
 						if (!IsLookingLeft()) ChangeAnimLeft();
 					}
-					if (pos.x == 1) {
-						pos.x = WINDOW_WIDTH - 9;
+					if (position.x == 1) {
+						position.x = WINDOW_WIDTH - 9;
 						ChangeAnimRight();
 					}
 				}
@@ -571,28 +569,28 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 		else {
 			switch (atras) {
 			case Mirada::LEFT:
-				pos.x += -VELOCIDAD_ENEMIGO;
+				position.x += -VELOCIDAD_ENEMIGO;
 				if (state == Estado::QUIETO) StartWalkingLeft();
 				else {
 					if (!IsLookingLeft()) ChangeAnimLeft();
 				}
 				break;
 			case Mirada::RIGHT:
-				pos.x += VELOCIDAD_ENEMIGO;
+				position.x += VELOCIDAD_ENEMIGO;
 				if (state == Estado::QUIETO) StartWalkingRight();
 				else {
 					if (!IsLookingRight()) ChangeAnimRight();
 				}
 				break;
 			case Mirada::UP:
-				pos.y += -VELOCIDAD_ENEMIGO;
+				position.y += -VELOCIDAD_ENEMIGO;
 				if (state == Estado::QUIETO) StartWalkingUp();
 				else {
 					if (!IsLookingUp()) ChangeAnimUp();
 				}
 				break;
 			case Mirada::DOWN:
-				pos.y += VELOCIDAD_ENEMIGO;
+				position.y += VELOCIDAD_ENEMIGO;
 				if (state == Estado::QUIETO) StartWalkingDown();
 				else {
 					if (!IsLookingDown()) ChangeAnimDown();
@@ -633,28 +631,28 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 			 targetDir = (Mirada)i;
 			 switch (targetDir) {
 			 case Mirada::LEFT:
-				 pos.x += -(VELOCIDAD_ENEMIGO + 1);
+				 position.x += -(VELOCIDAD_ENEMIGO + 1);
 				 box = GetHitbox();
 				 if (!mapa->TestCollisionWallLeft(box)) possible.push_back(targetDir);
-				 pos.x = prev_x;
+				 position.x = prev_x;
 				 break;
 			 case Mirada::RIGHT:
-				 pos.x += (VELOCIDAD_ENEMIGO + 1);
+				 position.x += (VELOCIDAD_ENEMIGO + 1);
 				 box = GetHitbox();
 				 if (!mapa->TestCollisionWallRight(box)) possible.push_back(targetDir);
-				 pos.x = prev_x;
+				 position.x = prev_x;
 				 break;
 			 case Mirada::UP:
-				 pos.y += -(VELOCIDAD_ENEMIGO + 1);
+				 position.y += -(VELOCIDAD_ENEMIGO + 1);
 				 box = GetHitbox();
 				 if (!mapa->TestCollisionWallUp(box, Valla)) possible.push_back(targetDir);
-				 pos.y = prev_y;
+				 position.y = prev_y;
 				 break;
 			 case Mirada::DOWN:
-				 pos.y += (VELOCIDAD_ENEMIGO + 1);
+				 position.y += (VELOCIDAD_ENEMIGO + 1);
 				 box = GetHitbox();
 				 if (!mapa->TestCollisionWallDown(box, Valla)) possible.push_back(targetDir);
-				 pos.y = prev_y;
+				 position.y = prev_y;
 				 break;
 			 }
 		 }
@@ -668,36 +666,36 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 	 
 	 switch (targetDir) {
 	 case Mirada::LEFT:
-		 pos.x += -(VELOCIDAD_ENEMIGO + 1);
+		 position.x += -(VELOCIDAD_ENEMIGO + 1);
 		 if (state == Estado::QUIETO) StartWalkingLeft();
 		 else {
 			 if (!IsLookingLeft()) ChangeAnimLeft();
 		 }
-		 if (pos.x == 1) {
-			 pos.x = WINDOW_WIDTH - 9;
+		 if (position.x == 1) {
+			 position.x = WINDOW_WIDTH - 9;
 			 ChangeAnimRight();
 		 }
 		 break;
 	 case Mirada::RIGHT:
-		 pos.x += (VELOCIDAD_ENEMIGO + 1);
+		 position.x += (VELOCIDAD_ENEMIGO + 1);
 		 if (state == Estado::QUIETO) StartWalkingRight();
 		 else {
 			 if (!IsLookingRight()) ChangeAnimRight();
 		 }
-		 if (pos.x == WINDOW_WIDTH - 9) {
-			 pos.x = 1;
+		 if (position.x == WINDOW_WIDTH - 9) {
+			 position.x = 1;
 			 ChangeAnimLeft();
 		 }
 		 break;
 	 case Mirada::UP:
-		 pos.y += -(VELOCIDAD_ENEMIGO + 1);
+		 position.y += -(VELOCIDAD_ENEMIGO + 1);
 		 if (state == Estado::QUIETO) StartWalkingUp();
 		 else {
 			 if (!IsLookingUp()) ChangeAnimUp();
 		 }
 		 break;
 	 case Mirada::DOWN:
-		 pos.y += (VELOCIDAD_ENEMIGO + 1);
+		 position.y += (VELOCIDAD_ENEMIGO + 1);
 		 if (state == Estado::QUIETO) StartWalkingDown();
 		 else {
 			 if (!IsLookingDown()) ChangeAnimDown();
@@ -711,7 +709,7 @@ void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 void ENEMIGO::UpdateTarget(Point pacmanDir, Point pacmanPos, Point blinkypos) 
 {
 	if (Valla) {
-		if (pos.x == objetivo.x and pos.y == objetivo.y-1) Valla = false;
+		if (position.x == objetivo.x and position.y == objetivo.y-1) Valla = false;
 		else if (casa.x == objetivo.x and casa.y == objetivo.y-1) {
 			state = Estado::QUIETO;
 			pillado = false;
@@ -749,8 +747,8 @@ void ENEMIGO::UpdateTarget(Point pacmanDir, Point pacmanPos, Point blinkypos)
 				objetivo.y += objetivo.y - blinkypos.y;
 				break;
 			case TipoEnemigo::NARANJITA:
-				if (pacmanPos.x <= (pos.x + TILE_SIZE * 4) and pacmanPos.x >= (pos.x - TILE_SIZE * 4)) {
-					if (pacmanPos.y <= (pos.y + TILE_SIZE * 4) and pacmanPos.y >= (pos.y - TILE_SIZE * 4)) objetivo = { 0, TILE_SIZE * (LEVEL_HEIGHT - 1) };
+				if (pacmanPos.x <= (position.x + TILE_SIZE * 4) and pacmanPos.x >= (position.x - TILE_SIZE * 4)) {
+					if (pacmanPos.y <= (position.y + TILE_SIZE * 4) and pacmanPos.y >= (position.y - TILE_SIZE * 4)) objetivo = { 0, TILE_SIZE * (LEVEL_HEIGHT - 1) };
 					else objetivo = pacmanPos;
 				}
 				else objetivo = pacmanPos;
@@ -762,7 +760,7 @@ void ENEMIGO::UpdateTarget(Point pacmanDir, Point pacmanPos, Point blinkypos)
 
 void ENEMIGO::DrawDebug(const Color& col) const
 {
-	Entity::DrawHitbox(pos.x, pos.y, width, height, col);
+	Entity::DrawHitbox(position.x, position.y, width, height, col);
 }
 
 

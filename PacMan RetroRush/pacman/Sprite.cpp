@@ -3,10 +3,10 @@
 Sprite::Sprite(const Texture2D* texture)
 {
     img = texture;
-    current_anim = -1;
-    current_frame = 0;
-    current_delay = 0;
-    mode = AnimMode::AUTOMATIC;
+    animacionactual = -1;
+    frameactual = 0;
+    retardoactual = 0;
+    modo = AnimMode::AUTOMATIC;
 }
 Sprite::~Sprite()
 {
@@ -35,37 +35,37 @@ void Sprite::SetAnimation(int id)
 {
     if (id >= 0 && id < animations.size())
     {
-        current_anim = id;
-        current_frame = 0;
-        current_delay = animations[current_anim].delay;
+        animacionactual = id;
+        frameactual = 0;
+        retardoactual = animations[animacionactual].delay;
     }
 }
 int Sprite::GetAnimation()
 {
-    return current_anim;
+    return animacionactual;
 }
 void Sprite::SetManualMode()
 {
-    mode = AnimMode::MANUAL;
+    modo = AnimMode::MANUAL;
 }
 void Sprite::SetAutomaticMode()
 {
-    mode = AnimMode::AUTOMATIC;
+    modo = AnimMode::AUTOMATIC;
 }
 void Sprite::Update()
 {
     //Both animation modes (automatic and manual) are carry out with animation delay
-    if (current_delay > 0)
+    if (retardoactual > 0)
     {
-        current_delay--;
-        if (current_delay == 0)
+        retardoactual--;
+        if (retardoactual == 0)
         {
             //Only automatic animation mode advances next frame
-            if (mode == AnimMode::AUTOMATIC)
+            if (modo == AnimMode::AUTOMATIC)
             {
-                current_frame++;
-                current_frame %= animations[current_anim].frames.size();
-                current_delay = animations[current_anim].delay;
+                frameactual++;
+                frameactual %= animations[animacionactual].frames.size();
+                retardoactual = animations[animacionactual].delay;
             }
         }
     }
@@ -73,28 +73,28 @@ void Sprite::Update()
 void Sprite::NextFrame()
 {
     //Next frame is only available in manual animation mode
-    if (mode == AnimMode::MANUAL)
+    if (modo == AnimMode::MANUAL)
     {
-        current_delay--;
-        if (current_delay <= 0)
+        retardoactual--;
+        if (retardoactual <= 0)
         {
-            current_frame++;
-            current_frame %= animations[current_anim].frames.size();
-            current_delay = animations[current_anim].delay;
+            frameactual++;
+            frameactual %= animations[animacionactual].frames.size();
+            retardoactual = animations[animacionactual].delay;
         }
     }
 }
 void Sprite::PrevFrame()
 {
     //Previous frame is only available in manual animation mode
-    if (mode == AnimMode::MANUAL)
+    if (modo == AnimMode::MANUAL)
     {
-        current_delay--;
-        if (current_delay <= 0)
+        retardoactual--;
+        if (retardoactual <= 0)
         {
-            current_frame--;
-            current_frame %= animations[current_anim].frames.size();
-            current_delay = animations[current_anim].delay;
+            frameactual--;
+            frameactual %= animations[animacionactual].frames.size();
+            retardoactual = animations[animacionactual].delay;
         }
     }
 }
@@ -104,9 +104,9 @@ void Sprite::Draw(int x, int y) const
 }
 void Sprite::DrawTint(int x, int y, const Color& col) const
 {
-    if (current_anim >= 0 && current_anim < animations.size())
+    if (animacionactual >= 0 && animacionactual < animations.size())
     {
-        Rectangle rect = animations[current_anim].frames[current_frame];
+        Rectangle rect = animations[animacionactual].frames[frameactual];
         DrawTextureRec(*img, rect, { (float)x, (float)y }, col);
     }
 }

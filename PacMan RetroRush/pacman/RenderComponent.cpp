@@ -36,11 +36,6 @@ void RenderComponent::DrawPlus(int x, int y, int radius, const Color& col) const
 	x2 = x + radius;
 	y1 = y - radius;
 	y2 = y + radius;
-
-	/* Well-known bug
-	DrawLine(x1, y, x2, y, col);
-	DrawLine(x, y1, x, y2, col);*/
-
 	int i;
 	for (i = x1; i <= x2; ++i)	DrawPixel(i, y, col);
 	for (i = y1; i <= y2; ++i)	DrawPixel(x, i, col);

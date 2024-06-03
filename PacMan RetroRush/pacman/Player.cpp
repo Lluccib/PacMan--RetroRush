@@ -11,7 +11,6 @@ Jugador::Jugador(const Point& p, State s, Vista view) :
 	puntos = 0;
 	state = s;
 	look = view;
-	
 }
 Jugador::~Jugador()
 {
@@ -78,21 +77,21 @@ bool Jugador::IntroUpdate(bool turn)
 {
 	bool end = false;
 	if (turn) {
-		pos.x += PLAYER_SPEED;
+		position.x += PLAYER_SPEED;
 		if (state == State::QUIETO) StartWalkingRight();
 		else {
 			if (!MirandoDerecha()) ChangeAnimRight();
 		}
 	}
 	else {
-		pos.x += -PLAYER_SPEED;
+		position.x += -PLAYER_SPEED;
 		if (state == State::QUIETO) StartWalkingLeft();
 		else {
 			if (!MirandoIzquierda()) ChangeAnimLeft();
 		}
 	}
 
-	if (pos.x == WINDOW_WIDTH) end = true;
+	if (position.x == WINDOW_WIDTH) end = true;
 	return end;
 }
 void Jugador::InitScore()
@@ -113,10 +112,10 @@ int Jugador::Getvidas()
 }
 Point Jugador::GetDirection() 
 {
-	return dir;
+	return direction;
 }
 Point Jugador::GetPosition() {
-	return pos;
+	return position;
 }
 void Jugador::establecervidas(int l) 
 {
@@ -224,7 +223,7 @@ AnimacionesJugador Jugador::GetAnimation()
 }
 void Jugador::PARAR()
 {
-	dir = { 0,0 };
+	direction = { 0,0 };
 	state = State::QUIETO;
 	if (MirandoDerecha())	SetAnimation((int)AnimacionesJugador::IDLE_RIGHT);
 	else if (MirandoArrriba())  SetAnimation((int)AnimacionesJugador::IDLE_UP);
@@ -273,10 +272,8 @@ void Jugador::Update()
 void Jugador::Mover()
 {
 	AABB box;
-	int prev_x = pos.x;
-	int prev_y = pos.y;
-
-	//checks which way the player wants to turn next
+	int prev_x = position.x;
+	int prev_y = position.y;
 	if (IsKeyPressed(KEY_UP) or IsKeyDown(KEY_UP))
 	{
 		turn = Vista::ARRIBA;
@@ -294,40 +291,38 @@ void Jugador::Mover()
 		turn = Vista::IZQUIERDA;
 		state = State::ANDANDO;
 	}
-
-	//checks if the turn is possible
 	if (turn != look) {
 		switch (turn) {
 		case Vista::ARRIBA:
-			pos.y -= PLAYER_SPEED;
+			position.y -= PLAYER_SPEED;
 			box = GetHitbox();
 			if (!mapa->TestCollisionWallUp(box)) ChangeAnimUp();
-			pos.y = prev_y;
+			position.y = prev_y;
 			break;
 		case Vista::ABAJO:
-			pos.y += PLAYER_SPEED;
+			position.y += PLAYER_SPEED;
 			box = GetHitbox();
 			if (!mapa->TestCollisionWallDown(box)) ChangeAnimDown();
-			pos.y = prev_y;
+			position.y = prev_y;
 			break;
 		case Vista::IZQUIERDA:
-			pos.x -= PLAYER_SPEED;
+			position.x -= PLAYER_SPEED;
 			box = GetHitbox();
 			if (!mapa->TestCollisionWallLeft(box)) ChangeAnimLeft();
-			pos.x = prev_x;
+			position.x = prev_x;
 			break;
 		case Vista::DERECHA:
-			pos.x += PLAYER_SPEED;
+			position.x += PLAYER_SPEED;
 			box = GetHitbox();
 			if (!mapa->TestCollisionWallRight(box)) ChangeAnimRight();
-			pos.x = prev_x;
+			position.x = prev_x;
 			break;
 		}
 	}
 
 	if (look == Vista::IZQUIERDA)
 	{
-		pos.x += -PLAYER_SPEED;
+		position.x += -PLAYER_SPEED;
 		if (state == State::QUIETO)StartWalkingLeft();
 		else {
 			if (!MirandoIzquierda()) ChangeAnimLeft();
@@ -336,18 +331,18 @@ void Jugador::Mover()
 		box = GetHitbox();
 		if (mapa->TestCollisionWallLeft(box))
 		{
-			pos.x = prev_x;
+			position.x = prev_x;
 			if (state == State::ANDANDO) PARAR();
 		}
-		if (pos.x == 0) {
-			pos.x = WINDOW_WIDTH - 8;
+		if (position.x == 0) {
+			position.x = WINDOW_WIDTH - 8;
 			ChangeAnimRight();
 		}
 		
 	}
 	else if (look == Vista::DERECHA)
 	{
-		pos.x += PLAYER_SPEED;
+		position.x += PLAYER_SPEED;
 		if (state == State::QUIETO) StartWalkingRight();
 		else
 		{
@@ -357,17 +352,17 @@ void Jugador::Mover()
 		box = GetHitbox();
 		if (mapa->TestCollisionWallRight(box))
 		{
-			pos.x = prev_x;
+			position.x = prev_x;
 			if (state == State::ANDANDO) PARAR();
 		}
-		if (pos.x == WINDOW_WIDTH - 8) {
-			pos.x = 0;
+		if (position.x == WINDOW_WIDTH - 8) {
+			position.x = 0;
 			ChangeAnimLeft();
 		}
 		
 	}
 	else if (look == Vista::ARRIBA) {
-		pos.y -= PLAYER_SPEED;
+		position.y -= PLAYER_SPEED;
 		if (state == State::QUIETO) StartWalkingUp();
 		else
 		{
@@ -377,12 +372,12 @@ void Jugador::Mover()
 		box = GetHitbox();
 		if (mapa->TestCollisionWallUp(box))
 		{
-			pos.y = prev_y;
+			position.y = prev_y;
 			if (state == State::ANDANDO) PARAR();
 		}
 	}
 	else if (look == Vista::ABAJO) {
-		pos.y += PLAYER_SPEED;
+		position.y += PLAYER_SPEED;
 		if (state == State::QUIETO) StartWalkingDown();
 		else
 		{
@@ -392,15 +387,15 @@ void Jugador::Mover()
 		box = GetHitbox();
 		if (mapa->TestCollisionWallDown(box))
 		{
-			pos.y = prev_y;
+			position.y = prev_y;
 			if (state == State::ANDANDO) PARAR();
 		}
 	}
 }
 void Jugador::DrawDebug(const Color& col) const
 {
-	Entity::DrawHitbox(pos.x, pos.y, width, height, col);
-	DrawPixel(pos.x, pos.y-4, WHITE);
+	Entity::DrawHitbox(position.x, position.y, width, height, col);
+	DrawPixel(position.x, position.y-4, WHITE);
 }
 void Jugador::Release()
 {

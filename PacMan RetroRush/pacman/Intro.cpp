@@ -1,14 +1,13 @@
 #include "Intro.h"
 #include <stdio.h>
 #include "Globals.h"
-
 Intro::Intro() 
 {
-	PacMan = nullptr;
-	Blinky = nullptr;
-	Pinky = nullptr;
-	Inky = nullptr;
-	Clyde = nullptr;
+	pacman = nullptr;
+	blinky = nullptr;
+	pinky = nullptr;
+	inky = nullptr;
+	clyde = nullptr;
 	introScene = nullptr;
 
 	camera.target = { 0, 0 };				
@@ -19,36 +18,38 @@ Intro::Intro()
 
 Intro::~Intro()
 {
-	if (PacMan != nullptr) {
-		PacMan->Release();
-		delete PacMan;
-		PacMan = nullptr;
+	if (pacman != nullptr) {
+		pacman->Release();
+		delete pacman;
+		pacman = nullptr;
 	}
-	if (Blinky != nullptr) {
-		Blinky->Release();
-		delete Blinky;
-		Blinky = nullptr;
+	if (blinky != nullptr) {
+		blinky->Release();
+		delete blinky;
+		blinky = nullptr;
 	}
-	if (Inky != nullptr) {
-		Inky->Release();
-		delete Inky;
-		Inky = nullptr;
+	if (clyde != nullptr) {
+		clyde->Release();
+		delete clyde;
+		clyde = nullptr;
 	}
-	if (Pinky != nullptr) {
-		Pinky->Release();
-		delete Pinky;
-		Pinky = nullptr;
+	
+	if (pinky != nullptr) {
+		pinky->Release();
+		delete pinky;
+		pinky = nullptr;
 	}
-	if (Clyde != nullptr) {
-		Clyde->Release();
-		delete Clyde;
-		Clyde = nullptr;
+	if (inky != nullptr) {
+		inky->Release();
+		delete inky;
+		inky = nullptr;
 	}
-	for (Entity* obj : pellet)
+	
+	for (Entity* obj : pill1)
 	{
 		delete obj;
 	}
-	pellet.clear();
+	pill1.clear();
 	if (introScene != nullptr) {
 		introScene->Release();
 		delete introScene;
@@ -58,58 +59,58 @@ Intro::~Intro()
 
 AppStatus Intro::Init() 
 {
-	PacMan = new Jugador({ 0,0 }, State::QUIETO, Vista::IZQUIERDA);
-	if (PacMan == nullptr)
+	pacman = new Jugador({ 0,0 }, State::QUIETO, Vista::IZQUIERDA);
+	if (pacman == nullptr)
 	{
 		LOG("Failed to allocate memory for intro PacMan");
 		return AppStatus::ERROR;
 	}
-	Inky = new ENEMIGO({ 0,0 }, Estado::QUIETO, Mirada::LEFT, TipoEnemigo::ROJO);
-	if (Inky == nullptr)
+	inky = new ENEMIGO({ 0,0 }, Estado::QUIETO, Mirada::LEFT, TipoEnemigo::ROJO);
+	if (inky == nullptr)
 	{
 		LOG("Failed to allocate memory for intro enemy");
 		return AppStatus::ERROR;
 	}
-	Blinky = new ENEMIGO({ 0,0 }, Estado::QUIETO, Mirada::LEFT, TipoEnemigo::AZULITO);
-	if (Blinky == nullptr)
+	blinky = new ENEMIGO({ 0,0 }, Estado::QUIETO, Mirada::LEFT, TipoEnemigo::AZULITO);
+	if (blinky == nullptr)
 	{
 		LOG("Failed to allocate memory for intro enemy");
 		return AppStatus::ERROR;
 	}
-	Pinky = new ENEMIGO({ 0,0 }, Estado::QUIETO, Mirada::LEFT, TipoEnemigo::ROSA);
-	if (Pinky == nullptr)
+	pinky = new ENEMIGO({ 0,0 }, Estado::QUIETO, Mirada::LEFT, TipoEnemigo::ROSA);
+	if (pinky == nullptr)
 	{
 		LOG("Failed to allocate memory for intro enemy");
 		return AppStatus::ERROR;
 	}
-	Clyde = new ENEMIGO({ 0,0 }, Estado::QUIETO, Mirada::LEFT, TipoEnemigo::NARANJITA);
-	if (Clyde == nullptr)
+	clyde = new ENEMIGO({ 0,0 }, Estado::QUIETO, Mirada::LEFT, TipoEnemigo::NARANJITA);
+	if (clyde == nullptr)
 	{
 		LOG("Failed to allocate memory for intro enemy");
 		return AppStatus::ERROR;
 	}
 
-	if(PacMan->Initialise() != AppStatus::OK)
+	if(pacman->Initialise() != AppStatus::OK)
 	{
 		LOG("Failed to initialise intro pacman");
 		return AppStatus::ERROR;
 	}
-	if (Inky->Initialise() != AppStatus::OK)
+	if (inky->Initialise() != AppStatus::OK)
 	{
 		LOG("Failed to initialise intro enemy");
 		return AppStatus::ERROR;
 	}
-	if (Blinky->Initialise() != AppStatus::OK)
+	if (blinky->Initialise() != AppStatus::OK)
 	{
 		LOG("Failed to initialise intro enemy");
 		return AppStatus::ERROR;
 	}
-	if (Clyde->Initialise() != AppStatus::OK)
+	if (clyde->Initialise() != AppStatus::OK)
 	{
 		LOG("Failed to initialise intro enemy");
 		return AppStatus::ERROR;
 	}
-	if (Pinky->Initialise() != AppStatus::OK)
+	if (pinky->Initialise() != AppStatus::OK)
 	{
 		LOG("Failed to initialise intro enemy");
 		return AppStatus::ERROR;
@@ -132,7 +133,7 @@ AppStatus Intro::Init()
 		return AppStatus::ERROR;
 	}
 	
-	PacMan->SetTileMap(introScene);
+	pacman->SetTileMap(introScene);
 
 	return AppStatus::OK;
 }
@@ -202,17 +203,17 @@ AppStatus Intro::LoadIntro()
 				playerX = pos.x;
 				pos.y = y * TILE_SIZE + TILE_SIZE - 1;
 				playerY = pos.y;
-				PacMan->SetPos(pos);
+				pacman->SetPos(pos);
 				map[i] = 0;
 			}
 			else if (tile == Tile::PELLET)
 			{
 				pos.x = x * TILE_SIZE;
-				dotX = pos.x;
+				pill1X = pos.x;
 				pos.y = y * TILE_SIZE + TILE_SIZE - 1;
-				dotY = pos.y;
+				pill2Y = pos.y;
 				obj = new OBJETOS(pos, ObjectType::PILL2);
-				pellet.push_back(obj);
+				pill1.push_back(obj);
 				map[i] = 0;
 			}
 			++i;
@@ -229,59 +230,59 @@ void Intro::Update()
 
 	if (end) {
 		turn = false;
-		PacMan->SetPos({ playerX, playerY });
-		OBJETOS* obj = new OBJETOS({ dotX, dotY }, ObjectType::PILL2);
-		pellet.push_back(obj);
-		isDot = true;
+		pacman->SetPos({ playerX, playerY });
+		OBJETOS* obj = new OBJETOS({ pill1X, pill2Y }, ObjectType::PILL2);
+		pill1.push_back(obj);
+		isPill1 = true;
 
-		Blinky->pilladointro = false;
+		blinky->pilladointro = false;
 		isBlinky = false;
-		Pinky->pilladointro = false;
+		pinky->pilladointro = false;
 		isPinky = false;
-		Inky->pilladointro = false;
+		inky->pilladointro = false;
 		isInky = false;
-		Clyde->pilladointro = false;
+		clyde->pilladointro = false;
 		isClyde = false;
 
 		end = false;
-		timer = 0;
+		timming = 0;
 
 		if (loop) {
 			loop = false;
-			loopCheck = true;
+			checking = true;
 		}
 	}
 	else {
 		Point p1, p2;
 		AABB box;
 
-		if (timer == 10) {
-			Blinky->SetPos({ playerX, playerY });
+		if (timming == 10) {
+			blinky->SetPos({ playerX, playerY });
 			isBlinky = true;
 		}
-		if (timer == 20) {
-			Pinky->SetPos({ playerX, playerY });
+		if (timming == 20) {
+			pinky->SetPos({ playerX, playerY });
 			isPinky = true;
 		}
-		if (timer == 30) {
-			Inky->SetPos({ playerX, playerY });
+		if (timming == 30) {
+			inky->SetPos({ playerX, playerY });
 			isInky = true;
 		}
-		if (timer == 40) {
-			Clyde->SetPos({ playerX, playerY });
+		if (timming == 40) {
+			clyde->SetPos({ playerX, playerY });
 			isClyde = true;
 		}
 
-		end = PacMan->IntroUpdate(turn);
+		end = pacman->IntroUpdate(turn);
 		if (end) loop = true;
 
-		if (isBlinky) Blinky->UPDATEintro(turn);
-		if (isInky) Inky->UPDATEintro(turn);
-		if (isPinky) Pinky->UPDATEintro(turn);
-		if (isClyde) Clyde->UPDATEintro(turn);
+		if (isBlinky) blinky->UPDATEintro(turn);
+		if (isInky) inky->UPDATEintro(turn);
+		if (isPinky) pinky->UPDATEintro(turn);
+		if (isClyde) clyde->UPDATEintro(turn);
 
 		CheckCollisions();
-		timer++;
+		timming++;
 	}
 }
 
@@ -289,12 +290,12 @@ void Intro::Render()
 {
 	BeginMode2D(camera);
 	introScene->Render();
-	PacMan->DrawPlayer();
-	Blinky->DrawPlayer();
-	Inky->DrawPlayer();
-	Pinky->DrawPlayer();
-	Clyde->DrawPlayer();
-	for (OBJETOS* obj : pellet)
+	pacman->DrawPlayer();
+	blinky->DrawPlayer();
+	inky->DrawPlayer();
+	pinky->DrawPlayer();
+	clyde->DrawPlayer();
+	for (OBJETOS* obj : pill1)
 	{
 		obj->Draw();
 	}
@@ -305,17 +306,17 @@ void Intro::CheckCollisions()
 {
 	AABB player_box, obj_box, enemy_box;
 
-	player_box = PacMan->GetHitbox();
+	player_box = pacman->GetHitbox();
 
-	if (isDot) {
-		auto it = pellet.begin();
-		while (it != pellet.end()) {
+	if (isPill1) {
+		auto it = pill1.begin();
+		while (it != pill1.end()) {
 			obj_box = (*it)->GetHitbox();
 			if (player_box.TestAABB(obj_box)) {
 				delete* it;
-				it = pellet.erase(it);
+				it = pill1.erase(it);
 				turn = true;
-				isDot = false;
+				isPill1 = false;
 			}
 			else {
 				++it;
@@ -324,37 +325,37 @@ void Intro::CheckCollisions()
 	}
 
 	if (isClyde) {
-		enemy_box = Clyde->GetHitbox();
-		if (player_box.TestAABB(enemy_box)) Clyde->pilladointro = true;
+		enemy_box = clyde->GetHitbox();
+		if (player_box.TestAABB(enemy_box)) clyde->pilladointro = true;
 	}
 
 	if (isInky) {
-		enemy_box = Inky->GetHitbox();
-		if (player_box.TestAABB(enemy_box)) Inky->pilladointro = true;
+		enemy_box = inky->GetHitbox();
+		if (player_box.TestAABB(enemy_box)) inky->pilladointro = true;
 	}
 
 	if (isPinky) {
-		enemy_box = Pinky->GetHitbox();
-		if (player_box.TestAABB(enemy_box)) Pinky->pilladointro = true;
+		enemy_box = pinky->GetHitbox();
+		if (player_box.TestAABB(enemy_box)) pinky->pilladointro = true;
 	}
 	
 	if (isBlinky) {
-		enemy_box = Blinky->GetHitbox();
-		if (player_box.TestAABB(enemy_box)) Blinky->pilladointro = true;
+		enemy_box = blinky->GetHitbox();
+		if (player_box.TestAABB(enemy_box)) blinky->pilladointro = true;
 	}
 }
 
 void Intro::Release() 
 {
-	PacMan->Release();
-	Inky->Release();
-	Blinky->Release();
-	Pinky->Release();
-	Clyde->Release();
+	pacman->Release();
+	inky->Release();
+	blinky->Release();
+	pinky->Release();
+	clyde->Release();
 	introScene->Release();
-	for (Entity* obj : pellet)
+	for (Entity* obj : pill1)
 	{
 		delete obj;
 	}
-	pellet.clear();
+	pill1.clear();
 }

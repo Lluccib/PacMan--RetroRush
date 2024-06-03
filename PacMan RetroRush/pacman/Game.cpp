@@ -41,14 +41,10 @@ AppStatus Game::Initialise(float scale)
     w = WINDOW_WIDTH * scale;
     h = WINDOW_HEIGHT * scale;
 
-    //Initialise window
     InitWindow((int)w, (int)h, "Pac-Man RetroRush");
-
     int monitor = GetCurrentMonitor();
     w2 = (float)GetMonitorWidth(monitor);
     h2 = (float)GetMonitorHeight(monitor);
-
-    //Render texture initialisation, used to hold the rendering result so we can easily resize it
     target = LoadRenderTexture(WINDOW_WIDTH, WINDOW_HEIGHT);
     if (target.id == 0)
     {
@@ -59,18 +55,17 @@ AppStatus Game::Initialise(float scale)
     src = { 0, 0, WINDOW_WIDTH, -WINDOW_HEIGHT };
     dst = { w2/2 - w/2, h2/2 - h/2, w, h };
 
-    //Load resources
+    //cargamos todos los recursos
     if (LoadResources() != AppStatus::OK)
     {
         LOG("Failed to load resources");
         return AppStatus::ERROR;
     }
-
-    //Set the target frame rate for the application
-    SetTargetFPS(60);
-    //Disable the escape key to quit functionality
+    
     SetExitKey(0);
-
+    SetTargetFPS(60);
+   
+    //nos sirve para el fullscreen
     SetWindowSize(w2, h2);
     ToggleFullscreen();
 
@@ -186,6 +181,22 @@ AppStatus Game::LoadResources()
 
     return AppStatus::OK;
 }
+AppStatus Game::EmpezarIntro()
+{
+    intro = new Intro();
+    if (intro == nullptr)
+    {
+        LOG("Failed to allocate memory for intro");
+        return AppStatus::ERROR;
+    }
+    if (intro->Init() != AppStatus::OK)
+    {
+        LOG("Failed to initialise intro");
+        return AppStatus::ERROR;
+    }
+
+    return AppStatus::OK;
+}
 AppStatus Game::BeginPlay()
 {
     scene = new Scene();
@@ -202,29 +213,13 @@ AppStatus Game::BeginPlay()
 
     return AppStatus::OK;
 }
-AppStatus Game::BeginIntro()
-{
-    intro = new Intro();
-    if (intro == nullptr)
-    {
-        LOG("Failed to allocate memory for intro");
-        return AppStatus::ERROR;
-    }
-    if (intro->Init() != AppStatus::OK)
-    {
-        LOG("Failed to initialise intro");
-        return AppStatus::ERROR;
-    }
-
-    return AppStatus::OK;
-}
 void Game::FinishPlay()
 {
     scene->Release();
     delete scene;
     scene = nullptr;
 }
-void Game::FinishIntro()
+void Game::AcabarIntro()
 {
     intro->Release();
     delete intro;
@@ -242,7 +237,7 @@ AppStatus Game::Update()
      if (IsKeyPressed(KEY_ESCAPE)) return AppStatus::QUIT;
      if(IsKeyPressed(KEY_SPACE))
      {
-         if(BeginIntro() != AppStatus::OK) return AppStatus::ERROR;
+         if(EmpezarIntro() != AppStatus::OK) return AppStatus::ERROR;
          state = GameState::MENU_PRINCIPAL;
      }
      else {
@@ -256,13 +251,13 @@ AppStatus Game::Update()
 
         if (IsKeyPressed(KEY_ESCAPE))
         {
-            FinishIntro();
+            AcabarIntro();
             counter = 0;
             state = GameState::EMPEZAR;
         }
         else if (IsKeyPressed(KEY_SPACE))
         {
-            FinishIntro();
+            AcabarIntro();
             counter = 0;
             if (BeginPlay() != AppStatus::OK) return AppStatus::ERROR;
             scene->intro = true;
@@ -271,7 +266,7 @@ AppStatus Game::Update()
         else {
             if (counter >= 840) {
                 intro->Update();
-                if (intro->loopCheck) counter = 0;
+                if (intro->checking) counter = 0;
             }
             counter++;
         }
@@ -281,7 +276,7 @@ AppStatus Game::Update()
         if (IsKeyPressed(KEY_ESCAPE) || scene->EndGame)
         {
             FinishPlay();
-            if (BeginIntro() != AppStatus::OK) return AppStatus::ERROR;
+            if (EmpezarIntro() != AppStatus::OK) return AppStatus::ERROR;
             state = GameState::MENU_PRINCIPAL;
         }
         else
@@ -388,7 +383,7 @@ void Game::Render()
         }
         else {
             DrawTexture(*img_menu, 0, 0, WHITE);
-            if (counter == 840) intro->loopCheck = false;
+            if (counter == 840) intro->checking = false;
             if (counter >= 840) {
                 intro->Render();
             }

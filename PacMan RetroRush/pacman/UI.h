@@ -17,5 +17,5 @@ public:
 	void Release();
 
 private:
-	int type;
+	int tipo;
 };

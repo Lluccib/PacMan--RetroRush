@@ -5,7 +5,6 @@
 #include "TileMap.h"
 #include "Object.h"
 #include "Text.h"
-
 class Intro 
 {
 public:
@@ -16,15 +15,24 @@ public:
 	void Update();
 	void Render();
 	void Release();
-
-	bool loopCheck = false;
+	bool checking = false;
+	
 
 private:
 	AppStatus LoadIntro();
 	void CheckCollisions();
 
-	int timer = 0;
-
+	int timming = 0;
+	Jugador* pacman;
+	ENEMIGO* blinky;
+	ENEMIGO* pinky;
+	ENEMIGO* clyde;
+	ENEMIGO* inky;
+	std::vector<OBJETOS*> pill1;
+	int playerX, playerY;
+	int pill1X, pill2Y;
+	Camera2D camera;
+	TileMap* introScene;
 	bool turn = false;
 	bool end = true;
 	bool loop = false;
@@ -33,19 +41,6 @@ private:
 	bool isInky = false;
 	bool isBlinky = false;
 	bool isClyde = false;
-	bool isDot = true;
+	bool isPill1 = true;
 
-	Jugador* PacMan;
-
-	ENEMIGO* Blinky;
-	ENEMIGO* Inky;
-	ENEMIGO* Pinky;
-	ENEMIGO* Clyde;
-
-	std::vector<OBJETOS*> pellet;
-
-	Camera2D camera;
-	TileMap* introScene;
-	int playerX, playerY;
-	int dotX, dotY;
 };

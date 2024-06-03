@@ -36,12 +36,12 @@ public:
     void Release() override;
 
 private:
-    int current_anim;
-    int current_frame;
-    int current_delay;
+    int animacionactual;
+
 
     const Texture2D* img;
     std::vector<Animation> animations;
-
-    AnimMode mode;
+    int frameactual;
+    int retardoactual;
+    AnimMode modo;
 };

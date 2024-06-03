@@ -18,9 +18,9 @@ public:
 
 private:
     AppStatus BeginPlay();
-    AppStatus BeginIntro();
+    AppStatus EmpezarIntro();
     void FinishPlay();
-    void FinishIntro();
+    void AcabarIntro();
 
     AppStatus LoadResources();
     void UnloadResources();
@@ -28,13 +28,15 @@ private:
     GameState state;
     Scene* scene;
     Intro* intro;
-    const Texture2D* img_intro;
-    const Texture2D* img_menu;
+
+  
     const Texture2D* img_menu_empty;
     const Texture2D* img_menu_blinky;
-    const Texture2D* img_menu_pinky;
-    const Texture2D* img_menu_inky;
     const Texture2D* img_menu_clyde;
+    const Texture2D* img_menu_pinky;
+    const Texture2D* img_menu_inky;  
+    const Texture2D* img_intro;
+    const Texture2D* img_menu;
     const Texture2D* menu1;
     
     #define NUM_IMAGES 10

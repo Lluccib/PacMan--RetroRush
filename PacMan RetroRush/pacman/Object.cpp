@@ -47,7 +47,7 @@ OBJETOS::~OBJETOS()
 }
 void OBJETOS::DrawDebug(const Color& col) const
 {
-	Entity::DrawHitbox(pos.x, pos.y, width, height, col);
+	Entity::DrawHitbox(position.x, position.y, width, height, col);
 }
 int OBJETOS::Sonidos()
 {
