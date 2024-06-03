@@ -36,7 +36,7 @@ Pac-Man is a classic arcade game developed by Toru Iwatani and released by Namco
     </ul>
 <!-- Embedded Gameplay Video -->
 <h2>Gameplay Video</h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Scq4P5gn4A" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xkIammLqnbA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     
  
 <!-- Replace VIDEO_ID with the actual ID of your YouTube video -->
