@@ -15,8 +15,8 @@
 //Logic states
 enum class State_e { IDLE, WALKING, PELLET, EYES };
 enum class Look_e { RIGHT, LEFT, UP, DOWN };
-enum class Mode_e { CHASE, SCATTER };
-enum class EnemyType {BLINKY, PINKY, INKY, CLYDE};
+enum class Mode_e { BUSCAR, ENCONTRAR };
+enum class EnemyType {AZULITO, ROSA, ROJO, NARANJITA};
 
 //Rendering states
 enum class EnemyAnim {
@@ -26,11 +26,11 @@ enum class EnemyAnim {
 	NUM_ANIMATIONS
 };
 
-class Enemy : public Entity
+class ENEMIGO : public Entity
 {
 public:
-	Enemy(const Point& p, State_e s, Look_e view, EnemyType t);
-	~Enemy();
+	ENEMIGO(const Point& p, State_e s, Look_e view, EnemyType t);
+	~ENEMIGO();
 
 	AppStatus Initialise();
 	void SetTileMap(TileMap* tilemap);

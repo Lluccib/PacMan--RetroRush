@@ -4,15 +4,15 @@
 #include "Entity.h"
 #include "Sprite.h"
 
-UI::UI(const Point& p): Entity(p, (16 + 32), 16, (16 + 32), 16)
+HUD::HUD(const Point& p): Entity(p, (16 + 32), 16, (16 + 32), 16)
 {
 }
 
-UI::~UI() {
+HUD::~HUD() {
 	Release();
 }
 
-AppStatus UI::Initialise() 
+AppStatus HUD::Initialise() 
 {
 	ResourceManager& data = ResourceManager::Instance();
 	if (data.LoadTexture(Resource::IMG_ITEMS, "Assets/sprites/Arcade - Pac-Man - object Sprites.png") != AppStatus::OK)
@@ -31,44 +31,44 @@ AppStatus UI::Initialise()
 	float n = 16 * 3;
 
 	Sprite* sprite = dynamic_cast<Sprite*>(render);
-	sprite->SetNumberAnimations((int)UIElements::ICON_NUM);
+	sprite->SetNumberAnimations((int)ELEMENTOSHUD::TOTALICONOS);
 
-	sprite->SetAnimationDelay((int)UIElements::LIVES_ICON1, ANIM_DELAY);
-	sprite->AddKeyFrame((int)UIElements::LIVES_ICON1, { 0, 3 * k, n, k });
+	sprite->SetAnimationDelay((int)ELEMENTOSHUD::ICONOVIDAS1, ANIM_DELAY);
+	sprite->AddKeyFrame((int)ELEMENTOSHUD::ICONOVIDAS1, { 0, 3 * k, n, k });
 
-	sprite->SetAnimationDelay((int)UIElements::LIVES_ICON2, ANIM_DELAY);
-	sprite->AddKeyFrame((int)UIElements::LIVES_ICON2, { 0, 2 * k, n, k });
+	sprite->SetAnimationDelay((int)ELEMENTOSHUD::ICONOVIDAS2, ANIM_DELAY);
+	sprite->AddKeyFrame((int)ELEMENTOSHUD::ICONOVIDAS2, { 0, 2 * k, n, k });
 
-	sprite->SetAnimationDelay((int)UIElements::LIVES_ICON3, ANIM_DELAY);
-	sprite->AddKeyFrame((int)UIElements::LIVES_ICON3, { 0, k, n, k });
+	sprite->SetAnimationDelay((int)ELEMENTOSHUD::ICONOVIDAS3, ANIM_DELAY);
+	sprite->AddKeyFrame((int)ELEMENTOSHUD::ICONOVIDAS3, { 0, k, n, k });
 
-	sprite->SetAnimationDelay((int)UIElements::LIVES_ICONNONE, ANIM_DELAY);
-	sprite->AddKeyFrame((int)UIElements::LIVES_ICONNONE, { k, 3 * k, n, k });
+	sprite->SetAnimationDelay((int)ELEMENTOSHUD::ICONOVIDAS4, ANIM_DELAY);
+	sprite->AddKeyFrame((int)ELEMENTOSHUD::ICONOVIDAS4, { k, 3 * k, n, k });
 
-	sprite->SetAnimation((int)UIElements::LIVES_ICON3);
+	sprite->SetAnimation((int)ELEMENTOSHUD::ICONOVIDAS3);
 
 	return AppStatus::OK;
 }
 
-void UI::RenderUI(int lives)
+void HUD::RenderUI(int lives)
 {
 	Sprite* sprite = dynamic_cast<Sprite*>(render);
 	switch (lives) {
 	case 1:
-		sprite->SetAnimation((int)UIElements::LIVES_ICON1);
+		sprite->SetAnimation((int)ELEMENTOSHUD::ICONOVIDAS1);
 		break;
 	case 2:
-		sprite->SetAnimation((int)UIElements::LIVES_ICON2);
+		sprite->SetAnimation((int)ELEMENTOSHUD::ICONOVIDAS2);
 		break;
 	case 3:
-		sprite->SetAnimation((int)UIElements::LIVES_ICON3);
+		sprite->SetAnimation((int)ELEMENTOSHUD::ICONOVIDAS3);
 		break;
 	default:
-		sprite->SetAnimation((int)UIElements::LIVES_ICONNONE);
+		sprite->SetAnimation((int)ELEMENTOSHUD::ICONOVIDAS4);
 	}
 }
 
-void UI::Release() 
+void HUD::Release() 
 {
 	ResourceManager& data = ResourceManager::Instance();
 	data.ReleaseTexture(Resource::IMG_ITEMS);

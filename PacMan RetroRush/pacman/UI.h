@@ -3,14 +3,14 @@
 #include "Globals.h"
 #include "Entity.h"
 
-enum class UIElements {
-	LIVES_ICON1, LIVES_ICON2, LIVES_ICON3, LIVES_ICONNONE, ICON_NUM
+enum class ELEMENTOSHUD {
+	ICONOVIDAS1, ICONOVIDAS2, ICONOVIDAS3, ICONOVIDAS4, TOTALICONOS
 };
 
-class UI : public Entity {
+class HUD : public Entity {
 public:
-	UI(const Point &p);
-	~UI();
+	HUD(const Point &p);
+	~HUD();
 
 	AppStatus Initialise();
 	void RenderUI(int lives);

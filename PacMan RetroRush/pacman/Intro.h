@@ -37,10 +37,10 @@ private:
 
 	Player* PacMan;
 
-	Enemy* Blinky;
-	Enemy* Inky;
-	Enemy* Pinky;
-	Enemy* Clyde;
+	ENEMIGO* Blinky;
+	ENEMIGO* Inky;
+	ENEMIGO* Pinky;
+	ENEMIGO* Clyde;
 
 	std::vector<Object*> pellet;
 

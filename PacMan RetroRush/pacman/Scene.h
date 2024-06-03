@@ -53,13 +53,13 @@ private:
     Player* player;
 
     //enemies
-    Enemy* blinky;
-    Enemy* inky;
-    Enemy* clyde;
-    Enemy* pinky;
+    ENEMIGO* blinky;
+    ENEMIGO* inky;
+    ENEMIGO* clyde;
+    ENEMIGO* pinky;
 
     //UI
-    UI* livesUI;
+    HUD* livesUI;
 
     TileMap* level;
     std::vector<Object*> objects;

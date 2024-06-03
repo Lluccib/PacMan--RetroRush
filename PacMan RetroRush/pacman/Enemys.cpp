@@ -5,36 +5,36 @@
 #include <raymath.h>
 #include <cmath>
 
-Enemy::Enemy(const Point& p, State_e s, Look_e view, EnemyType t) :
+ENEMIGO::ENEMIGO(const Point& p, State_e s, Look_e view, EnemyType t) :
 	Entity(p, ENEMY_PHYSICAL_WIDTH, ENEMY_PHYSICAL_HEIGHT, ENEMY_FRAME_SIZE, ENEMY_FRAME_SIZE)
 {
 	state = s;
 	look = view;
 	map = nullptr;
 	type = t;
-	if (type != EnemyType::BLINKY) useDoor = true;
-	if (type != EnemyType::CLYDE) mode = Mode_e::CHASE;
-	else mode = Mode_e::SCATTER;
+	if (type != EnemyType::AZULITO) useDoor = true;
+	if (type != EnemyType::NARANJITA) mode = Mode_e::BUSCAR;
+	else mode = Mode_e::ENCONTRAR;
 	
 }
-Enemy::~Enemy()
+ENEMIGO::~ENEMIGO()
 {
 }
-AppStatus Enemy::Initialise()
+AppStatus ENEMIGO::Initialise()
 {
 	const int n = ENEMY_FRAME_SIZE;
 	int k;
 	switch (type) {
-	case EnemyType::BLINKY:
+	case EnemyType::AZULITO:
 		k = n * 2;
 		break;
-	case EnemyType::PINKY:
+	case EnemyType::ROSA:
 		k = n;
 		break;
-	case EnemyType::INKY:
+	case EnemyType::ROJO:
 		k = 0;
 		break;
-	case EnemyType::CLYDE:
+	case EnemyType::NARANJITA:
 		k = n * 3;
 		break;
 	}
@@ -108,7 +108,7 @@ AppStatus Enemy::Initialise()
 	return AppStatus::OK;
 }
 
-void Enemy::IntroUpdate(bool turn) 
+void ENEMIGO::IntroUpdate(bool turn) 
 {
 	Sprite* sprite = dynamic_cast<Sprite*>(render);
 	if (turn) {
@@ -138,54 +138,54 @@ void Enemy::IntroUpdate(bool turn)
 	}
 }
 
-void Enemy::UpdateLook(int anim_id)
+void ENEMIGO::UpdateLook(int anim_id)
 {
 	EnemyAnim anim = (EnemyAnim)anim_id;
 	look = (anim == EnemyAnim::WALKING_LEFT) ? Look_e::LEFT : Look_e::RIGHT;
 }
 
-void Enemy::Intro(int count) {
+void ENEMIGO::Intro(int count) {
 	if (count <= 60) SetAnimation((int)EnemyAnim::IDLE);
 	else SetAnimation((int)EnemyAnim::HIDDEN);
 }
 
-Point Enemy::GetEnemyPos() 
+Point ENEMIGO::GetEnemyPos() 
 {
 	return pos;
 }
 
-void Enemy::SetNormal()
+void ENEMIGO::SetNormal()
 {
 	state = State_e::IDLE;
 	SetAnimation((int)EnemyAnim::IDLE);
 }
 
-void Enemy::SetTarget(Point t) 
+void ENEMIGO::SetTarget(Point t) 
 {
 	target = t;
 }
 
-void Enemy::SetTargetExit()
+void ENEMIGO::SetTargetExit()
 {
 	useDoor = true;
 	target = home_exit;
 }
 
-void Enemy::SetHome(Point t)
+void ENEMIGO::SetHome(Point t)
 {
 	home = t;
 }
 
-void Enemy::SetHomeExit(Point t)
+void ENEMIGO::SetHomeExit(Point t)
 {
 	home_exit = t;
 }
 
-bool Enemy::IsDead() {
+bool ENEMIGO::IsDead() {
 	return(state == State_e::EYES);
 }
 
-void Enemy::Pellet(bool ifPellet, int count) {
+void ENEMIGO::Pellet(bool ifPellet, int count) {
 	if (!caught) {
 		if (ifPellet) {
 			state = State_e::PELLET;
@@ -246,42 +246,42 @@ void Enemy::Pellet(bool ifPellet, int count) {
 	}
 }
 
-void Enemy::WinLose() {
+void ENEMIGO::WinLose() {
 	SetAnimation((int)EnemyAnim::HIDDEN);
 }
 
-void Enemy::SetTileMap(TileMap* tilemap)
+void ENEMIGO::SetTileMap(TileMap* tilemap)
 {
 	map = tilemap;
 }
 
-bool Enemy::IsLookingRight() const
+bool ENEMIGO::IsLookingRight() const
 {
 	return look == Look_e::RIGHT;
 }
-bool Enemy::IsLookingLeft() const
+bool ENEMIGO::IsLookingLeft() const
 {
 	return look == Look_e::LEFT;
 }
-bool Enemy::IsLookingUp() const
+bool ENEMIGO::IsLookingUp() const
 {
 	return look == Look_e::UP;
 }
-bool Enemy::IsLookingDown() const
+bool ENEMIGO::IsLookingDown() const
 {
 	return look == Look_e::DOWN;
 }
-void Enemy::SetAnimation(int id)
+void ENEMIGO::SetAnimation(int id)
 {
 	Sprite* sprite = dynamic_cast<Sprite*>(render);
 	sprite->SetAnimation(id);
 }
-EnemyAnim Enemy::GetAnimation()
+EnemyAnim ENEMIGO::GetAnimation()
 {
 	Sprite* sprite = dynamic_cast<Sprite*>(render);
 	return (EnemyAnim)sprite->GetAnimation();
 }
-void Enemy::Stop()
+void ENEMIGO::Stop()
 {
 	dir = { 0,0 };
 	if (state != State_e::PELLET) {
@@ -289,7 +289,7 @@ void Enemy::Stop()
 		SetAnimation((int)EnemyAnim::IDLE);
 	}
 }
-void Enemy::StartWalkingLeft()
+void ENEMIGO::StartWalkingLeft()
 {
 	look = Look_e::LEFT;
 	if (state != State_e::PELLET) {
@@ -297,7 +297,7 @@ void Enemy::StartWalkingLeft()
 		SetAnimation((int)EnemyAnim::WALKING_LEFT);
 	}
 }
-void Enemy::StartWalkingRight()
+void ENEMIGO::StartWalkingRight()
 {
 	look = Look_e::RIGHT;
 	if (state != State_e::PELLET) {
@@ -305,7 +305,7 @@ void Enemy::StartWalkingRight()
 		SetAnimation((int)EnemyAnim::WALKING_RIGHT);
 	}
 }
-void Enemy::StartWalkingUp()
+void ENEMIGO::StartWalkingUp()
 {
 	look = Look_e::UP;
 	if (state != State_e::PELLET) {
@@ -313,7 +313,7 @@ void Enemy::StartWalkingUp()
 		SetAnimation((int)EnemyAnim::WALKING_UP);
 	}
 }
-void Enemy::StartWalkingDown()
+void ENEMIGO::StartWalkingDown()
 {
 	look = Look_e::DOWN;
 	if (state != State_e::PELLET) {
@@ -321,13 +321,13 @@ void Enemy::StartWalkingDown()
 		SetAnimation((int)EnemyAnim::WALKING_DOWN);
 	}
 }
-void Enemy::StartDying()
+void ENEMIGO::StartDying()
 {
 	state = State_e::EYES;
 
 	//SetAnimation((int)EnemyAnim::PELLET);
 }
-void Enemy::ChangeAnimRight()
+void ENEMIGO::ChangeAnimRight()
 {
 	look = Look_e::RIGHT;
 	switch (state)
@@ -338,7 +338,7 @@ void Enemy::ChangeAnimRight()
 	case State_e::EYES: SetAnimation((int)EnemyAnim::EYES_RIGHT); break;
 	}
 }
-void Enemy::ChangeAnimLeft()
+void ENEMIGO::ChangeAnimLeft()
 {
 	look = Look_e::LEFT;
 	switch (state)
@@ -349,7 +349,7 @@ void Enemy::ChangeAnimLeft()
 	case State_e::EYES: SetAnimation((int)EnemyAnim::EYES_LEFT); break;
 	}
 }
-void Enemy::ChangeAnimUp()
+void ENEMIGO::ChangeAnimUp()
 {
 	look = Look_e::UP;
 	switch (state)
@@ -360,7 +360,7 @@ void Enemy::ChangeAnimUp()
 	case State_e::EYES: SetAnimation((int)EnemyAnim::EYES_UP); break;
 	}
 }
-void Enemy::ChangeAnimDown()
+void ENEMIGO::ChangeAnimDown()
 {
 	look = Look_e::DOWN;
 	switch (state)
@@ -371,7 +371,7 @@ void Enemy::ChangeAnimDown()
 	case State_e::EYES: SetAnimation((int)EnemyAnim::EYES_DOWN); break;
 	}
 }
-void Enemy::Update(Point pacmanDir, Point pacmanPos, Point blinkypos)
+void ENEMIGO::Update(Point pacmanDir, Point pacmanPos, Point blinkypos)
 {
 	//all movement in move
 	Move(pacmanDir, pacmanPos, blinkypos);
@@ -379,14 +379,14 @@ void Enemy::Update(Point pacmanDir, Point pacmanPos, Point blinkypos)
 	Sprite* sprite = dynamic_cast<Sprite*>(render);
 	sprite->Update();
 }
-float Enemy::GetTargetDistance(Point dir) 
+float ENEMIGO::GetTargetDistance(Point dir) 
 {
 	Point check = pos;
 	check.x += (dir.x * ENEMY_SPEED);
 	check.y += (dir.y * ENEMY_SPEED);
 	return static_cast<float>(sqrt(pow(check.x - target.x, 2) + pow(check.y - target.y, 2)));
 }
-void Enemy::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
+void ENEMIGO::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 {
 	AABB box;
 	int prev_x = pos.x;
@@ -441,10 +441,10 @@ void Enemy::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
 	UpdateTarget(pacmanDir, pacmanPos, blinkypos);
 
 	if (pacmanPos.x <= (pos.x + TILE_SIZE * 10) and pacmanPos.x >= (pos.x - TILE_SIZE * 10)) {
-		if (pacmanPos.y <= (pos.y + TILE_SIZE * 10) and pacmanPos.y >= (pos.y - TILE_SIZE * 10)) mode = Mode_e::CHASE;
-		else mode = Mode_e::SCATTER;
+		if (pacmanPos.y <= (pos.y + TILE_SIZE * 10) and pacmanPos.y >= (pos.y - TILE_SIZE * 10)) mode = Mode_e::BUSCAR;
+		else mode = Mode_e::ENCONTRAR;
 	}
-	else mode = Mode_e::SCATTER;
+	else mode = Mode_e::ENCONTRAR;
 
 	if (state != State_e::PELLET) {
 		Point direction;
@@ -703,7 +703,7 @@ void Enemy::Move(Point pacmanDir, Point pacmanPos, Point blinkypos)
  
 }
 
-void Enemy::UpdateTarget(Point pacmanDir, Point pacmanPos, Point blinkypos) 
+void ENEMIGO::UpdateTarget(Point pacmanDir, Point pacmanPos, Point blinkypos) 
 {
 	if (useDoor) {
 		if (pos.x == target.x and pos.y == target.y-1) useDoor = false;
@@ -714,36 +714,36 @@ void Enemy::UpdateTarget(Point pacmanDir, Point pacmanPos, Point blinkypos)
 		}
 	}
 	else if(state != State_e::EYES){
-		if (mode == Mode_e::SCATTER) {
+		if (mode == Mode_e::ENCONTRAR) {
 			switch (type) {
-			case EnemyType::BLINKY:
+			case EnemyType::AZULITO:
 				target = { TILE_SIZE * (LEVEL_WIDTH - 1), 0 };
 				break;
-			case EnemyType::PINKY:
+			case EnemyType::ROSA:
 				target = { 0,0 };
 				break;
-			case EnemyType::INKY:
+			case EnemyType::ROJO:
 				target = { TILE_SIZE * (LEVEL_WIDTH - 1), TILE_SIZE * (LEVEL_HEIGHT - 1) };
 				break;
-			case EnemyType::CLYDE:
+			case EnemyType::NARANJITA:
 				target = { 0, TILE_SIZE * (LEVEL_HEIGHT - 1) };
 				break;
 			}
 		}
 		else {
 			switch (type) {
-			case EnemyType::BLINKY:
+			case EnemyType::AZULITO:
 				target = pacmanPos;
 				break;
-			case EnemyType::PINKY:
+			case EnemyType::ROSA:
 				target = pacmanPos + (pacmanDir * TILE_SIZE * 4);
 				break;
-			case EnemyType::INKY:
+			case EnemyType::ROJO:
 				target = pacmanPos + (pacmanDir * TILE_SIZE * 2);
 				target.x += target.x - blinkypos.x;
 				target.y += target.y - blinkypos.y;
 				break;
-			case EnemyType::CLYDE:
+			case EnemyType::NARANJITA:
 				if (pacmanPos.x <= (pos.x + TILE_SIZE * 4) and pacmanPos.x >= (pos.x - TILE_SIZE * 4)) {
 					if (pacmanPos.y <= (pos.y + TILE_SIZE * 4) and pacmanPos.y >= (pos.y - TILE_SIZE * 4)) target = { 0, TILE_SIZE * (LEVEL_HEIGHT - 1) };
 					else target = pacmanPos;
@@ -755,13 +755,13 @@ void Enemy::UpdateTarget(Point pacmanDir, Point pacmanPos, Point blinkypos)
 	}
 }
 
-void Enemy::DrawDebug(const Color& col) const
+void ENEMIGO::DrawDebug(const Color& col) const
 {
 	Entity::DrawHitbox(pos.x, pos.y, width, height, col);
 }
 
 
-void Enemy::Release()
+void ENEMIGO::Release()
 {
 	if (IsSoundPlaying(sound_retreat)) StopSound(sound_retreat);
 	ResourceManager& data = ResourceManager::Instance();

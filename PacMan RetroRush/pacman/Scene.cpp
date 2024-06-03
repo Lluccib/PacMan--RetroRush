@@ -105,31 +105,31 @@ AppStatus Scene::Init()
 		LOG("Failed to allocate memory for Player");
 		return AppStatus::ERROR;
 	}
-	inky = new Enemy({0,0}, State_e::IDLE, Look_e::UP, EnemyType::INKY);
+	inky = new ENEMIGO({0,0}, State_e::IDLE, Look_e::UP, EnemyType::ROJO);
 	if (inky == nullptr)
 	{
 		LOG("Failed to allocate memory for enemy");
 		return AppStatus::ERROR;
 	}
-	blinky = new Enemy({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::BLINKY);
+	blinky = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::AZULITO);
 	if (blinky == nullptr)
 	{
 		LOG("Failed to allocate memory for enemy");
 		return AppStatus::ERROR;
 	}
-	pinky = new Enemy({ 0,0 }, State_e::IDLE, Look_e::UP, EnemyType::PINKY);
+	pinky = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::UP, EnemyType::ROSA);
 	if (pinky == nullptr)
 	{
 		LOG("Failed to allocate memory for enemy");
 		return AppStatus::ERROR;
 	}
-	clyde = new Enemy({ 0,0 }, State_e::IDLE, Look_e::UP, EnemyType::CLYDE);
+	clyde = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::UP, EnemyType::NARANJITA);
 	if (clyde == nullptr)
 	{
 		LOG("Failed to allocate memory for enemy");
 		return AppStatus::ERROR;
 	}
-	livesUI = new UI({10, (WINDOW_HEIGHT)});
+	livesUI = new HUD({10, (WINDOW_HEIGHT)});
 	if (player->Initialise() != AppStatus::OK)
 	{
 		LOG("Failed to initialise Player");

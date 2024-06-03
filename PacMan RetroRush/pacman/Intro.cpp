@@ -64,25 +64,25 @@ AppStatus Intro::Init()
 		LOG("Failed to allocate memory for intro PacMan");
 		return AppStatus::ERROR;
 	}
-	Inky = new Enemy({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::INKY);
+	Inky = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::ROJO);
 	if (Inky == nullptr)
 	{
 		LOG("Failed to allocate memory for intro enemy");
 		return AppStatus::ERROR;
 	}
-	Blinky = new Enemy({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::BLINKY);
+	Blinky = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::AZULITO);
 	if (Blinky == nullptr)
 	{
 		LOG("Failed to allocate memory for intro enemy");
 		return AppStatus::ERROR;
 	}
-	Pinky = new Enemy({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::PINKY);
+	Pinky = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::ROSA);
 	if (Pinky == nullptr)
 	{
 		LOG("Failed to allocate memory for intro enemy");
 		return AppStatus::ERROR;
 	}
-	Clyde = new Enemy({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::CLYDE);
+	Clyde = new ENEMIGO({ 0,0 }, State_e::IDLE, Look_e::LEFT, EnemyType::NARANJITA);
 	if (Clyde == nullptr)
 	{
 		LOG("Failed to allocate memory for intro enemy");
